@@ -8,10 +8,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',sans-serif;background:#f7f4f4;color:#000}
+html,body{width:100%;min-height:100vh;font-family:'Segoe UI',sans-serif;background:#f7f4f4;color:#000}
 :root{--red:#d6242f;--red-dark:#a01820;--red-light:#fac7cc;--gray:#82939a;--mid:#7e7e7e;--light:#e1e1e1;--bg:#eef6f7}
-
-/* PASSWORD GATE */
 #gate{position:fixed;inset:0;background:linear-gradient(135deg,#000,#a01820,#d6242f);display:flex;align-items:center;justify-content:center;z-index:9999}
 .gate-box{background:#fff;border-radius:24px;padding:48px;max-width:420px;width:100%;text-align:center;box-shadow:0 40px 100px rgba(0,0,0,0.5)}
 .gate-logo{display:flex;justify-content:center;margin-bottom:20px}
@@ -21,11 +19,9 @@ body{font-family:'Segoe UI',sans-serif;background:#f7f4f4;color:#000}
 .gate-input.error{border-color:#d6242f}
 .gate-err{background:#fff0f0;border:1.5px solid #d6242f;border-radius:8px;padding:8px 14px;margin-bottom:14px;font-size:13px;color:#d6242f;font-weight:700;display:none}
 .gate-btn{width:100%;padding:13px;background:linear-gradient(135deg,#a01820,#d6242f);color:#fff;border:none;border-radius:10px;font-weight:800;font-size:15px;cursor:pointer}
-
-/* LAYOUT */
-#app{display:none;flex-direction:column;min-height:100vh}
-.navbar{background:#d6242f;position:sticky;top:0;z-index:40;box-shadow:0 4px 24px rgba(166,24,32,0.35)}
-.navbar-inner{max-width:1440px;margin:0 auto;padding:0 24px;display:flex;align-items:stretch;justify-content:space-between;height:64px;gap:10px}
+#app{display:none;flex-direction:column;min-height:100vh;width:100%}
+.navbar{background:#d6242f;position:sticky;top:0;z-index:40;box-shadow:0 4px 24px rgba(166,24,32,0.35);width:100%}
+.navbar-inner{width:100%;padding:0 24px;display:flex;align-items:stretch;justify-content:space-between;height:64px;gap:10px}
 .nav-brand{display:flex;align-items:center;gap:14px}
 .nav-title{font-size:17px;font-weight:900;color:#fff}
 .nav-sub{font-size:11px;color:rgba(255,255,255,0.55)}
@@ -37,14 +33,9 @@ body{font-family:'Segoe UI',sans-serif;background:#f7f4f4;color:#000}
 .cur-toggle{display:flex;background:rgba(0,0,0,0.25);border-radius:8px;padding:3px}
 .cur-btn{padding:5px 14px;border-radius:6px;border:none;font-weight:800;font-size:12px;cursor:pointer;background:transparent;color:rgba(255,255,255,0.65);font-family:inherit}
 .cur-btn.active{background:#fff;color:#d6242f}
-
-.main{max-width:1440px;margin:0 auto;padding:20px 24px 40px;flex:1}
-
-/* CARDS */
+.main{width:100%;padding:20px 24px 40px;flex:1;box-sizing:border-box}
 .card{background:#fff;border-radius:14px;padding:22px;box-shadow:0 1px 8px rgba(0,0,0,0.07);border:1px solid #e1e1e1;margin-bottom:16px}
 .card-title{font-size:14px;font-weight:800;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
-
-/* KPI GRID */
 .kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:14px}
 .kpi-card{background:#fff;border-radius:14px;padding:18px 16px 14px;border:2px solid #e1e1e1;cursor:pointer;text-align:left;transition:border-color 0.2s;width:100%}
 .kpi-card:hover{border-color:#d6242f}
@@ -53,33 +44,25 @@ body{font-family:'Segoe UI',sans-serif;background:#f7f4f4;color:#000}
 .kpi-label{font-size:12px;font-weight:700;margin-top:5px}
 .int-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
 .int-card{background:#fff;border-radius:14px;padding:16px 20px;border:2px solid #e1e1e1;cursor:pointer;text-align:left;display:flex;align-items:center;gap:16px;transition:border-color 0.2s}
-
-/* BADGE */
 .badge{display:inline-flex;align-items:center;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:700;white-space:nowrap}
-
-/* BUTTONS */
 .btn{padding:8px 18px;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
 .btn-primary{background:#d6242f;color:#fff}
 .btn-green{background:#059669;color:#fff}
 .btn-gray{background:transparent;border:1.5px solid #7e7e7e;color:#7e7e7e}
 .btn-sm{padding:5px 12px;font-size:11px}
 .btn-outline{background:transparent;border:1.5px solid #d6242f;color:#d6242f}
-
-/* TABLES */
+.sort-btn{padding:6px 14px;border-radius:8px;border:1.5px solid #d6242f;background:#fff5f5;font-weight:700;font-size:12px;cursor:pointer;color:#d6242f;font-family:inherit;white-space:nowrap}
+.sort-btn:hover{background:#d6242f;color:#fff}
 .tbl{width:100%;border-collapse:collapse;font-size:12px}
 .tbl th{padding:10px 8px;text-align:left;font-weight:700;color:#a01820;font-size:11px;background:#fff5f5;border-bottom:2px solid rgba(214,36,47,0.2);white-space:nowrap}
 .tbl td{padding:8px;border-bottom:1px solid #faf0f0;color:#7e7e7e}
 .tbl tr:hover td{background:#fff5f5}
-
-/* FORMS */
 .form-grid{display:grid;gap:16px}
 .form-grid-2{grid-template-columns:1fr 1fr}
 .form-grid-3{grid-template-columns:1fr 1fr 1fr}
 label.lbl{font-size:12px;font-weight:700;color:#7e7e7e;margin-bottom:4px;display:block;text-transform:uppercase;letter-spacing:0.4px}
 input[type=text],input[type=email],input[type=number],input[type=date],input[type=password],select,textarea{width:100%;padding:9px 12px;border:1.5px solid #e1e1e1;border-radius:8px;font-size:13px;outline:none;font-family:inherit;color:#000;background:#fff}
 input:focus,select:focus,textarea:focus{border-color:#d6242f}
-
-/* MODAL */
 .modal-overlay{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,0.65);backdrop-filter:blur(5px)}
 .modal-box{background:#fff;border-radius:20px;box-shadow:0 32px 80px rgba(0,0,0,0.25);width:100%;max-width:720px;max-height:90vh;display:flex;flex-direction:column}
 .modal-box.wide{max-width:1100px}
@@ -87,105 +70,59 @@ input:focus,select:focus,textarea:focus{border-color:#d6242f}
 .modal-title{font-size:16px;font-weight:800;color:#fff}
 .modal-close{width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,0.2);cursor:pointer;font-size:16px;color:#fff;font-weight:700}
 .modal-body{overflow-y:auto;flex:1;padding:24px}
-
-/* TABS */
 .tab-content{display:none}
 .tab-content.active{display:block}
-
-/* PAGINATION */
 .pagination{display:flex;gap:5px;align-items:center}
 .page-btn{padding:5px 11px;border-radius:7px;border:1.5px solid #e1e1e1;font-weight:600;font-size:12px;cursor:pointer;background:#fff;color:#7e7e7e;font-family:inherit}
 .page-btn.active{border-color:#d6242f;background:#d6242f;color:#fff}
 .page-btn:disabled{color:#d9d9d9;cursor:not-allowed}
-
-/* ALERT */
 .alert{border-radius:10px;padding:10px 18px;font-size:13px;font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
 .alert-warn{background:#fff5f5;border:1.5px solid #d6242f;color:#d6242f}
 .alert-info{background:#fffbeb;border:1.5px solid #f59e0b;color:#7c5e00}
 .alert-success{background:#f0fdf4;border:1.5px solid #86efac;color:#059669}
-
-/* PROGRESS BAR */
 .prog-bar{height:6px;background:#e1e1e1;border-radius:99px;overflow:hidden}
 .prog-fill{height:100%;border-radius:99px;background:#d6242f}
-
-/* DRAWER */
 .drawer-overlay{position:fixed;inset:0;z-index:55;display:flex;justify-content:flex-end;background:rgba(0,0,0,0.4)}
 .drawer{width:460px;background:#fff;height:100%;overflow-y:auto;box-shadow:-8px 0 40px rgba(0,0,0,0.2);display:flex;flex-direction:column}
 .drawer-header{background:linear-gradient(135deg,#a01820,#d6242f);padding:20px 24px;display:flex;align-items:center;justify-content:space-between}
-
-/* CONFIRM DELETE */
 .confirm-overlay{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.55)}
 .confirm-box{background:#fff;border-radius:18px;padding:36px 40px;max-width:380px;width:100%;text-align:center}
-
-/* SUMMARY TABLE */
 .sum-table{width:100%;border-collapse:collapse;font-size:13px}
 .sum-table th{padding:8px 10px;text-align:left;font-weight:700;color:#7e7e7e;font-size:12px;border-bottom:2px solid #e1e1e1}
 .sum-table td{padding:10px;border-bottom:1px solid #f5f5f5}
 .sum-table tr:hover td{background:#fff5f5}
-
-/* SALARY BAND INFO */
-.band-box{background:#eef6f7;border-radius:10px;padding:12px 16px;display:flex;gap:24px;flex-wrap:wrap;margin-top:8px}
-
-/* CHARTS */
 .chart-wrap{position:relative;height:220px}
-
-/* UPLOAD AREA */
 .upload-area{display:flex;align-items:center;gap:12px}
 .upload-btn{padding:9px 18px;border:1.5px dashed #d6242f;border-radius:8px;background:#fff5f5;color:#d6242f;font-weight:700;cursor:pointer;font-size:13px;font-family:inherit}
-
-/* HIDDEN */
 .hidden{display:none!important}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .kpi-grid{grid-template-columns:repeat(3,1fr)}
-  .int-grid{grid-template-columns:1fr}
-  .form-grid-3{grid-template-columns:1fr 1fr}
-  .nav-tabs{display:none}
-}
-
-/* ROLES CARDS */
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(3,1fr)}.int-grid{grid-template-columns:1fr}.form-grid-3{grid-template-columns:1fr 1fr}.nav-tabs{display:none}}
 .roles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:18px}
 .role-card{background:#fff;border-radius:14px;padding:16px 18px;border:1.5px solid #e1e1e1}
-
-/* SOURCE PIE */
 .src-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 .src-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
-
-/* FEEDBACK CARDS */
 .fb-card{background:#fff;border-radius:14px;padding:16px 20px;border:1.5px solid #e1e1e1;margin-bottom:10px}
-.fb-card:hover{border-color:#d6242f}
-
-/* OUTCOME GRID */
 .outcome-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
 .outcome-card{background:#fff;border-radius:12px;padding:14px 16px;text-align:center;cursor:pointer;border:2px solid transparent;transition:all 0.2s}
-
-/* SCORE BAR */
 .score-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
 .score-item{border-radius:10px;padding:10px 14px}
 .score-bar-wrap{flex:1;height:5px;background:#e5e5e5;border-radius:99px}
 .score-bar-fill{height:100%;border-radius:99px}
-
-/* LIBRARY */
 .lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:12px}
 .lib-card{background:#fff;border-radius:14px;padding:16px 18px;border:1.5px solid #e1e1e1;display:flex;align-items:flex-start;gap:14px;transition:border-color 0.2s}
 .lib-card:hover{border-color:#d6242f}
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
 </style>
 </head>
 <body>
-
-<!-- PASSWORD GATE -->
 <div id="gate">
   <div class="gate-box">
     <div class="gate-logo">
       <svg width="100" height="76" viewBox="0 0 200 152" xmlns="http://www.w3.org/2000/svg">
         <rect width="200" height="152" fill="#CC1F2D"/>
-        <circle cx="68" cy="46" r="62" fill="white"/>
-        <circle cx="68" cy="46" r="30" fill="#CC1F2D"/>
+        <circle cx="68" cy="46" r="62" fill="white"/><circle cx="68" cy="46" r="30" fill="#CC1F2D"/>
         <path d="M 98 95 L 0 152 L 46 152 Z" fill="white"/>
         <path d="M 100 90 L 18 152" stroke="white" stroke-width="28" fill="none" stroke-linecap="butt"/>
-        <circle cx="148" cy="86" r="56" fill="white"/>
-        <circle cx="148" cy="86" r="28" fill="#CC1F2D"/>
+        <circle cx="148" cy="86" r="56" fill="white"/><circle cx="148" cy="86" r="28" fill="#CC1F2D"/>
         <rect x="146" y="30" width="58" height="112" fill="#CC1F2D"/>
         <rect x="90" y="77" width="58" height="18" fill="white"/>
         <rect x="146" y="77" width="58" height="18" fill="#CC1F2D"/>
@@ -202,28 +139,21 @@ input:focus,select:focus,textarea:focus{border-color:#d6242f}
   </div>
 </div>
 
-<!-- MAIN APP -->
-<div id="app" style="display:none;flex-direction:column;min-height:100vh">
-  <!-- NAVBAR -->
+<div id="app" style="display:none;flex-direction:column;min-height:100vh;width:100%">
   <div class="navbar">
     <div class="navbar-inner">
       <div class="nav-brand">
         <svg width="56" height="43" viewBox="0 0 200 152" xmlns="http://www.w3.org/2000/svg">
           <rect width="200" height="152" fill="#CC1F2D"/>
-          <circle cx="68" cy="46" r="62" fill="white"/>
-          <circle cx="68" cy="46" r="30" fill="#CC1F2D"/>
+          <circle cx="68" cy="46" r="62" fill="white"/><circle cx="68" cy="46" r="30" fill="#CC1F2D"/>
           <path d="M 98 95 L 0 152 L 46 152 Z" fill="white"/>
           <path d="M 100 90 L 18 152" stroke="white" stroke-width="28" fill="none" stroke-linecap="butt"/>
-          <circle cx="148" cy="86" r="56" fill="white"/>
-          <circle cx="148" cy="86" r="28" fill="#CC1F2D"/>
+          <circle cx="148" cy="86" r="56" fill="white"/><circle cx="148" cy="86" r="28" fill="#CC1F2D"/>
           <rect x="146" y="30" width="58" height="112" fill="#CC1F2D"/>
           <rect x="90" y="77" width="58" height="18" fill="white"/>
           <rect x="146" y="77" width="58" height="18" fill="#CC1F2D"/>
         </svg>
-        <div>
-          <div class="nav-title">9E Global Recruitment Hub</div>
-          <div class="nav-sub">Hiring Dashboard 2026</div>
-        </div>
+        <div><div class="nav-title">9E Global Recruitment Hub</div><div class="nav-sub">Hiring Dashboard 2026</div></div>
       </div>
       <div class="nav-tabs">
         <button class="nav-tab active" onclick="switchTab('overview',this)">Overview</button>
@@ -250,16 +180,13 @@ input:focus,select:focus,textarea:focus{border-color:#d6242f}
     <div id="aed-notice" class="alert alert-info hidden">AED mode — 1 AED ≈ ₹24.85 · 1 LPA ≈ AED 4,024/yr</div>
     <div id="parse-warn" class="alert alert-warn hidden"><span id="parse-warn-msg"></span><button onclick="this.parentElement.classList.add('hidden')" style="background:none;border:none;color:#d6242f;cursor:pointer;font-size:16px;font-weight:700">×</button></div>
 
-    <!-- EMPTY STATE -->
     <div id="empty-state" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:440px;gap:20px;text-align:center">
       <svg width="90" height="68" viewBox="0 0 200 152" xmlns="http://www.w3.org/2000/svg">
         <rect width="200" height="152" fill="#CC1F2D"/>
-        <circle cx="68" cy="46" r="62" fill="white"/>
-        <circle cx="68" cy="46" r="30" fill="#CC1F2D"/>
+        <circle cx="68" cy="46" r="62" fill="white"/><circle cx="68" cy="46" r="30" fill="#CC1F2D"/>
         <path d="M 98 95 L 0 152 L 46 152 Z" fill="white"/>
         <path d="M 100 90 L 18 152" stroke="white" stroke-width="28" fill="none" stroke-linecap="butt"/>
-        <circle cx="148" cy="86" r="56" fill="white"/>
-        <circle cx="148" cy="86" r="28" fill="#CC1F2D"/>
+        <circle cx="148" cy="86" r="56" fill="white"/><circle cx="148" cy="86" r="28" fill="#CC1F2D"/>
         <rect x="146" y="30" width="58" height="112" fill="#CC1F2D"/>
         <rect x="90" y="77" width="58" height="18" fill="white"/>
         <rect x="146" y="77" width="58" height="18" fill="#CC1F2D"/>
@@ -269,11 +196,13 @@ input:focus,select:focus,textarea:focus{border-color:#d6242f}
       <button onclick="document.getElementById('xl-input').click()" style="padding:14px 40px;background:linear-gradient(135deg,#000,#a01820,#d6242f);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:16px;cursor:pointer;font-family:inherit">Upload Excel File</button>
     </div>
 
-    <!-- TAB CONTENTS -->
     <div id="tab-contents" class="hidden">
       <!-- OVERVIEW -->
       <div id="tab-overview" class="tab-content active">
-        <div id="last-updated" style="font-size:12px;color:#7e7e7e;text-align:right;margin-bottom:8px"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+          <div id="last-updated" style="font-size:12px;color:#7e7e7e"></div>
+          <button class="sort-btn" id="overview-sort-btn" onclick="toggleSort('overview')">📅 Date: Latest First</button>
+        </div>
         <div class="kpi-grid">
           <button class="kpi-card" onclick="showKpiModal('total')"><div class="kpi-icon">👥</div><div class="kpi-val" id="kpi-total">0</div><div class="kpi-label">Total Candidates</div></button>
           <button class="kpi-card" onclick="showKpiModal('rolesPlanned')"><div class="kpi-icon">📋</div><div class="kpi-val" id="kpi-planned">0</div><div class="kpi-label">Roles Planned</div></button>
@@ -282,21 +211,18 @@ input:focus,select:focus,textarea:focus{border-color:#d6242f}
           <button class="kpi-card" onclick="showHiredModal()"><div class="kpi-icon">✅</div><div class="kpi-val" id="kpi-hired">0</div><div class="kpi-label">Hired</div></button>
         </div>
         <div class="int-grid">
-          <button class="int-card" onclick="showIntModal('week')" style="border-color:#e1e1e1" onmouseenter="this.style.borderColor='#f59e0b'" onmouseleave="this.style.borderColor='#e1e1e1'">
+          <button class="int-card" onclick="showIntModal('week')" onmouseenter="this.style.borderColor='#f59e0b'" onmouseleave="this.style.borderColor='#e1e1e1'">
             <div style="width:48px;height:48px;border-radius:12px;background:#f59e0b22;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">📅</div>
             <div><div style="font-size:28px;font-weight:900;color:#f59e0b" id="kpi-week-int">0</div><div style="font-size:12px;font-weight:700;margin-top:4px">Interviews This Week</div></div>
           </button>
-          <button class="int-card" onclick="showIntModal('month')" style="border-color:#e1e1e1" onmouseenter="this.style.borderColor='#0077b6'" onmouseleave="this.style.borderColor='#e1e1e1'">
+          <button class="int-card" onclick="showIntModal('month')" onmouseenter="this.style.borderColor='#0077b6'" onmouseleave="this.style.borderColor='#e1e1e1'">
             <div style="width:48px;height:48px;border-radius:12px;background:#0077b622;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">📆</div>
             <div><div style="font-size:28px;font-weight:900;color:#0077b6" id="kpi-month-int">0</div><div style="font-size:12px;font-weight:700;margin-top:4px">Interviews This Month</div></div>
           </button>
         </div>
         <div class="card">
           <div class="card-title">Open Position Summary</div>
-          <table class="sum-table" id="overview-summary-table">
-            <thead><tr><th>Department</th><th>Planned</th><th>Filled</th><th>Gap</th><th>Fill Rate</th></tr></thead>
-            <tbody id="overview-summary-body"></tbody>
-          </table>
+          <table class="sum-table"><thead><tr><th>Department</th><th>Planned</th><th>Filled</th><th>Gap</th><th>Fill Rate</th></tr></thead><tbody id="overview-summary-body"></tbody></table>
         </div>
       </div>
 
@@ -310,11 +236,12 @@ input:focus,select:focus,textarea:focus{border-color:#d6242f}
               <button class="btn btn-green" onclick="exportCandidates()">Export</button>
             </div>
           </div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px">
-            <input type="text" id="cand-search" placeholder="Search name, role, company..." style="flex:1;min-width:200px" oninput="renderCandidates()"/>
-            <select id="cand-dept" onchange="renderCandidates()" style="width:auto"><option value="">Dept (All)</option></select>
-            <select id="cand-stage" onchange="renderCandidates()" style="width:auto"><option value="">Stage (All)</option></select>
-            <select id="cand-ta" onchange="renderCandidates()" style="width:auto"><option value="">TA (All)</option></select>
+          <div class="filter-bar">
+            <input type="text" id="cand-search" placeholder="Search name, role, company..." style="flex:1;min-width:200px" oninput="candPage=1;renderCandidates()"/>
+            <select id="cand-dept" onchange="candPage=1;renderCandidates()" style="width:auto"><option value="">Dept (All)</option></select>
+            <select id="cand-stage" onchange="candPage=1;renderCandidates()" style="width:auto"><option value="">Stage (All)</option></select>
+            <select id="cand-ta" onchange="candPage=1;renderCandidates()" style="width:auto"><option value="">TA (All)</option></select>
+            <button class="sort-btn" id="cand-sort-btn" onclick="toggleSort('cand')">📅 Latest First</button>
           </div>
         </div>
         <div class="card" style="padding:0;overflow:hidden">
@@ -338,11 +265,12 @@ input:focus,select:focus,textarea:focus{border-color:#d6242f}
             <div style="font-size:15px;font-weight:800">Active Pipeline <span style="color:#d6242f" id="pipe-count">(0)</span></div>
             <button class="btn btn-green btn-sm" onclick="exportPipeline()">Export</button>
           </div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px">
-            <input type="text" id="pipe-search" placeholder="Search..." style="flex:1;min-width:160px" oninput="renderPipeline()"/>
-            <select id="pipe-dept" onchange="renderPipeline()" style="width:auto"><option value="">Dept (All)</option></select>
-            <select id="pipe-stage" onchange="renderPipeline()" style="width:auto"><option value="">Stage (All)</option></select>
-            <select id="pipe-ta" onchange="renderPipeline()" style="width:auto"><option value="">TA (All)</option></select>
+          <div class="filter-bar">
+            <input type="text" id="pipe-search" placeholder="Search..." style="flex:1;min-width:160px" oninput="pipePage=1;renderPipeline()"/>
+            <select id="pipe-dept" onchange="pipePage=1;renderPipeline()" style="width:auto"><option value="">Dept (All)</option></select>
+            <select id="pipe-stage" onchange="pipePage=1;renderPipeline()" style="width:auto"><option value="">Stage (All)</option></select>
+            <select id="pipe-ta" onchange="pipePage=1;renderPipeline()" style="width:auto"><option value="">TA (All)</option></select>
+            <button class="sort-btn" id="pipe-sort-btn" onclick="toggleSort('pipe')">📅 Latest First</button>
           </div>
         </div>
         <div class="card" style="padding:0;overflow:hidden">
@@ -360,10 +288,11 @@ input:focus,select:focus,textarea:focus{border-color:#d6242f}
         <div class="card">
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px">
             <div style="font-size:15px;font-weight:800">Recruitment Plan <span style="color:#d6242f" id="roles-count">(0)</span></div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <button onclick="showPrevHiringModal()" style="padding:8px 16px;background:linear-gradient(135deg,#a01820,#d6242f);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px">🕘 Previous Hiring Needs</button>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+              <button onclick="showPrevHiringModal()" style="padding:8px 16px;background:linear-gradient(135deg,#a01820,#d6242f);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">🕘 Previous Hiring Needs</button>
               <select id="roles-dept" onchange="renderRoles()" style="width:auto"><option value="">Dept (All)</option></select>
               <select id="roles-status" onchange="renderRoles()" style="width:auto"><option value="">Status (All)</option><option>Active</option><option>On Hold</option><option>Interview Stage</option><option>Offer Stage</option><option>Hired</option><option>Closed</option></select>
+              <button class="sort-btn" id="roles-sort-btn" onclick="toggleSort('roles')">📅 Latest First</button>
               <button class="btn btn-green btn-sm" onclick="exportRoles()">Export</button>
             </div>
           </div>
@@ -385,9 +314,10 @@ input:focus,select:focus,textarea:focus{border-color:#d6242f}
         </div>
         <div id="fb-upload-msg" class="hidden alert alert-success"></div>
         <div class="card" style="padding:14px 20px;margin-bottom:12px">
-          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <div class="filter-bar">
             <input type="text" id="fb-search" placeholder="Search candidate, role, TA..." style="flex:1;min-width:180px" oninput="renderFeedback()"/>
             <select id="fb-dept" onchange="renderFeedback()" style="width:auto"><option value="">Dept (All)</option></select>
+            <button class="sort-btn" id="fb-sort-btn" onclick="toggleSort('fb')">📅 Latest First</button>
             <span style="font-size:13px;color:#7e7e7e" id="fb-count-info"></span>
           </div>
         </div>
@@ -402,7 +332,7 @@ input:focus,select:focus,textarea:focus{border-color:#d6242f}
             <div style="font-size:15px;font-weight:800">JD & CV Library</div>
             <button class="btn btn-primary" onclick="openAddJD()">+ Add JD</button>
           </div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div class="filter-bar">
             <input type="text" id="lib-search" placeholder="Search by title, role, department..." style="flex:1" oninput="renderLibrary()"/>
             <select id="lib-dept" onchange="renderLibrary()" style="width:auto"><option value="">All Depts</option></select>
             <select id="lib-type" onchange="renderLibrary()" style="width:auto"><option value="">All Types</option><option value="JD">JDs Only</option><option value="CV">CVs Only</option></select>
@@ -413,30 +343,27 @@ input:focus,select:focus,textarea:focus{border-color:#d6242f}
     </div>
   </div>
 </div>
-
-<!-- MODALS CONTAINER -->
 <div id="modals"></div>
 
 <script>
-// ── CONSTANTS ────────────────────────────────────────────────────────────────
-const PASSWORD = "9eRecruit2026";
-const STORAGE_KEY = "9e_recruitment_html_v1";
-const LPA_TO_AED = Math.round(100000 / 24.85);
-const PG = 25;
-const DEPT_LIST = ["STR","STR-BIM","MEP","MEP-BIM","AVIT","INFRA","Business Support","Interns"];
-const DEPT_COLORS = {STR:"#d6242f","STR-BIM":"#e85d5d",MEP:"#a01820","MEP-BIM":"#c44040",INFRA:"#82939a","Business Support":"#000000",AVIT:"#7e7e7e",Interns:"#7c3aed"};
-const STAGE_ORDER = ["Not Started","CV Review","TA Screened","HM Screened","First Interview","Second Interview","Interview/Scheduled","Interview Feedback Pending","TA Rejected","HM Rejected","Rejected","Dropped","Offer Stage","Hired"];
-const ACTIVE_STAGES = ["CV Review","TA Screened","HM Screened","First Interview","Second Interview","Interview/Scheduled","Interview Feedback Pending","Offer Stage"];
-const INTERVIEW_STAGES = ["First Interview","Second Interview","Interview/Scheduled","Interview Feedback Pending"];
-const STAGE_COLORS = {"Not Started":"#d9d9d9","CV Review":"#82939a","TA Screened":"#7e7e7e","HM Screened":"#82939a","First Interview":"#f59e0b","Second Interview":"#fb923c","Interview/Scheduled":"#f59e0b","Interview Feedback Pending":"#fb923c","HM Rejected":"#f87171","TA Rejected":"#fca5a5","Rejected":"#ef4444","Dropped":"#7e7e7e","Offer Stage":"#10b981","Hired":"#059669"};
-const OUTCOME_COLORS = {"Selected and proceed with Offer":"#059669","Proceed with Client Interview (Site Positions)":"#0077b6","Recommend for second round of interview with Department Head":"#f59e0b","Consider for future requirements":"#82939a","Rejected":"#ef4444"};
-const PALETTE = ["#d6242f","#a01820","#7e7e7e","#000000","#82939a","#5a5a5a","#3d3d3d","#b0b0b0"];
-const STATUS_OPTIONS = ["Active","On Hold","Interview Stage","Offer Stage","Hired","Closed"];
-const TARGET_MONTHS = ["Jan 2026","Feb 2026","Mar 2026","Apr 2026","May 2026","Jun 2026","Jul 2026","Aug 2026","Sep 2026","Oct 2026","Nov 2026","Dec 2026"];
-const NOTICE_OPTIONS = ["","Immediate","15 Days","1 Month","2 Months","3 Months","Other"];
-const GENDER_OPTIONS = ["","Male","Female","Other","Prefer not to say"];
-const SKIP_SHEETS = new Set(["Interview Feedback Form","📁 Vendors","Vendors","Helper","Open Tracker","Dashboard","📊 Dashboard"]);
-const COMPETENCY_FIELDS = [
+const PASSWORD="9eRecruit2026";
+const STORAGE_KEY="9e_recruitment_html_v1";
+const LPA_TO_AED=Math.round(100000/24.85);
+const PG=25;
+const DEPT_LIST=["STR","STR-BIM","MEP","MEP-BIM","AVIT","INFRA","Business Support","Interns"];
+const DEPT_COLORS={STR:"#d6242f","STR-BIM":"#e85d5d",MEP:"#a01820","MEP-BIM":"#c44040",INFRA:"#82939a","Business Support":"#000000",AVIT:"#7e7e7e",Interns:"#7c3aed"};
+const STAGE_ORDER=["Not Started","CV Review","TA Screened","HM Screened","First Interview","Second Interview","Interview/Scheduled","Interview Feedback Pending","TA Rejected","HM Rejected","Rejected","Dropped","Offer Stage","Hired"];
+const ACTIVE_STAGES=["CV Review","TA Screened","HM Screened","First Interview","Second Interview","Interview/Scheduled","Interview Feedback Pending","Offer Stage"];
+const INTERVIEW_STAGES=["First Interview","Second Interview","Interview/Scheduled","Interview Feedback Pending"];
+const STAGE_COLORS={"Not Started":"#d9d9d9","CV Review":"#82939a","TA Screened":"#7e7e7e","HM Screened":"#82939a","First Interview":"#f59e0b","Second Interview":"#fb923c","Interview/Scheduled":"#f59e0b","Interview Feedback Pending":"#fb923c","HM Rejected":"#f87171","TA Rejected":"#fca5a5","Rejected":"#ef4444","Dropped":"#7e7e7e","Offer Stage":"#10b981","Hired":"#059669"};
+const OUTCOME_COLORS={"Selected and proceed with Offer":"#059669","Proceed with Client Interview (Site Positions)":"#0077b6","Recommend for second round of interview with Department Head":"#f59e0b","Consider for future requirements":"#82939a","Rejected":"#ef4444"};
+const PALETTE=["#d6242f","#a01820","#7e7e7e","#000000","#82939a","#5a5a5a","#3d3d3d","#b0b0b0"];
+const STATUS_OPTIONS=["Active","On Hold","Interview Stage","Offer Stage","Hired","Closed"];
+const TARGET_MONTHS=["Jan 2026","Feb 2026","Mar 2026","Apr 2026","May 2026","Jun 2026","Jul 2026","Aug 2026","Sep 2026","Oct 2026","Nov 2026","Dec 2026"];
+const NOTICE_OPTIONS=["","Immediate","15 Days","1 Month","2 Months","3 Months","Other"];
+const GENDER_OPTIONS=["","Male","Female","Other","Prefer not to say"];
+const SKIP_SHEETS=new Set(["Interview Feedback Form","📁 Vendors","Vendors","Helper","Open Tracker","Dashboard","📊 Dashboard"]);
+const COMPETENCY_FIELDS=[
   {key:"relevantExperience",label:"Relevant Experience"},{key:"technicalKnowledge",label:"Technical Knowledge"},
   {key:"interDiscipline",label:"Inter-Discipline"},{key:"intlExposure",label:"Int'l Exposure"},
   {key:"projectMgmt",label:"Project Mgmt"},{key:"digitalization",label:"Digitalization"},
@@ -445,145 +372,102 @@ const COMPETENCY_FIELDS = [
   {key:"interpersonal",label:"Interpersonal"}
 ];
 
-// ── STATE ────────────────────────────────────────────────────────────────────
-let state = {candidates:[],roles:[],prevHiring:[],jdLibrary:[],feedbackRecords:[],lastUpdated:""};
-let currency = "INR";
-let candPage = 1, pipePage = 1;
-let pipelineChart = null, sourceChart = null, velocityChart = null;
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let state={candidates:[],roles:[],prevHiring:[],jdLibrary:[],feedbackRecords:[],lastUpdated:""};
+let currency="INR";
+let candPage=1,pipePage=1;
+// Sort states: 'desc' = latest first, 'asc' = oldest first
+let sorts={cand:"desc",pipe:"desc",roles:"desc",fb:"desc",overview:"desc"};
 
-// ── PASSWORD ─────────────────────────────────────────────────────────────────
+// ── SORT TOGGLE ───────────────────────────────────────────────────────────────
+function toggleSort(key){
+  sorts[key]=sorts[key]==="desc"?"asc":"desc";
+  const label="📅 "+(sorts[key]==="desc"?"Latest First":"Oldest First");
+  const btn=document.getElementById(key+"-sort-btn")||(key==="overview"?document.getElementById("overview-sort-btn"):null);
+  if(btn) btn.textContent=label;
+  if(key==="cand"){candPage=1;renderCandidates();}
+  else if(key==="pipe"){pipePage=1;renderPipeline();}
+  else if(key==="roles") renderRoles();
+  else if(key==="fb") renderFeedback();
+  else if(key==="overview") renderOverview();
+}
+function sortByDate(arr,dir){
+  return [...arr].sort((a,b)=>{
+    const da=parseDate(a.dateAdded)||parseDate(a.requisitionDate)||new Date(0);
+    const db=parseDate(b.dateAdded)||parseDate(b.requisitionDate)||new Date(0);
+    return dir==="desc"?db-da:da-db;
+  });
+}
+
+// ── PASSWORD ──────────────────────────────────────────────────────────────────
 function tryUnlock(){
-  const v = document.getElementById('pw-input').value;
-  if(v === PASSWORD){
-    document.getElementById('gate').style.display='none';
-    document.getElementById('app').style.display='flex';
-    loadFromStorage();
-  } else {
-    document.getElementById('pw-err').style.display='block';
-    document.getElementById('pw-input').value='';
-    setTimeout(()=>document.getElementById('pw-err').style.display='none',2000);
-  }
+  const v=document.getElementById("pw-input").value;
+  if(v===PASSWORD){document.getElementById("gate").style.display="none";document.getElementById("app").style.display="flex";loadFromStorage();}
+  else{document.getElementById("pw-err").style.display="block";document.getElementById("pw-input").value="";setTimeout(()=>document.getElementById("pw-err").style.display="none",2000);}
 }
-function togglePw(){
-  const i=document.getElementById('pw-input');
-  i.type = i.type==='password'?'text':'password';
-}
+function togglePw(){const i=document.getElementById("pw-input");i.type=i.type==="password"?"text":"password";}
 
 // ── STORAGE ───────────────────────────────────────────────────────────────────
-function saveToStorage(){
-  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
-}
+function saveToStorage(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){}}
 function loadFromStorage(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw){
-      const d = JSON.parse(raw);
-      if(d.candidates?.length || d.roles?.length){
-        state = {...state,...d};
-        showApp();
-      }
-    }
-  }catch(e){}
+  try{const raw=localStorage.getItem(STORAGE_KEY);if(raw){const d=JSON.parse(raw);if(d.candidates?.length||d.roles?.length){state={...state,...d};showApp();}}}catch(e){}
 }
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
-function badge(label, color){
-  return `<span class="badge" style="background:${color}22;color:${color};border:1px solid ${color}33">${label||'—'}</span>`;
-}
+function badge(label,color){return `<span class="badge" style="background:${color}22;color:${color};border:1px solid ${color}33">${label||"—"}</span>`;}
 function fmtDate(str){
-  if(!str) return '—';
+  if(!str)return"—";
   const n=Number(str);
-  if(!isNaN(n)&&n>1000&&n<100000&&String(str).trim().match(/^\d+(\.\d+)?$/)){
-    const d=new Date(Date.UTC(1899,11,30)+n*86400000);
-    return isNaN(d.getTime())?String(str):d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
-  }
-  const d=new Date(str);
-  return isNaN(d.getTime())?(String(str).trim()||'—'):d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+  if(!isNaN(n)&&n>1000&&n<100000&&String(str).trim().match(/^\d+(\.\d+)?$/)){const d=new Date(Date.UTC(1899,11,30)+n*86400000);return isNaN(d.getTime())?String(str):d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"});}
+  const d=new Date(str);return isNaN(d.getTime())?(String(str).trim()||"—"):d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"});
 }
 function parseDate(str){
-  if(!str) return null;
+  if(!str)return null;
   const n=Number(str);
-  if(!isNaN(n)&&n>1000&&n<100000&&String(str).trim().match(/^\d+(\.\d+)?$/)){
-    const d=new Date(Date.UTC(1899,11,30)+n*86400000);
-    return isNaN(d.getTime())?null:d;
-  }
-  const d=new Date(str);
-  return isNaN(d.getTime())?null:d;
+  if(!isNaN(n)&&n>1000&&n<100000&&String(str).trim().match(/^\d+(\.\d+)?$/)){const d=new Date(Date.UTC(1899,11,30)+n*86400000);return isNaN(d.getTime())?null:d;}
+  const d=new Date(str);return isNaN(d.getTime())?null:d;
 }
-function parseSalary(s){
-  if(!s) return null;
-  const n=parseFloat(String(s).replace(/[^\d.]/g,''));
-  return isNaN(n)?null:n;
-}
+function parseSalary(s){if(!s)return null;const n=parseFloat(String(s).replace(/[^\d.]/g,""));return isNaN(n)?null:n;}
 function fmtSalary(val){
-  if(val===null||val===undefined||val==='') return '—';
-  if(typeof val==='object'){
-    const {amount,cur:c2,freq}=val;
-    if(amount===''||amount===null||amount===undefined) return '—';
-    const amt=parseFloat(amount);
-    if(isNaN(amt)) return '—';
-    if(c2==='AED') return 'AED '+amt.toLocaleString('en-AE',{maximumFractionDigits:0})+(freq==='monthly'?'/mo':'/yr');
-    if(currency==='AED'){
-      const lpa=freq==='monthly'?(amt*12)/100000:amt;
-      return 'AED '+(lpa*LPA_TO_AED).toLocaleString('en-AE',{maximumFractionDigits:0})+'/yr';
-    }
-    if(freq==='monthly') return '₹'+amt.toLocaleString('en-IN')+'/mo';
-    return '₹'+amt+' LPA';
+  if(val===null||val===undefined||val==="")return"—";
+  if(typeof val==="object"){
+    const{amount,cur:c2,freq}=val;
+    if(amount===""||amount===null||amount===undefined)return"—";
+    const amt=parseFloat(amount);if(isNaN(amt))return"—";
+    if(c2==="AED")return"AED "+amt.toLocaleString("en-AE",{maximumFractionDigits:0})+(freq==="monthly"?"/mo":"/yr");
+    if(currency==="AED"){const lpa=freq==="monthly"?(amt*12)/100000:amt;return"AED "+(lpa*LPA_TO_AED).toLocaleString("en-AE",{maximumFractionDigits:0})+"/yr";}
+    if(freq==="monthly")return"₹"+amt.toLocaleString("en-IN")+"/mo";
+    return"₹"+amt+" LPA";
   }
-  const s=String(val).trim();
-  if(!s||s==='—') return '—';
-  if(/^aed\b/i.test(s)) return s;
-  const n=parseSalary(s);
-  if(n===null) return s;
-  if(currency==='AED') return 'AED '+(n*LPA_TO_AED).toLocaleString('en-AE',{maximumFractionDigits:0})+'/yr';
-  return '₹'+n+' LPA';
+  const s=String(val).trim();if(!s||s==="—")return"—";
+  if(/^aed\b/i.test(s))return s;
+  const n=parseSalary(s);if(n===null)return s;
+  if(currency==="AED")return"AED "+(n*LPA_TO_AED).toLocaleString("en-AE",{maximumFractionDigits:0})+"/yr";
+  return"₹"+n+" LPA";
 }
-function pct(n,t){ return t?Math.round((n/t)*100):0; }
-function scoreColor(s){
-  const n=parseFloat(s);
-  if(isNaN(n)) return '#7e7e7e';
-  if(n>=9) return '#059669';if(n>=8) return '#10b981';if(n>=6) return '#f59e0b';if(n>=5) return '#fb923c';
-  return '#ef4444';
-}
-function getWeekBounds(){
-  const now=new Date(),day=now.getDay();
-  const ws=new Date(now);ws.setDate(now.getDate()-day);ws.setHours(0,0,0,0);
-  const we=new Date(now);we.setDate(now.getDate()+(6-day));we.setHours(23,59,59,999);
-  return{wStart:ws,wEnd:we};
-}
-function getMonthBounds(){
-  const n=new Date();
-  return{mStart:new Date(n.getFullYear(),n.getMonth(),1),mEnd:new Date(n.getFullYear(),n.getMonth()+1,0,23,59,59)};
-}
+function pct(n,t){return t?Math.round((n/t)*100):0;}
+function scoreColor(s){const n=parseFloat(s);if(isNaN(n))return"#7e7e7e";if(n>=9)return"#059669";if(n>=8)return"#10b981";if(n>=6)return"#f59e0b";if(n>=5)return"#fb923c";return"#ef4444";}
+function getWeekBounds(){const now=new Date(),day=now.getDay();const ws=new Date(now);ws.setDate(now.getDate()-day);ws.setHours(0,0,0,0);const we=new Date(now);we.setDate(now.getDate()+(6-day));we.setHours(23,59,59,999);return{wStart:ws,wEnd:we};}
+function getMonthBounds(){const n=new Date();return{mStart:new Date(n.getFullYear(),n.getMonth(),1),mEnd:new Date(n.getFullYear(),n.getMonth()+1,0,23,59,59)};}
 function normalizeStage(raw){
-  if(!raw) return 'Not Started';
-  const s=String(raw).trim().toLowerCase();
-  if(s.includes('offer')) return 'Offer Stage';
-  if(s.includes('hired')||s.includes('joined')) return 'Hired';
-  if(s.includes('dropped')||s.includes('withdraw')) return 'Dropped';
-  if(s.includes('hm')&&s.includes('reject')) return 'HM Rejected';
-  if(s.includes('ta')&&s.includes('reject')) return 'TA Rejected';
-  if(s.includes('reject')) return 'Rejected';
-  if(s.includes('second')&&s.includes('interview')) return 'Second Interview';
-  if(s.includes('first')&&s.includes('interview')) return 'First Interview';
-  if(s.includes('hm')&&(s.includes('screen')||s.includes('review'))) return 'HM Screened';
-  if(s.includes('ta')&&(s.includes('screen')||s.includes('review'))) return 'TA Screened';
-  if(s.includes('interview')&&s.includes('feedback')) return 'Interview Feedback Pending';
-  if(s.includes('interview')||s.includes('scheduled')) return 'Interview/Scheduled';
-  if(s.includes('cv')||s.includes('resume')) return 'CV Review';
-  return String(raw).trim()||'Not Started';
+  if(!raw)return"Not Started";const s=String(raw).trim().toLowerCase();
+  if(s.includes("offer"))return"Offer Stage";if(s.includes("hired")||s.includes("joined"))return"Hired";
+  if(s.includes("dropped")||s.includes("withdraw"))return"Dropped";
+  if(s.includes("hm")&&s.includes("reject"))return"HM Rejected";if(s.includes("ta")&&s.includes("reject"))return"TA Rejected";
+  if(s.includes("reject"))return"Rejected";if(s.includes("second")&&s.includes("interview"))return"Second Interview";
+  if(s.includes("first")&&s.includes("interview"))return"First Interview";
+  if(s.includes("hm")&&(s.includes("screen")||s.includes("review")))return"HM Screened";
+  if(s.includes("ta")&&(s.includes("screen")||s.includes("review")))return"TA Screened";
+  if(s.includes("interview")&&s.includes("feedback"))return"Interview Feedback Pending";
+  if(s.includes("interview")||s.includes("scheduled"))return"Interview/Scheduled";
+  if(s.includes("cv")||s.includes("resume"))return"CV Review";
+  return String(raw).trim()||"Not Started";
 }
 function normalizeReloc(raw){
-  if(!raw) return 'Unknown';
-  const s=String(raw).trim().toLowerCase();
-  if(!s||s==='-'||s==='n/a'||s==='na') return 'Unknown';
-  if(s==='yes'||s==='y'||s==='ok'||s==='open') return 'Both';
-  if(s==='no'||s==='n') return 'Unknown';
-  const hasMum=s.includes('mumbai')||s.includes('bombay');
-  const hasKoc=s.includes('kochi')||s.includes('cochin');
-  if(hasMum&&hasKoc) return 'Both';
-  if(hasMum) return 'Mumbai';if(hasKoc) return 'Kochi';
-  return String(raw).trim();
+  if(!raw)return"Unknown";const s=String(raw).trim().toLowerCase();
+  if(!s||s==="-"||s==="n/a"||s==="na")return"Unknown";if(s==="yes"||s==="y"||s==="ok"||s==="open")return"Both";if(s==="no"||s==="n")return"Unknown";
+  const hasMum=s.includes("mumbai")||s.includes("bombay");const hasKoc=s.includes("kochi")||s.includes("cochin");
+  if(hasMum&&hasKoc)return"Both";if(hasMum)return"Mumbai";if(hasKoc)return"Kochi";return String(raw).trim();
 }
 
 // ── SALARY BANDS ──────────────────────────────────────────────────────────────
@@ -612,41 +496,29 @@ const BIM_BANDS=[
   {title:"Head of BIM",exp:"18-20 years",inr:"45+ LPA",aed:"—"},
 ];
 function getBand(role){
-  if(!role) return null;
-  const r=role.toLowerCase();
-  const isBIM=r.includes('bim');
+  if(!role)return null;const r=role.toLowerCase();const isBIM=r.includes("bim");
   if(isBIM){
     let b=null;
-    if(r.includes('head')) b=BIM_BANDS[8];
-    else if(r.includes('senior manager')) b=BIM_BANDS[7];
-    else if(r.includes('manager')) b=BIM_BANDS[6];
-    else if(r.includes('lead')) b=BIM_BANDS[5];
-    else if(r.includes('senior')&&r.includes('coord')) b=BIM_BANDS[4];
-    else if(r.includes('coord')) b=BIM_BANDS[3];
-    else if(r.includes('senior')) b=BIM_BANDS[2];
-    else if(r.includes('intermediary')||r.includes('intermediate')) b=BIM_BANDS[1];
+    if(r.includes("head"))b=BIM_BANDS[8];else if(r.includes("senior manager"))b=BIM_BANDS[7];
+    else if(r.includes("manager"))b=BIM_BANDS[6];else if(r.includes("lead"))b=BIM_BANDS[5];
+    else if(r.includes("senior")&&r.includes("coord"))b=BIM_BANDS[4];else if(r.includes("coord"))b=BIM_BANDS[3];
+    else if(r.includes("senior"))b=BIM_BANDS[2];else if(r.includes("intermediary")||r.includes("intermediate"))b=BIM_BANDS[1];
     else b=BIM_BANDS[0];
-    return{level:'BIM – '+b.title,exp:b.exp,sal:currency==='AED'?b.aed:b.inr};
+    return{level:"BIM – "+b.title,exp:b.exp,sal:currency==="AED"?b.aed:b.inr};
   }
   let b=null;
-  if(r.includes('managing director')) b=ENG_BANDS[10];
-  else if(r.includes('technical director')) b=ENG_BANDS[9];
-  else if(r.includes('associate director')) b=ENG_BANDS[8];
-  else if(r.includes('director')) b=ENG_BANDS[10];
-  else if(r.includes('senior associate')) b=ENG_BANDS[7];
-  else if(r.includes('associate')) b=ENG_BANDS[6];
-  else if(r.includes('principal')) b=ENG_BANDS[5];
-  else if(r.includes('lead')) b=ENG_BANDS[4];
-  else if(r.includes('senior')) b=ENG_BANDS[3];
-  else if(r.includes('intermediary')||r.includes('intermediate')) b=ENG_BANDS[2];
-  else if(r.includes('junior')||r.includes('jr')) b=ENG_BANDS[1];
-  else if(r.includes('graduate')) b=ENG_BANDS[0];
-  if(!b) return null;
-  return{level:'Grade '+b.grade+' – '+b.title,exp:b.exp,sal:currency==='AED'?b.aed:b.inr};
+  if(r.includes("managing director"))b=ENG_BANDS[10];else if(r.includes("technical director"))b=ENG_BANDS[9];
+  else if(r.includes("associate director"))b=ENG_BANDS[8];else if(r.includes("director"))b=ENG_BANDS[10];
+  else if(r.includes("senior associate"))b=ENG_BANDS[7];else if(r.includes("associate"))b=ENG_BANDS[6];
+  else if(r.includes("principal"))b=ENG_BANDS[5];else if(r.includes("lead"))b=ENG_BANDS[4];
+  else if(r.includes("senior"))b=ENG_BANDS[3];else if(r.includes("intermediary")||r.includes("intermediate"))b=ENG_BANDS[2];
+  else if(r.includes("junior")||r.includes("jr"))b=ENG_BANDS[1];else if(r.includes("graduate"))b=ENG_BANDS[0];
+  if(!b)return null;
+  return{level:"Grade "+b.grade+" – "+b.title,exp:b.exp,sal:currency==="AED"?b.aed:b.inr};
 }
 
 // ── EXCEL PARSE ───────────────────────────────────────────────────────────────
-function cleanName(n){return n.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]/gu,'').replace(/[^a-zA-Z\s]/g,' ').replace(/\s+/g,' ').trim().toLowerCase();}
+function cleanName(n){return n.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]/gu,"").replace(/[^a-zA-Z\s]/g," ").replace(/\s+/g," ").trim().toLowerCase();}
 const DEPT_RULES=[
   {dept:"Business Support",any:[["biz","support"],["business","support"]]},
   {dept:"INFRA",any:[["infra"],["infrastructure"]]},
@@ -654,130 +526,109 @@ const DEPT_RULES=[
   {dept:"MEP",any:[["mep"]]},
   {dept:"STR",any:[["str"],["structural"]]},
 ];
-const EXACT_SHEETS={"🏢 STR Tracker":"STR","🌉 Infra Tracker":"INFRA","⚙️ MEP Tracker":"MEP","💻 AVIT Tracker":"AVIT","🤝 Biz Support Tracker":"Business Support"};
+const EXACT_SHEETS={"🏢 STR Tracker":"STR","🌉 Infra Tracker":"INFRA","⚙️ MEP Tracker":"MEP","💻 AVIT Tracker":"AVIT","🤝 Biz Support Tracker":"Business Support","Interns":"Interns"};
 function detectDept(s){
-  // Try exact match first
-  if(EXACT_SHEETS[s]) return EXACT_SHEETS[s];
-  // Try matching by stripping ALL non-ASCII and spaces for loose match
-  const stripped = s.replace(/[^\x00-\x7F]/g,'').trim().toLowerCase();
-  if(stripped.includes('str')) return 'STR';
-  if(stripped.includes('infra')) return 'INFRA';
-  if(stripped.includes('mep')) return 'MEP';
-  if(stripped.includes('avit')) return 'AVIT';
-  if(stripped.includes('biz')||stripped.includes('business')||stripped.includes('support')) return 'Business Support';
-  // Try cleanName fallback
+  if(EXACT_SHEETS[s])return EXACT_SHEETS[s];
+  const stripped=s.replace(/[^\x00-\x7F]/g,"").trim().toLowerCase();
+  if(stripped.includes("intern"))return"Interns";
+  if(stripped.includes("str"))return"STR";if(stripped.includes("infra"))return"INFRA";
+  if(stripped.includes("mep"))return"MEP";if(stripped.includes("avit"))return"AVIT";
+  if(stripped.includes("biz")||stripped.includes("business")||stripped.includes("support"))return"Business Support";
   const c=cleanName(s);
-  for(const r of DEPT_RULES) for(const g of r.any) if(g.every(w=>c.includes(w))) return r.dept;
+  for(const r of DEPT_RULES)for(const g of r.any)if(g.every(w=>c.includes(w)))return r.dept;
   return null;
 }
-function isPlan(s){const c=cleanName(s);return c.includes('plan')&&!detectDept(s);}
-function isPrevHiring(s){const c=cleanName(s);return c.includes('previous')||c.includes('prev hiring')||c.includes('previous hiring');}
-function isDash(s){return s==='📊 Dashboard'||cleanName(s).includes('dashboard');}
+function isPlan(s){const c=cleanName(s);return c.includes("plan")&&!detectDept(s);}
+function isPrevHiring(s){const c=cleanName(s);return c.includes("previous")||c.includes("prev hiring");}
+function isDash(s){return s==="📊 Dashboard"||cleanName(s).includes("dashboard");}
 function findHdrRow(rows){
-  // Look for row containing known header keywords — check up to row 10
   for(let i=0;i<Math.min(rows.length,10);i++){
-    const joined=rows[i].map(c=>String(c||'').toLowerCase()).join('|');
-    if(/(name|candidate|status|stage|role|position|designation|sl|sr|s\.no)/.test(joined)) return i;
+    const joined=rows[i].map(c=>String(c||"").toLowerCase()).join("|");
+    if(/(name|candidate|status|stage|role|position|designation|sl|sr|s\.no)/.test(joined))return i;
   }
-  // Fallback: first row that has content in column C (index 2)
-  for(let i=0;i<Math.min(rows.length,10);i++){
-    if(rows[i][2]&&String(rows[i][2]).trim()!=='') return i;
-  }
-  return 1; // default to row 2 (index 1) since row 1 is usually a title
+  for(let i=0;i<Math.min(rows.length,10);i++){if(rows[i][2]&&String(rows[i][2]).trim()!=="")return i;}
+  return 1;
 }
 function mkGet(headers){
   return(row,...keys)=>{
     for(const key of keys){
       const kl=key.toLowerCase().trim();
       let idx=headers.findIndex(h=>h.toLowerCase().trim()===kl);
-      if(idx===-1) idx=headers.findIndex(h=>h.toLowerCase().trim().includes(kl));
-      if(idx!==-1&&row[idx]!==undefined&&String(row[idx]).trim()!=='') return String(row[idx]).trim();
+      if(idx===-1)idx=headers.findIndex(h=>h.toLowerCase().trim().includes(kl));
+      if(idx!==-1&&row[idx]!==undefined&&String(row[idx]).trim()!=="")return String(row[idx]).trim();
     }
-    return '';
+    return"";
   };
 }
-
 function handleExcel(inp){
-  const f=inp.files[0];if(!f) return;
+  const f=inp.files[0];if(!f)return;
   const reader=new FileReader();
   reader.onload=ev=>{
     try{
-      const wb=XLSX.read(ev.target.result,{type:'binary'});
+      const wb=XLSX.read(ev.target.result,{type:"binary"});
       const{cands,rolesList,skipped}=parseExcel(wb);
-      if(cands.length+rolesList.length===0){
-        showWarn('No data imported. Sheets: '+wb.SheetNames.join(' | '));
-      } else {
-        if(skipped.length) showWarn('Skipped: '+skipped.join(', '));
+      if(cands.length+rolesList.length===0){showWarn("No data imported. Sheets: "+wb.SheetNames.join(" | "));}
+      else{
+        if(skipped.length)showWarn("Skipped: "+skipped.join(", "));
         state.candidates=cands;state.roles=rolesList;
-        state.lastUpdated=new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+        state.lastUpdated=new Date().toLocaleString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
         saveToStorage();showApp();
       }
-    }catch(err){showWarn('Parse error: '+err.message);}
-    inp.value='';
+    }catch(err){showWarn("Parse error: "+err.message);}
+    inp.value="";
   };
   reader.readAsBinaryString(f);
 }
-
 function parseExcel(wb){
-  const cands=[],rolesList=[],skipped=[];
-  let prevHiringData=[];
+  const cands=[],rolesList=[],skipped=[];let prevHiringData=[];
   wb.SheetNames.forEach(sn=>{
-    if(SKIP_SHEETS.has(sn)){skipped.push(sn+' (skipped)');return;}
+    if(SKIP_SHEETS.has(sn)){skipped.push(sn+" (skipped)");return;}
     const sheet=wb.Sheets[sn];
-    const raw=XLSX.utils.sheet_to_json(sheet,{header:1,defval:''});
-    const ne=raw.filter(r=>r.some(c=>c!==''&&c!==null&&c!==undefined));
-    if(ne.length<2){skipped.push(sn+' (blank)');return;}
+    const raw=XLSX.utils.sheet_to_json(sheet,{header:1,defval:""});
+    const ne=raw.filter(r=>r.some(c=>c!==""&&c!==null&&c!==undefined));
+    if(ne.length<2){skipped.push(sn+" (blank)");return;}
     const dept=detectDept(sn);
     const planSh=!dept&&isPlan(sn);
     const prevSh=!dept&&!planSh&&isPrevHiring(sn);
-    const dashSh=!dept&&!planSh&&!prevSh&&isDash(sn);
     if(dept){
       const hi=findHdrRow(ne);
-      const hdr=ne[hi].map(h=>String(h).trim().replace(/\*/g,'').replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]/gu,'').trim());
-      const drs=ne.slice(hi+1).filter(r=>r.some(c=>c!==''&&c!==null&&c!==undefined));
-      if(!drs.length){skipped.push(sn+' (no data rows)');return;}
+      const hdr=ne[hi].map(h=>String(h).trim().replace(/\*/g,"").replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]/gu,"").trim());
+      const drs=ne.slice(hi+1).filter(r=>r.some(c=>c!==""&&c!==null&&c!==undefined));
+      if(!drs.length){skipped.push(sn+" (no data rows)");return;}
       const get=mkGet(hdr);
       drs.forEach(row=>{
-        const fv=String(row[0]||'').trim().toLowerCase();
-        if(['sl no','s no','sr no','#','sno','total'].includes(fv)) return;
-        let name=String(row[2]||'').trim();
-        if(!name||name.toLowerCase()==='name'){
-          name=get(row,'Candidate Name','Candidate','Name','Full Name','Applicant Name','Applicant');
-        }
-        if(!name||name.toLowerCase()==='name'||name===''||name==='-') return;
-        cands.push({name,dept,role:get(row,'Role','Position','Job Title','Designation','Opening','Hiring for','Post'),ta:get(row,'TA','TA Name','Recruiter','Assigned To','Assigned','Handled By','SPOC','Spoc'),currentCompany:get(row,'Current Company','Company','Employer','Current Employer','Organisation'),currentLocation:get(row,'Current Location','Present Location','Base Location','City','Location'),currentSalary:get(row,'Current Salary','Current CTC','CTC','Present CTC','Current Package'),expectedSalary:get(row,'Expected Salary','Expected CTC','Expected Package','Exp CTC','Expectation'),noticePeriod:get(row,'Notice Period','Notice','NP'),relocation:normalizeReloc(get(row,'Relocation','Willing to Relocate','Reloc')),gender:get(row,'Gender','Sex','M/F'),stage:normalizeStage(get(row,'Hiring Status','Status','Stage','Recruitment Stage','Current Stage','Remarks','Remark')),source:get(row,'Source','Recruitment Source','Source of CV','Channel','Sourced From','Platform'),dateAdded:get(row,'Date Added','Date','Added On','Date of Application','Applied On','Entry Date'),interviewDate:get(row,'Interview Date','Interview Scheduled','Int Date','Int. Date'),firstInterviewDate:'',secondInterviewDate:'',email:get(row,'Email','Email ID','Mail','Email Address'),phone:get(row,'Phone','Mobile','Contact','Phone No','Mobile No'),notes:get(row,'Notes','Remarks','Comments','Note','Observation'),pipelineStatus:'Active',cvName:'',cvFile:null});
+        const fv=String(row[0]||"").trim().toLowerCase();
+        if(["sl no","s no","sr no","#","sno","total"].includes(fv))return;
+        let name=String(row[2]||"").trim();
+        if(!name||name.toLowerCase()==="name"){name=get(row,"Candidate Name","Candidate","Name","Full Name","Applicant Name","Applicant");}
+        if(!name||name.toLowerCase()==="name"||name===""||name==="-")return;
+        cands.push({name,dept,role:get(row,"Role","Position","Job Title","Designation","Opening","Hiring for","Post"),ta:get(row,"TA","TA Name","Recruiter","Assigned To","Assigned","Handled By","SPOC","Spoc"),currentCompany:get(row,"Current Company","Company","Employer","Current Employer","Organisation"),currentLocation:get(row,"Current Location","Present Location","Base Location","City","Location"),currentSalary:get(row,"Current Salary","Current CTC","CTC","Present CTC","Current Package"),expectedSalary:get(row,"Expected Salary","Expected CTC","Expected Package","Exp CTC","Expectation"),noticePeriod:get(row,"Notice Period","Notice","NP"),relocation:normalizeReloc(get(row,"Relocation","Willing to Relocate","Reloc")),gender:get(row,"Gender","Sex","M/F"),stage:normalizeStage(get(row,"Hiring Status","Status","Stage","Recruitment Stage","Current Stage","Remarks","Remark")),source:get(row,"Source","Recruitment Source","Source of CV","Channel","Sourced From","Platform"),dateAdded:get(row,"Date Added","Date","Added On","Date of Application","Applied On","Entry Date"),interviewDate:get(row,"Interview Date","Interview Scheduled","Int Date","Int. Date"),firstInterviewDate:"",secondInterviewDate:"",email:get(row,"Email","Email ID","Mail","Email Address"),phone:get(row,"Phone","Mobile","Contact","Phone No","Mobile No"),notes:get(row,"Notes","Remarks","Comments","Note","Observation"),pipelineStatus:"Active",cvName:"",cvFile:null});
       });
     } else if(planSh){
       const hi=findHdrRow(ne);
-      const hdr=ne[hi].map(h=>String(h).trim().replace(/\*/g,'').replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]/gu,'').trim());
-      const drs=ne.slice(hi+1).filter(r=>r.some(c=>c!==''&&c!==null&&c!==undefined));
+      const hdr=ne[hi].map(h=>String(h).trim().replace(/\*/g,"").replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]/gu,"").trim());
+      const drs=ne.slice(hi+1).filter(r=>r.some(c=>c!==""&&c!==null&&c!==undefined));
       const get=mkGet(hdr);
       drs.forEach(row=>{
-        const pos=get(row,'Position','Role','Job Title','Opening','Designation','Post','Role Title');
-        if(!pos) return;
-        const d=get(row,'Department','Dept','Team','Division','Function');
-        if(d&&!DEPT_LIST.includes(d)) return;
-        rolesList.push({reqNo:get(row,'Req No','Req','Sr No','Sl No','No','ID'),dept:d,location:get(row,'Location','City','Office','Base'),position:pos,headcount:get(row,'Headcount','HC','Count','No of','Number','Positions','Nos')||1,priority:get(row,'Priority','Urgency','Level'),status:get(row,'Status','Hiring Status','Stage')||'Active',recruiter:get(row,'Recruiter','TA','Assigned','SPOC','Handled By'),targetMonth:get(row,'Target Month','Target','Month','Timeline','Expected By'),requisitionDate:get(row,'Requisition Date','Req Date','Date','Raised On'),jdFile:null,jdName:''});
+        const pos=get(row,"Position","Role","Job Title","Opening","Designation","Post","Role Title");
+        if(!pos)return;
+        const d=get(row,"Department","Dept","Team","Division","Function");
+        if(d&&!DEPT_LIST.includes(d))return;
+        rolesList.push({reqNo:get(row,"Req No","Req","Sr No","Sl No","No","ID"),dept:d,location:get(row,"Location","City","Office","Base"),position:pos,headcount:get(row,"Headcount","HC","Count","No of","Number","Positions","Nos")||1,priority:get(row,"Priority","Urgency","Level"),status:get(row,"Status","Hiring Status","Stage")||"Active",recruiter:get(row,"Recruiter","TA","Assigned","SPOC","Handled By"),targetMonth:get(row,"Target Month","Target","Month","Timeline","Expected By"),requisitionDate:get(row,"Requisition Date","Req Date","Date","Raised On"),jdFile:null,jdName:""});
       });
     } else if(prevSh){
       const hi=findHdrRow(ne);
-      const hdr=ne[hi].map(h=>String(h).trim().replace(/\*/g,'').replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]/gu,'').trim()).filter(h=>h);
-      const drs=ne.slice(hi+1).filter(r=>r.some(c=>c!==''&&c!==null&&c!==undefined));
-      drs.forEach(row=>{
-        const obj={};
-        hdr.forEach((h,i)=>{if(h&&row[i]!==undefined&&row[i]!=='') obj[h]=String(row[i]).trim();});
-        if(Object.keys(obj).length>0) prevHiringData.push(obj);
-      });
-      skipped.push(sn+' (loaded as Previous Hiring)');
+      const hdr=ne[hi].map(h=>String(h).trim().replace(/\*/g,"").replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]/gu,"").trim()).filter(h=>h);
+      const drs=ne.slice(hi+1).filter(r=>r.some(c=>c!==""&&c!==null&&c!==undefined));
+      drs.forEach(row=>{const obj={};hdr.forEach((h,i)=>{if(h&&row[i]!==undefined&&row[i]!=="")obj[h]=String(row[i]).trim();});if(Object.keys(obj).length>0)prevHiringData.push(obj);});
     } else {
-      skipped.push(sn+' (unrecognised)');
+      skipped.push(sn+" (unrecognised)");
     }
   });
   state.prevHiring=prevHiringData;
   return{cands,rolesList,skipped};
 }
 
-// FEEDBACK EXCEL PARSE
 const FORM_COL_MAP=[
   {keys:["interviewer","interviewer's name","interviewer name"],out:"interviewers"},
   {keys:["candidate's name","candidate name","candidatename","name"],out:"candidateName"},
@@ -785,291 +636,245 @@ const FORM_COL_MAP=[
   {keys:["candidate job location","job location"],out:"jobLocation"},
   {keys:["candidate current location","current location"],out:"currentLocation"},
   {keys:["date of interview","interview date"],out:"interviewDate"},
-  {keys:["qualification"],out:"qualificationScore"},
-  {keys:["competency"],out:"competencyScore"},
+  {keys:["qualification"],out:"qualificationScore"},{keys:["competency"],out:"competencyScore"},
   {keys:["uae","gcc","work experience in the uae"],out:"gccExperience"},
-  {keys:["relevant experience"],out:"relevantExperience"},
-  {keys:["technical knowledge"],out:"technicalKnowledge"},
-  {keys:["inter-discipline","inter discipline"],out:"interDiscipline"},
-  {keys:["international","int'l"],out:"intlExposure"},
-  {keys:["project management"],out:"projectMgmt"},
-  {keys:["digitalization"],out:"digitalization"},
-  {keys:["leadership"],out:"leadership"},
-  {keys:["teamwork"],out:"teamwork"},
-  {keys:["problem"],out:"problemSolving"},
-  {keys:["communication"],out:"communication"},
-  {keys:["interpersonal"],out:"interpersonal"},
-  {keys:["interview outcome","outcome"],out:"outcome"},
+  {keys:["relevant experience"],out:"relevantExperience"},{keys:["technical knowledge"],out:"technicalKnowledge"},
+  {keys:["inter-discipline","inter discipline"],out:"interDiscipline"},{keys:["international","int'l"],out:"intlExposure"},
+  {keys:["project management"],out:"projectMgmt"},{keys:["digitalization"],out:"digitalization"},
+  {keys:["leadership"],out:"leadership"},{keys:["teamwork"],out:"teamwork"},
+  {keys:["problem"],out:"problemSolving"},{keys:["communication"],out:"communication"},
+  {keys:["interpersonal"],out:"interpersonal"},{keys:["interview outcome","outcome"],out:"outcome"},
   {keys:["reason","comments","remarks"],out:"reason"},
 ];
 function mapFormRow(row,headers){
   const result={};
-  headers.forEach((h,i)=>{
-    const hl=(h||'').toLowerCase().trim();
-    for(const m of FORM_COL_MAP){
-      if(m.keys.some(k=>hl.includes(k))){result[m.out]=String(row[i]??'').trim();break;}
-    }
-  });
+  headers.forEach((h,i)=>{const hl=(h||"").toLowerCase().trim();for(const m of FORM_COL_MAP){if(m.keys.some(k=>hl.includes(k))){result[m.out]=String(row[i]??"").trim();break;}}});
   return result;
 }
 function handleFeedbackUpload(inp){
-  const file=inp.files[0];if(!file) return;
+  const file=inp.files[0];if(!file)return;
   const reader=new FileReader();
   reader.onload=ev=>{
     try{
-      const wb=XLSX.read(ev.target.result,{type:'binary'});
-      const ws=wb.Sheets[wb.SheetNames[0]];
-      const raw=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
-      if(raw.length<2){showFbMsg('No responses found.');return;}
+      const wb=XLSX.read(ev.target.result,{type:"binary"});const ws=wb.Sheets[wb.SheetNames[0]];
+      const raw=XLSX.utils.sheet_to_json(ws,{header:1,defval:""});
+      if(raw.length<2){showFbMsg("No responses found.");return;}
       let hi=0;
-      for(let i=0;i<Math.min(raw.length,5);i++){
-        if(raw[i].some(c=>/(name|candidate|interviewer|date|outcome)/i.test(String(c)))){hi=i;break;}
-      }
+      for(let i=0;i<Math.min(raw.length,5);i++){if(raw[i].some(c=>/(name|candidate|interviewer|date|outcome)/i.test(String(c)))){hi=i;break;}}
       const headers=raw[hi].map(h=>String(h).trim());
-      const records=raw.slice(hi+1).filter(r=>r.some(c=>c!==''&&c!==null&&c!==undefined)).map(r=>({...mapFormRow(r,headers),id:Date.now()+Math.random(),submittedAt:new Date().toISOString()}));
-      const existing=new Set(state.feedbackRecords.map(r=>r.candidateName+'|'+r.interviewDate));
-      const fresh=records.filter(r=>!existing.has(r.candidateName+'|'+r.interviewDate));
+      const records=raw.slice(hi+1).filter(r=>r.some(c=>c!==""&&c!==null&&c!==undefined)).map(r=>({...mapFormRow(r,headers),id:Date.now()+Math.random(),submittedAt:new Date().toISOString()}));
+      const existing=new Set(state.feedbackRecords.map(r=>r.candidateName+"|"+r.interviewDate));
+      const fresh=records.filter(r=>!existing.has(r.candidateName+"|"+r.interviewDate));
       state.feedbackRecords=[...fresh,...state.feedbackRecords];
-      saveToStorage();
-      showFbMsg(fresh.length+' new response'+(fresh.length!==1?'s':'')+' imported.');
-      renderFeedback();
-    }catch(err){showFbMsg('Parse error: '+err.message);}
-    inp.value='';
+      saveToStorage();showFbMsg(fresh.length+" new response"+(fresh.length!==1?"s":"")+" imported.");renderFeedback();
+    }catch(err){showFbMsg("Parse error: "+err.message);}
+    inp.value="";
   };
   reader.readAsBinaryString(file);
 }
-function showFbMsg(msg){
-  const el=document.getElementById('fb-upload-msg');
-  el.textContent=msg;el.classList.remove('hidden');
-  setTimeout(()=>el.classList.add('hidden'),4000);
-}
+function showFbMsg(msg){const el=document.getElementById("fb-upload-msg");el.textContent=msg;el.classList.remove("hidden");setTimeout(()=>el.classList.add("hidden"),4000);}
 
 // ── SHOW APP ──────────────────────────────────────────────────────────────────
 function showApp(){
-  document.getElementById('empty-state').classList.add('hidden');
-  document.getElementById('tab-contents').classList.remove('hidden');
-  populateFilters();
-  renderAll();
+  document.getElementById("empty-state").classList.add("hidden");
+  document.getElementById("tab-contents").classList.remove("hidden");
+  populateFilters();renderAll();
 }
-function showWarn(msg){
-  const el=document.getElementById('parse-warn');
-  document.getElementById('parse-warn-msg').textContent=msg;
-  el.classList.remove('hidden');
-}
+function showWarn(msg){const el=document.getElementById("parse-warn");document.getElementById("parse-warn-msg").textContent=msg;el.classList.remove("hidden");}
 
 // ── CURRENCY ──────────────────────────────────────────────────────────────────
 function setCurrency(c){
   currency=c;
-  document.getElementById('cur-inr').classList.toggle('active',c==='INR');
-  document.getElementById('cur-aed').classList.toggle('active',c==='AED');
-  document.getElementById('aed-notice').classList.toggle('hidden',c!=='AED');
+  document.getElementById("cur-inr").classList.toggle("active",c==="INR");
+  document.getElementById("cur-aed").classList.toggle("active",c==="AED");
+  document.getElementById("aed-notice").classList.toggle("hidden",c!=="AED");
   renderAll();
 }
 
 // ── TAB SWITCH ────────────────────────────────────────────────────────────────
-function switchTab(id, btn){
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  if(btn) btn.classList.add('active');
-  if(id==='pipeline') setTimeout(renderCharts,100);
-  if(id==='feedback') renderFeedback();
-  if(id==='library') renderLibrary();
-  if(id==='roles') renderRoles();
+function switchTab(id,btn){
+  document.querySelectorAll(".tab-content").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll(".nav-tab").forEach(t=>t.classList.remove("active"));
+  document.getElementById("tab-"+id).classList.add("active");
+  if(btn)btn.classList.add("active");
+  if(id==="pipeline")setTimeout(renderCharts,100);
+  if(id==="feedback")renderFeedback();
+  if(id==="library")renderLibrary();
+  if(id==="roles")renderRoles();
 }
 
 // ── POPULATE FILTERS ──────────────────────────────────────────────────────────
 function populateFilters(){
   const depts=[...new Set([...DEPT_LIST.filter(d=>state.candidates.some(c=>c.dept===d)||state.roles.some(r=>r.dept===d))])];
   const tas=[...new Set(state.candidates.map(c=>c.ta).filter(Boolean))].sort();
-  ['cand-dept','pipe-dept','roles-dept','fb-dept','lib-dept'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(!el) return;
-    const first=el.options[0];
-    el.innerHTML='';el.appendChild(first);
-    depts.forEach(d=>{const o=document.createElement('option');o.value=d;o.textContent=d;el.appendChild(o);});
+  ["cand-dept","pipe-dept","roles-dept","fb-dept","lib-dept"].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    const first=el.options[0];el.innerHTML="";el.appendChild(first);
+    depts.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;el.appendChild(o);});
   });
-  ['cand-ta','pipe-ta'].forEach(id=>{
-    const el=document.getElementById(id);if(!el) return;
-    const first=el.options[0];el.innerHTML='';el.appendChild(first);
-    tas.forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;el.appendChild(o);});
+  ["cand-ta","pipe-ta"].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    const first=el.options[0];el.innerHTML="";el.appendChild(first);
+    tas.forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;el.appendChild(o);});
   });
-  ['cand-stage','pipe-stage'].forEach(id=>{
-    const el=document.getElementById(id);if(!el) return;
-    const first=el.options[0];el.innerHTML='';el.appendChild(first);
-    STAGE_ORDER.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;el.appendChild(o);});
+  ["cand-stage","pipe-stage"].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    const first=el.options[0];el.innerHTML="";el.appendChild(first);
+    STAGE_ORDER.forEach(s=>{const o=document.createElement("option");o.value=s;o.textContent=s;el.appendChild(o);});
   });
 }
 
 // ── RENDER ALL ────────────────────────────────────────────────────────────────
 function renderAll(){
-  renderOverview();
-  renderCandidates();
-  renderPipeline();
-  renderRoles();
-  renderFeedback();
-  renderLibrary();
-  if(document.getElementById('tab-pipeline').classList.contains('active')) renderCharts();
-  if(state.lastUpdated) document.getElementById('last-updated').textContent='Last refresh: '+state.lastUpdated;
+  renderOverview();renderCandidates();renderPipeline();renderRoles();renderFeedback();renderLibrary();
+  if(document.getElementById("tab-pipeline").classList.contains("active"))renderCharts();
+  if(state.lastUpdated)document.getElementById("last-updated").textContent="Last refresh: "+state.lastUpdated;
 }
 
 // ── OVERVIEW ──────────────────────────────────────────────────────────────────
 function renderOverview(){
   const c=state.candidates,r=state.roles;
-  document.getElementById('kpi-total').textContent=c.length;
-  document.getElementById('kpi-planned').textContent=r.reduce((s,x)=>s+(parseInt(x.headcount)||1),0);
-  document.getElementById('kpi-open').textContent=r.filter(x=>!['Hired','Closed'].includes(x.status)).length;
-  document.getElementById('kpi-offer').textContent=c.filter(x=>x.stage==='Offer Stage').length;
-  document.getElementById('kpi-hired').textContent=c.filter(x=>x.stage==='Hired').length;
-  const{wStart,wEnd}=getWeekBounds();
-  const{mStart,mEnd}=getMonthBounds();
+  document.getElementById("kpi-total").textContent=c.length;
+  document.getElementById("kpi-planned").textContent=r.reduce((s,x)=>s+(parseInt(x.headcount)||1),0);
+  document.getElementById("kpi-open").textContent=r.filter(x=>!["Hired","Closed"].includes(x.status)).length;
+  document.getElementById("kpi-offer").textContent=c.filter(x=>x.stage==="Offer Stage").length;
+  document.getElementById("kpi-hired").textContent=c.filter(x=>x.stage==="Hired").length;
+  const{wStart,wEnd}=getWeekBounds();const{mStart,mEnd}=getMonthBounds();
   const hasIntDate=x=>[x.interviewDate,x.firstInterviewDate,x.secondInterviewDate].filter(Boolean).some(dt=>{const d=parseDate(dt);return d&&d>=wStart&&d<=wEnd;});
   const hasIntDateM=x=>[x.interviewDate,x.firstInterviewDate,x.secondInterviewDate].filter(Boolean).some(dt=>{const d=parseDate(dt);return d&&d>=mStart&&d<=mEnd;});
-  document.getElementById('kpi-week-int').textContent=c.filter(hasIntDate).length;
-  document.getElementById('kpi-month-int').textContent=c.filter(hasIntDateM).length;
-  const tbody=document.getElementById('overview-summary-body');
-  tbody.innerHTML='';
+  document.getElementById("kpi-week-int").textContent=c.filter(hasIntDate).length;
+  document.getElementById("kpi-month-int").textContent=c.filter(hasIntDateM).length;
+  const sorted=sortByDate([...c],sorts.overview);
+  const deptCounts={};sorted.forEach(x=>{if(!deptCounts[x.dept])deptCounts[x.dept]={planned:0,filled:0};});
+  r.forEach(x=>{if(!deptCounts[x.dept])deptCounts[x.dept]={planned:0,filled:0};deptCounts[x.dept].planned+=parseInt(x.headcount)||1;if(["Hired","Offer Stage"].includes(x.status))deptCounts[x.dept].filled++;});
+  const tbody=document.getElementById("overview-summary-body");tbody.innerHTML="";
   DEPT_LIST.forEach(d=>{
     const planned=r.filter(x=>x.dept===d).length;
-    const filled=r.filter(x=>x.dept===d&&['Hired','Offer Stage'].includes(x.status)).length;
-    const open=Math.max(0,planned-filled);
-    const rate=pct(filled,planned);
-    if(!planned&&!c.some(x=>x.dept===d)) return;
-    tbody.innerHTML+=`<tr><td>${badge(d,DEPT_COLORS[d]||'#d6242f')}</td><td style="text-align:center;font-weight:700">${planned}</td><td style="text-align:center;color:#059669;font-weight:600">${filled}</td><td style="text-align:center"><span style="background:#fff0f0;color:#d6242f;border-radius:99px;padding:2px 10px;font-weight:700;font-size:12px">${open}</span></td><td style="min-width:120px"><div style="display:flex;align-items:center;gap:8px"><div class="prog-bar" style="flex:1"><div class="prog-fill" style="width:${rate}%;background:${rate===100?'#059669':'#d6242f'}"></div></div><span style="font-size:12px;font-weight:700">${rate}%</span></div></td></tr>`;
+    const filled=r.filter(x=>x.dept===d&&["Hired","Offer Stage"].includes(x.status)).length;
+    const open=Math.max(0,planned-filled);const rate=pct(filled,planned);
+    if(!planned&&!c.some(x=>x.dept===d))return;
+    tbody.innerHTML+=`<tr><td>${badge(d,DEPT_COLORS[d]||"#d6242f")}</td><td style="text-align:center;font-weight:700">${planned}</td><td style="text-align:center;color:#059669;font-weight:600">${filled}</td><td style="text-align:center"><span style="background:#fff0f0;color:#d6242f;border-radius:99px;padding:2px 10px;font-weight:700;font-size:12px">${open}</span></td><td style="min-width:120px"><div style="display:flex;align-items:center;gap:8px"><div class="prog-bar" style="flex:1"><div class="prog-fill" style="width:${rate}%;background:${rate===100?"#059669":"#d6242f"}"></div></div><span style="font-size:12px;font-weight:700">${rate}%</span></div></td></tr>`;
   });
 }
 
 // ── CANDIDATES ────────────────────────────────────────────────────────────────
 function getFilteredCandidates(){
   let l=[...state.candidates];
-  const s=document.getElementById('cand-search')?.value.toLowerCase()||'';
-  const d=document.getElementById('cand-dept')?.value||'';
-  const st=document.getElementById('cand-stage')?.value||'';
-  const ta=document.getElementById('cand-ta')?.value||'';
-  if(s) l=l.filter(c=>['name','role','currentLocation','currentCompany','ta'].some(k=>(c[k]||'').toLowerCase().includes(s)));
-  if(d) l=l.filter(c=>c.dept===d);
-  if(st) l=l.filter(c=>c.stage===st);
-  if(ta) l=l.filter(c=>c.ta===ta);
-  return l;
+  const s=document.getElementById("cand-search")?.value.toLowerCase()||"";
+  const d=document.getElementById("cand-dept")?.value||"";
+  const st=document.getElementById("cand-stage")?.value||"";
+  const ta=document.getElementById("cand-ta")?.value||"";
+  if(s)l=l.filter(c=>["name","role","currentLocation","currentCompany","ta"].some(k=>(c[k]||"").toLowerCase().includes(s)));
+  if(d)l=l.filter(c=>c.dept===d);if(st)l=l.filter(c=>c.stage===st);if(ta)l=l.filter(c=>c.ta===ta);
+  return sortByDate(l,sorts.cand);
 }
 function renderCandidates(){
   const l=getFilteredCandidates();
   const totalPages=Math.ceil(l.length/PG);
-  if(candPage>totalPages) candPage=1;
+  if(candPage>totalPages)candPage=1;
   const paged=l.slice((candPage-1)*PG,candPage*PG);
-  document.getElementById('cand-count').textContent='('+l.length+')';
-  const tbody=document.getElementById('cand-body');
-  tbody.innerHTML=paged.map((c,i)=>`<tr>
-    <td style="font-weight:700;color:#d6242f;cursor:pointer" onclick="openDrawer(${state.candidates.indexOf(c)})">${c.name||'—'}</td>
-    <td>${badge(c.dept,DEPT_COLORS[c.dept]||'#d6242f')}</td>
-    <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.role||'—'}</td>
-    <td>${badge(c.stage||'Not Started',STAGE_COLORS[c.stage]||'#7e7e7e')}</td>
-    <td>${c.gender||'—'}</td><td>${c.ta||'—'}</td><td>${c.noticePeriod||'—'}</td>
-    <td>${c.currentLocation||'—'}</td>
-    <td>${fmtSalary(c.currentSalary)}</td>
-    <td>${fmtSalary(c.expectedSalary)}</td>
-    <td>${c.cvFile?`<a href="${c.cvFile}" download="${c.cvName}" style="color:#d6242f;font-weight:700;font-size:11px">CV</a>`:'—'}</td>
+  document.getElementById("cand-count").textContent="("+l.length+")";
+  const tbody=document.getElementById("cand-body");
+  tbody.innerHTML=paged.map(c=>`<tr>
+    <td style="font-weight:700;color:#d6242f;cursor:pointer" onclick="openDrawer(${state.candidates.indexOf(c)})">${c.name||"—"}</td>
+    <td>${badge(c.dept,DEPT_COLORS[c.dept]||"#d6242f")}</td>
+    <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.role||"—"}</td>
+    <td>${badge(c.stage||"Not Started",STAGE_COLORS[c.stage]||"#7e7e7e")}</td>
+    <td>${c.gender||"—"}</td><td>${c.ta||"—"}</td><td>${c.noticePeriod||"—"}</td>
+    <td>${c.currentLocation||"—"}</td><td>${fmtSalary(c.currentSalary)}</td><td>${fmtSalary(c.expectedSalary)}</td>
+    <td>${c.cvFile?`<a href="${c.cvFile}" download="${c.cvName}" style="color:#d6242f;font-weight:700;font-size:11px">CV</a>`:"—"}</td>
     <td><div style="display:flex;gap:3px">
       <button onclick="editCandidate(${state.candidates.indexOf(c)})" style="width:24px;height:24px;border-radius:5px;border:1.5px solid #93c5fd;background:#eff6ff;color:#2563eb;cursor:pointer;font-size:11px">E</button>
       <button onclick="deleteCandidate(${state.candidates.indexOf(c)})" style="width:24px;height:24px;border-radius:5px;border:1.5px solid #fca5a5;background:#fff0f0;color:#ef4444;cursor:pointer;font-size:11px">X</button>
     </div></td>
-  </tr>`).join('');
-  if(!paged.length) tbody.innerHTML='<tr><td colspan="12" style="text-align:center;padding:40px;color:#7e7e7e">No candidates match.</td></tr>';
-  document.getElementById('cand-pager-info').textContent=l.length===0?'No results':'Showing '+(Math.min((candPage-1)*PG+1,l.length))+'–'+Math.min(candPage*PG,l.length)+' of '+l.length;
-  renderPagination('cand-pagination',candPage,totalPages,p=>{candPage=p;renderCandidates();});
+  </tr>`).join("");
+  if(!paged.length)tbody.innerHTML="<tr><td colspan='12' style='text-align:center;padding:40px;color:#7e7e7e'>No candidates match.</td></tr>";
+  document.getElementById("cand-pager-info").textContent=l.length===0?"No results":"Showing "+(Math.min((candPage-1)*PG+1,l.length))+"–"+Math.min(candPage*PG,l.length)+" of "+l.length;
+  renderPagination("cand-pagination",candPage,Math.ceil(l.length/PG),p=>{candPage=p;renderCandidates();});
 }
 function renderPagination(id,page,total,cb){
-  const el=document.getElementById(id);if(!el) return;
-  if(total<=1){el.innerHTML='';return;}
-  let html=`<button class="page-btn" onclick="(${cb.toString()})(${page-1})" ${page===1?'disabled':''}>Prev</button>`;
-  for(let i=1;i<=Math.min(total,7);i++) html+=`<button class="page-btn ${page===i?'active':''}" onclick="(${cb.toString()})(${i})">${i}</button>`;
-  html+=`<button class="page-btn" onclick="(${cb.toString()})(${page+1})" ${page===total?'disabled':''}>Next</button>`;
+  const el=document.getElementById(id);if(!el)return;
+  if(total<=1){el.innerHTML="";return;}
+  let html=`<button class="page-btn" onclick="(${cb.toString()})(${page-1})" ${page===1?"disabled":""}>Prev</button>`;
+  for(let i=1;i<=Math.min(total,7);i++)html+=`<button class="page-btn ${page===i?"active":""}" onclick="(${cb.toString()})(${i})">${i}</button>`;
+  html+=`<button class="page-btn" onclick="(${cb.toString()})(${page+1})" ${page===total?"disabled":""}>Next</button>`;
   el.innerHTML=html;
 }
 
 // ── PIPELINE ──────────────────────────────────────────────────────────────────
 function getFilteredPipeline(){
   let l=state.candidates.filter(c=>ACTIVE_STAGES.includes(c.stage));
-  const s=document.getElementById('pipe-search')?.value.toLowerCase()||'';
-  const d=document.getElementById('pipe-dept')?.value||'';
-  const st=document.getElementById('pipe-stage')?.value||'';
-  const ta=document.getElementById('pipe-ta')?.value||'';
-  if(s) l=l.filter(c=>['name','role','currentLocation','currentCompany','ta'].some(k=>(c[k]||'').toLowerCase().includes(s)));
-  if(d) l=l.filter(c=>c.dept===d);
-  if(st) l=l.filter(c=>c.stage===st);
-  if(ta) l=l.filter(c=>c.ta===ta);
-  return l;
+  const s=document.getElementById("pipe-search")?.value.toLowerCase()||"";
+  const d=document.getElementById("pipe-dept")?.value||"";
+  const st=document.getElementById("pipe-stage")?.value||"";
+  const ta=document.getElementById("pipe-ta")?.value||"";
+  if(s)l=l.filter(c=>["name","role","currentLocation","currentCompany","ta"].some(k=>(c[k]||"").toLowerCase().includes(s)));
+  if(d)l=l.filter(c=>c.dept===d);if(st)l=l.filter(c=>c.stage===st);if(ta)l=l.filter(c=>c.ta===ta);
+  return sortByDate(l,sorts.pipe);
 }
 function renderPipeline(){
   const l=getFilteredPipeline();
-  const totalPages=Math.ceil(l.length/PG);
-  if(pipePage>totalPages) pipePage=1;
+  const totalPages=Math.ceil(l.length/PG);if(pipePage>totalPages)pipePage=1;
   const paged=l.slice((pipePage-1)*PG,pipePage*PG);
-  document.getElementById('pipe-count').textContent='('+l.length+')';
-  const tbody=document.getElementById('pipe-body');
+  document.getElementById("pipe-count").textContent="("+l.length+")";
+  const tbody=document.getElementById("pipe-body");
   tbody.innerHTML=paged.map(c=>`<tr>
-    <td style="font-weight:700;color:#d6242f">${c.name||'—'}</td>
-    <td>${badge(c.dept,DEPT_COLORS[c.dept]||'#d6242f')}</td>
-    <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.role||'—'}</td>
-    <td>${badge(c.stage||'Not Started',STAGE_COLORS[c.stage]||'#7e7e7e')}</td>
-    <td>${c.ta||'—'}</td><td>${c.noticePeriod||'—'}</td>
+    <td style="font-weight:700;color:#d6242f">${c.name||"—"}</td>
+    <td>${badge(c.dept,DEPT_COLORS[c.dept]||"#d6242f")}</td>
+    <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.role||"—"}</td>
+    <td>${badge(c.stage||"Not Started",STAGE_COLORS[c.stage]||"#7e7e7e")}</td>
+    <td>${c.ta||"—"}</td><td>${c.noticePeriod||"—"}</td>
     <td>${fmtSalary(c.currentSalary)}</td><td>${fmtSalary(c.expectedSalary)}</td>
     <td><button onclick="editCandidate(${state.candidates.indexOf(c)})" style="width:24px;height:24px;border-radius:5px;border:1.5px solid #93c5fd;background:#eff6ff;color:#2563eb;cursor:pointer;font-size:11px">E</button></td>
-  </tr>`).join('');
-  if(!paged.length) tbody.innerHTML='<tr><td colspan="9" style="text-align:center;padding:40px;color:#7e7e7e">No active pipeline candidates.</td></tr>';
-  document.getElementById('pipe-pager-info').textContent=l.length===0?'No results':'Showing '+(Math.min((pipePage-1)*PG+1,l.length))+'–'+Math.min(pipePage*PG,l.length)+' of '+l.length;
-  renderPagination('pipe-pagination',pipePage,totalPages,p=>{pipePage=p;renderPipeline();});
+  </tr>`).join("");
+  if(!paged.length)tbody.innerHTML="<tr><td colspan='9' style='text-align:center;padding:40px;color:#7e7e7e'>No active pipeline candidates.</td></tr>";
+  document.getElementById("pipe-pager-info").textContent=l.length===0?"No results":"Showing "+(Math.min((pipePage-1)*PG+1,l.length))+"–"+Math.min(pipePage*PG,l.length)+" of "+l.length;
+  renderPagination("pipe-pagination",pipePage,totalPages,p=>{pipePage=p;renderPipeline();});
 }
 
 // ── CHARTS ────────────────────────────────────────────────────────────────────
-function renderCharts(){
-  renderPipelineChart();
-  renderSourceChart();
-  renderVelocityChart();
-}
-function destroyChart(c){if(c){try{c.destroy();}catch(e){}} return null;}
+let pipelineChart=null,sourceChart=null,velocityChart=null;
+function renderCharts(){renderPipelineChart();renderSourceChart();renderVelocityChart();}
+function destroyChart(c){if(c){try{c.destroy();}catch(e){}}return null;}
 function renderPipelineChart(){
   pipelineChart=destroyChart(pipelineChart);
   const active=state.candidates.filter(c=>ACTIVE_STAGES.includes(c.stage));
   const depts=DEPT_LIST.filter(d=>active.some(c=>c.dept===d));
-  const stages=ACTIVE_STAGES.map(s=>s.replace('Interview/Scheduled','Int.Sched').replace('Interview Feedback Pending','Int.Fb').replace('First Interview','1st Int.').replace('Second Interview','2nd Int.'));
+  const stages=ACTIVE_STAGES.map(s=>s.replace("Interview/Scheduled","Int.Sched").replace("Interview Feedback Pending","Int.Fb").replace("First Interview","1st Int.").replace("Second Interview","2nd Int."));
   const datasets=depts.map((d,i)=>({label:d,data:ACTIVE_STAGES.map(s=>active.filter(c=>c.dept===d&&c.stage===s).length),backgroundColor:DEPT_COLORS[d]||PALETTE[i%PALETTE.length],borderRadius:4}));
-  const ctx=document.getElementById('pipeline-chart');if(!ctx) return;
-  pipelineChart=new Chart(ctx,{type:'bar',data:{labels:stages,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10}}}},scales:{x:{ticks:{font:{size:9}},grid:{display:false}},y:{ticks:{font:{size:10}},grid:{color:'#f0f0f0'}}}}});
+  const ctx=document.getElementById("pipeline-chart");if(!ctx)return;
+  pipelineChart=new Chart(ctx,{type:"bar",data:{labels:stages,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10}}}},scales:{x:{ticks:{font:{size:9}},grid:{display:false}},y:{ticks:{font:{size:10}},grid:{color:"#f0f0f0"}}}}});
 }
 function renderSourceChart(){
   sourceChart=destroyChart(sourceChart);
   const active=state.candidates.filter(c=>ACTIVE_STAGES.includes(c.stage));
-  const m={};active.forEach(c=>{const s=c.source||'Unknown';m[s]=(m[s]||0)+1;});
+  const m={};active.forEach(c=>{const s=c.source||"Unknown";m[s]=(m[s]||0)+1;});
   const data=Object.entries(m).sort((a,b)=>b[1]-a[1]);
-  const ctx=document.getElementById('source-chart');if(!ctx) return;
-  sourceChart=new Chart(ctx,{type:'doughnut',data:{labels:data.map(d=>d[0]),datasets:[{data:data.map(d=>d[1]),backgroundColor:PALETTE,borderWidth:0}]},options:{responsive:false,plugins:{legend:{display:false}},cutout:'55%'}});
-  const legend=document.getElementById('source-legend');
-  legend.innerHTML=data.map((d,i)=>`<div class="src-row"><div class="src-dot" style="background:${PALETTE[i%PALETTE.length]}"></div><span style="font-size:12px;font-weight:600;flex:1">${d[0]}</span><span style="font-size:12px;font-weight:800;color:${PALETTE[i%PALETTE.length]}">${pct(d[1],active.length)}%</span></div>`).join('');
+  const ctx=document.getElementById("source-chart");if(!ctx)return;
+  sourceChart=new Chart(ctx,{type:"doughnut",data:{labels:data.map(d=>d[0]),datasets:[{data:data.map(d=>d[1]),backgroundColor:PALETTE,borderWidth:0}]},options:{responsive:false,plugins:{legend:{display:false}},cutout:"55%"}});
+  const legend=document.getElementById("source-legend");
+  legend.innerHTML=data.map((d,i)=>`<div class="src-row"><div class="src-dot" style="background:${PALETTE[i%PALETTE.length]}"></div><span style="font-size:12px;font-weight:600;flex:1">${d[0]}</span><span style="font-size:12px;font-weight:800;color:${PALETTE[i%PALETTE.length]}">${pct(d[1],active.length)}%</span></div>`).join("");
 }
 function renderVelocityChart(){
   velocityChart=destroyChart(velocityChart);
-  const data=DEPT_LIST.map(d=>({dept:d,planned:state.roles.filter(r=>r.dept===d).reduce((s,r)=>s+(parseInt(r.headcount)||1),0),hired:state.candidates.filter(c=>c.dept===d&&c.stage==='Hired').length,offer:state.candidates.filter(c=>c.dept===d&&c.stage==='Offer Stage').length,pipeline:state.candidates.filter(c=>c.dept===d&&ACTIVE_STAGES.includes(c.stage)&&c.stage!=='Offer Stage').length})).filter(d=>d.planned+d.hired+d.pipeline+d.offer>0);
-  const ctx=document.getElementById('velocity-chart');if(!ctx) return;
-  velocityChart=new Chart(ctx,{type:'bar',data:{labels:data.map(d=>d.dept),datasets:[{label:'Planned',data:data.map(d=>d.planned),backgroundColor:'#e8c4c6',borderRadius:4},{label:'Pipeline',data:data.map(d=>d.pipeline),backgroundColor:'#fac7cc',borderRadius:4},{label:'Offer',data:data.map(d=>d.offer),backgroundColor:'#a01820',borderRadius:4},{label:'Hired',data:data.map(d=>d.hired),backgroundColor:'#000',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'#f0f0f0'},ticks:{font:{size:10}}}}}});
+  const data=DEPT_LIST.map(d=>({dept:d,planned:state.roles.filter(r=>r.dept===d).reduce((s,r)=>s+(parseInt(r.headcount)||1),0),hired:state.candidates.filter(c=>c.dept===d&&c.stage==="Hired").length,offer:state.candidates.filter(c=>c.dept===d&&c.stage==="Offer Stage").length,pipeline:state.candidates.filter(c=>c.dept===d&&ACTIVE_STAGES.includes(c.stage)&&c.stage!=="Offer Stage").length})).filter(d=>d.planned+d.hired+d.pipeline+d.offer>0);
+  const ctx=document.getElementById("velocity-chart");if(!ctx)return;
+  velocityChart=new Chart(ctx,{type:"bar",data:{labels:data.map(d=>d.dept),datasets:[{label:"Planned",data:data.map(d=>d.planned),backgroundColor:"#e8c4c6",borderRadius:4},{label:"Pipeline",data:data.map(d=>d.pipeline),backgroundColor:"#fac7cc",borderRadius:4},{label:"Offer",data:data.map(d=>d.offer),backgroundColor:"#a01820",borderRadius:4},{label:"Hired",data:data.map(d=>d.hired),backgroundColor:"#000",borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10}}}},scales:{x:{grid:{display:false}},y:{grid:{color:"#f0f0f0"},ticks:{font:{size:10}}}}}});
 }
 
 // ── ROLES ─────────────────────────────────────────────────────────────────────
 function renderRoles(){
   const c=state.candidates,r=state.roles;
-  // Summary cards
-  const sc=document.getElementById('roles-summary-cards');
+  const sc=document.getElementById("roles-summary-cards");
   sc.innerHTML=DEPT_LIST.map(d=>{
     const planned=r.filter(x=>x.dept===d).reduce((s,x)=>s+(parseInt(x.headcount)||1),0);
-    const hired=c.filter(x=>x.dept===d&&x.stage==='Hired').length;
-    const offer=c.filter(x=>x.dept===d&&x.stage==='Offer Stage').length;
-    const pipeline=c.filter(x=>x.dept===d&&ACTIVE_STAGES.includes(x.stage)&&x.stage!=='Offer Stage').length;
-    const fulfilled=hired+offer;
-    const gap=Math.max(0,planned-fulfilled);
-    const rate=pct(fulfilled,planned);
-    if(!planned&&!hired&&!pipeline&&!offer) return '';
-    return `<div class="role-card">
-      ${badge(d,DEPT_COLORS[d]||'#d6242f')}
+    const hired=c.filter(x=>x.dept===d&&x.stage==="Hired").length;
+    const offer=c.filter(x=>x.dept===d&&x.stage==="Offer Stage").length;
+    const pipeline=c.filter(x=>x.dept===d&&ACTIVE_STAGES.includes(x.stage)&&x.stage!=="Offer Stage").length;
+    const fulfilled=hired+offer;const gap=Math.max(0,planned-fulfilled);const rate=pct(fulfilled,planned);
+    if(!planned&&!hired&&!pipeline&&!offer)return"";
+    return`<div class="role-card">
+      ${badge(d,DEPT_COLORS[d]||"#d6242f")}
       <div style="display:flex;justify-content:space-between;margin:12px 0 6px">
         <button onclick="showDeptDrill('${d}','planned')" style="text-align:center;background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:10px" onmouseenter="this.style.background='#f5f5f5'" onmouseleave="this.style.background='none'">
           <div style="font-size:22px;font-weight:900">${planned}</div><div style="font-size:10px;color:#7e7e7e;font-weight:700;text-transform:uppercase">Planned</div>
@@ -1081,604 +886,476 @@ function renderRoles(){
           <div style="font-size:22px;font-weight:900;color:#d6242f">${gap}</div><div style="font-size:10px;color:#7e7e7e;font-weight:700;text-transform:uppercase">Gap</div>
         </button>
       </div>
-      <div class="prog-bar"><div class="prog-fill" style="width:${rate}%;background:${rate===100?'#059669':'#d6242f'}"></div></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${rate}%;background:${rate===100?"#059669":"#d6242f"}"></div></div>
       <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px">
         <span style="color:#7e7e7e;font-weight:700">${rate}% filled</span>
         <span style="color:#f59e0b;font-weight:700">${pipeline} pipeline</span>
         <span style="color:#059669;font-weight:700">${hired} hired</span>
       </div>
     </div>`;
-  }).join('');
-  // Table
-  const fd=document.getElementById('roles-dept')?.value||'';
-  const fs=document.getElementById('roles-status')?.value||'';
+  }).join("");
+  const fd=document.getElementById("roles-dept")?.value||"";
+  const fs=document.getElementById("roles-status")?.value||"";
   let filtered=r.filter(x=>DEPT_LIST.includes(x.dept)||!x.dept);
-  if(fd) filtered=filtered.filter(x=>x.dept===fd);
-  if(fs) filtered=filtered.filter(x=>x.status===fs);
-  document.getElementById('roles-count').textContent='('+filtered.length+')';
-  const tbody=document.getElementById('roles-body');
+  if(fd)filtered=filtered.filter(x=>x.dept===fd);
+  if(fs)filtered=filtered.filter(x=>x.status===fs);
+  filtered=sortByDate(filtered,sorts.roles);
+  document.getElementById("roles-count").textContent="("+filtered.length+")";
+  const tbody=document.getElementById("roles-body");
   tbody.innerHTML=filtered.map((x,i)=>{
-    const band=getBand(x.position);
-    const ridx=r.indexOf(x);
+    const band=getBand(x.position);const ridx=r.indexOf(x);
     return`<tr>
-      <td style="font-weight:700;color:#d6242f">${x.reqNo||'IND-'+(i+1)}</td>
-      <td>${badge(x.dept||'—',DEPT_COLORS[x.dept]||'#d6242f')}</td>
-      <td style="color:#7e7e7e">${x.location||'—'}</td>
-      <td style="font-weight:600;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${x.position||'—'}</td>
+      <td style="font-weight:700;color:#d6242f">${x.reqNo||"IND-"+(i+1)}</td>
+      <td>${badge(x.dept||"—",DEPT_COLORS[x.dept]||"#d6242f")}</td>
+      <td style="color:#7e7e7e">${x.location||"—"}</td>
+      <td style="font-weight:600;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${x.position||"—"}</td>
       <td style="text-align:center;font-weight:800">${x.headcount||1}</td>
-      <td style="font-size:12px;color:#a01820;font-weight:700;white-space:nowrap">${band?band.level:'—'}</td>
-      <td style="font-size:12px;color:#82939a;white-space:nowrap">${band?band.exp:'—'}</td>
-      <td style="font-size:12px;color:#059669;font-weight:700;white-space:nowrap">${band?band.sal:'—'}</td>
-      <td>${badge(x.priority||'—',x.priority==='High'?'#ef4444':x.priority==='Medium'?'#f59e0b':'#7e7e7e')}</td>
-      <td style="color:#7e7e7e">${x.targetMonth||'—'}</td>
-      <td style="color:#7e7e7e">${x.recruiter||'—'}</td>
-      <td><select onchange="updateRoleStatus(${ridx},this.value)" style="padding:4px 8px;border-radius:6px;font-size:11px;font-weight:700;outline:none;border:1.5px solid ${(x.status||'Active')==='Active'?'#059669':'#f59e0b'};color:${(x.status||'Active')==='Active'?'#059669':'#b45309'};background:#fff;cursor:pointer">
-        ${STATUS_OPTIONS.map(s=>`<option ${x.status===s?'selected':''}>${s}</option>`).join('')}
+      <td style="font-size:12px;color:#a01820;font-weight:700;white-space:nowrap">${band?band.level:"—"}</td>
+      <td style="font-size:12px;color:#82939a;white-space:nowrap">${band?band.exp:"—"}</td>
+      <td style="font-size:12px;color:#059669;font-weight:700;white-space:nowrap">${band?band.sal:"—"}</td>
+      <td>${badge(x.priority||"—",x.priority==="High"?"#ef4444":x.priority==="Medium"?"#f59e0b":"#7e7e7e")}</td>
+      <td style="color:#7e7e7e">${x.targetMonth||"—"}</td>
+      <td style="color:#7e7e7e">${x.recruiter||"—"}</td>
+      <td><select onchange="updateRoleStatus(${ridx},this.value)" style="padding:4px 8px;border-radius:6px;font-size:11px;font-weight:700;outline:none;border:1.5px solid ${(x.status||"Active")==="Active"?"#059669":"#f59e0b"};color:${(x.status||"Active")==="Active"?"#059669":"#b45309"};background:#fff;cursor:pointer">
+        ${STATUS_OPTIONS.map(s=>`<option ${x.status===s?"selected":""}>${s}</option>`).join("")}
       </select></td>
-      <td>${x.jdFile?`<a href="${x.jdFile}" download="${x.jdName}" style="color:#d6242f;font-weight:700;font-size:12px">Download</a>`:'—'}</td>
+      <td>${x.jdFile?`<a href="${x.jdFile}" download="${x.jdName}" style="color:#d6242f;font-weight:700;font-size:12px">Download</a>`:"—"}</td>
       <td><div style="display:flex;gap:4px">
         <button onclick="editRole(${ridx})" style="width:26px;height:26px;border-radius:6px;border:1.5px solid #93c5fd;background:#eff6ff;color:#2563eb;cursor:pointer;font-size:12px">E</button>
         <button onclick="deleteRole(${ridx})" style="width:26px;height:26px;border-radius:6px;border:1.5px solid #fca5a5;background:#fff0f0;color:#ef4444;cursor:pointer;font-size:12px">X</button>
       </div></td>
     </tr>`;
-  }).join('');
-  if(!filtered.length) tbody.innerHTML='<tr><td colspan="14" style="text-align:center;padding:40px;color:#7e7e7e">No roles found.</td></tr>';
+  }).join("");
+  if(!filtered.length)tbody.innerHTML="<tr><td colspan='14' style='text-align:center;padding:40px;color:#7e7e7e'>No roles found.</td></tr>";
 }
 function updateRoleStatus(idx,val){state.roles[idx].status=val;saveToStorage();renderRoles();}
-function deleteRole(idx){if(confirm('Delete this role?')){state.roles.splice(idx,1);saveToStorage();renderAll();}}
+function deleteRole(idx){if(confirm("Delete this role?")){state.roles.splice(idx,1);saveToStorage();renderAll();}}
+function showDeptDrill(dept,type){
+  let data=[],title="",cols=[];
+  if(type==="planned"){data=state.roles.filter(r=>r.dept===dept);title=dept+" — Planned Roles";cols=["reqNo","position","headcount","priority","status","recruiter","targetMonth"];}
+  else if(type==="filled"){data=state.candidates.filter(c=>c.dept===dept&&(c.stage==="Hired"||c.stage==="Offer Stage"));title=dept+" — Filled Positions";cols=["name","role","stage","ta","noticePeriod","currentSalary","expectedSalary"];}
+  else{data=state.roles.filter(r=>r.dept===dept&&!["Hired","Closed"].includes(r.status));title=dept+" — Open Roles (Gap)";cols=["reqNo","position","headcount","priority","status","recruiter","targetMonth"];}
+  window._drillData=data;
+  showModal(`<div class="modal-overlay"><div class="modal-box wide">
+    <div class="modal-header"><span class="modal-title">${title} (${data.length})</span><button class="modal-close" onclick="closeModal()">×</button></div>
+    <div class="modal-body">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button onclick="exportXLSX(window._drillData,'9E_${dept}_${type}.xlsx')" style="padding:6px 14px;background:#059669;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">Export</button></div>
+      <div style="overflow-x:auto"><table class="tbl"><thead><tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead>
+      <tbody>${data.length===0?`<tr><td colspan="${cols.length}" style="text-align:center;padding:40px;color:#7e7e7e">No data found.</td></tr>`:
+      data.map(r=>`<tr>${cols.map(c=>`<td>${c==="stage"?badge(r[c]||"—",STAGE_COLORS[r[c]]||"#7e7e7e"):c==="dept"?badge(r[c]||"—",DEPT_COLORS[r[c]]||"#d6242f"):["currentSalary","expectedSalary"].includes(c)?fmtSalary(r[c]):(r[c]||"—")}</td>`).join("")}</tr>`).join("")}
+      </tbody></table></div>
+    </div>
+  </div></div>`);
+}
 
 // ── FEEDBACK ──────────────────────────────────────────────────────────────────
 function renderFeedback(){
   const allInt=new Set([...state.candidates.filter(c=>INTERVIEW_STAGES.includes(c.stage)).map(c=>c.name),...state.feedbackRecords.map(f=>f.candidateName).filter(Boolean)]);
-  const s=document.getElementById('fb-search')?.value.toLowerCase()||'';
-  const d=document.getElementById('fb-dept')?.value||'';
-  let candList=[...allInt].map(name=>state.candidates.find(c=>c.name===name)||{name,dept:'—',role:'—',stage:'—',ta:'—'});
-  if(s) candList=candList.filter(c=>[c.name,c.role,c.ta].some(v=>(v||'').toLowerCase().includes(s)));
-  if(d) candList=candList.filter(c=>c.dept===d);
-  document.getElementById('fb-count-info').innerHTML=`<strong style="color:#d6242f">${candList.length}</strong> candidates · <strong style="color:#059669">${state.feedbackRecords.length}</strong> responses`;
-  // Outcome summary
-  const outcomeMap={};
-  state.feedbackRecords.forEach(f=>{const o=f.outcome||'Unknown';outcomeMap[o]=(outcomeMap[o]||0)+1;});
-  document.getElementById('outcome-summary').innerHTML=Object.entries(outcomeMap).map(([o,n])=>{
-    const c=OUTCOME_COLORS[o]||'#7e7e7e';
+  const s=document.getElementById("fb-search")?.value.toLowerCase()||"";
+  const d=document.getElementById("fb-dept")?.value||"";
+  let candList=[...allInt].map(name=>state.candidates.find(c=>c.name===name)||{name,dept:"—",role:"—",stage:"—",ta:"—"});
+  if(s)candList=candList.filter(c=>[c.name,c.role,c.ta].some(v=>(v||"").toLowerCase().includes(s)));
+  if(d)candList=candList.filter(c=>c.dept===d);
+  candList=sortByDate(candList,sorts.fb);
+  document.getElementById("fb-count-info").innerHTML=`<strong style="color:#d6242f">${candList.length}</strong> candidates · <strong style="color:#059669">${state.feedbackRecords.length}</strong> responses`;
+  const outcomeMap={};state.feedbackRecords.forEach(f=>{const o=f.outcome||"Unknown";outcomeMap[o]=(outcomeMap[o]||0)+1;});
+  document.getElementById("outcome-summary").innerHTML=Object.entries(outcomeMap).map(([o,n])=>{
+    const c=OUTCOME_COLORS[o]||"#7e7e7e";
     return`<div class="outcome-card" style="border-color:${c}30" onclick="showOutcomeDetail('${encodeURIComponent(o)}')" onmouseenter="this.style.background='${c}10'" onmouseleave="this.style.background='#fff'">
       <div style="font-size:26px;font-weight:900;color:${c}">${n}</div>
       <div style="font-size:11px;color:#7e7e7e;font-weight:700;margin-top:4px;line-height:1.3">${o}</div>
     </div>`;
-  }).join('');
-  // Candidate list
-  document.getElementById('fb-list').innerHTML=candList.map(c=>{
-    const fb=state.feedbackRecords.filter(f=>(f.candidateName||'').toLowerCase().trim()===c.name.toLowerCase().trim());
-    const latestFb=fb[fb.length-1];
-    const outColor=latestFb?.outcome?OUTCOME_COLORS[latestFb.outcome]||null:null;
-    const ci=state.candidates.indexOf(state.candidates.find(x=>x.name===c.name));
-    const intDate=c.stage==='First Interview'?(c.firstInterviewDate||c.interviewDate):c.stage==='Second Interview'?(c.secondInterviewDate||c.interviewDate):c.interviewDate;
-    return`<div class="fb-card" style="border-left:4px solid ${outColor||'#e1e1e1'}">
+  }).join("");
+  document.getElementById("fb-list").innerHTML=candList.map(c=>{
+    const fb=state.feedbackRecords.filter(f=>(f.candidateName||"").toLowerCase().trim()===c.name.toLowerCase().trim());
+    const latestFb=fb[fb.length-1];const outColor=latestFb?.outcome?OUTCOME_COLORS[latestFb.outcome]||null:null;
+    const intDate=c.stage==="First Interview"?(c.firstInterviewDate||c.interviewDate):c.stage==="Second Interview"?(c.secondInterviewDate||c.interviewDate):c.interviewDate;
+    return`<div class="fb-card" style="border-left:4px solid ${outColor||"#e1e1e1"}">
       <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
         <div style="flex:1;min-width:200px">
-          <div style="font-size:15px;font-weight:900;color:#d6242f;cursor:${fb.length>0?'pointer':'default'}" onclick="${fb.length>0?`openFeedbackDetail('${encodeURIComponent(c.name)}',0)`:''}">${c.name}</div>
-          <div style="font-size:12px;color:#7e7e7e;margin-top:3px">${(c.role||'—')+' · TA: '+(c.ta||'—')}</div>
-          ${intDate?`<div style="font-size:11px;color:#82939a;margin-top:2px">Date: ${fmtDate(intDate)}</div>`:''}
+          <div style="font-size:15px;font-weight:900;color:#d6242f;cursor:${fb.length>0?"pointer":"default"}" onclick="${fb.length>0?`openFeedbackDetail('${encodeURIComponent(c.name)}',0)`:""}">${c.name}</div>
+          <div style="font-size:12px;color:#7e7e7e;margin-top:3px">${(c.role||"—")+" · TA: "+(c.ta||"—")}</div>
+          ${intDate?`<div style="font-size:11px;color:#82939a;margin-top:2px">Date: ${fmtDate(intDate)}</div>`:""}
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
-          ${c.dept&&c.dept!=='—'?badge(c.dept,DEPT_COLORS[c.dept]||'#d6242f'):''}
-          ${c.stage&&c.stage!=='—'?badge(c.stage,STAGE_COLORS[c.stage]||'#7e7e7e'):''}
-          ${latestFb?.outcome?`<span style="font-weight:700;font-size:11px;color:${outColor};background:${outColor}15;border:1.5px solid ${outColor}30;border-radius:99px;padding:3px 10px">${latestFb.outcome}</span>`:''}
+          ${c.dept&&c.dept!=="—"?badge(c.dept,DEPT_COLORS[c.dept]||"#d6242f"):""}
+          ${c.stage&&c.stage!=="—"?badge(c.stage,STAGE_COLORS[c.stage]||"#7e7e7e"):""}
+          ${latestFb?.outcome?`<span style="font-weight:700;font-size:11px;color:${outColor};background:${outColor}15;border:1.5px solid ${outColor}30;border-radius:99px;padding:3px 10px">${latestFb.outcome}</span>`:""}
         </div>
         <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
-          ${fb.length>0?`<button onclick="openFeedbackDetail('${encodeURIComponent(c.name)}',0)" style="padding:7px 14px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;cursor:pointer;color:#065f46;font-weight:700;font-size:12px">${fb.length} Response${fb.length>1?'s':''} - View</button>`:'<span style="font-size:12px;color:#d9d9d9;font-weight:600">No feedback yet</span>'}
+          ${fb.length>0?`<button onclick="openFeedbackDetail('${encodeURIComponent(c.name)}',0)" style="padding:7px 14px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;cursor:pointer;color:#065f46;font-weight:700;font-size:12px">${fb.length} Response${fb.length>1?"s":""} - View</button>`:"<span style='font-size:12px;color:#d9d9d9;font-weight:600'>No feedback yet</span>"}
           <button onclick="openSendFeedback('${encodeURIComponent(c.name)}')" style="padding:7px 14px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">Send Form</button>
           <button onclick="openManualFeedback('${encodeURIComponent(c.name)}')" style="padding:7px 14px;background:#f0f9ff;border:1.5px solid #93c5fd;color:#1d4ed8;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">+ Log</button>
         </div>
       </div>
       ${fb.length>0?`<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;padding-top:12px;border-top:1px solid #f0f0f0">
-        ${fb.map((r,j)=>{const rc=OUTCOME_COLORS[r.outcome]||'#7e7e7e';return`<div style="display:flex;border-radius:8px;overflow:hidden;border:1.5px solid ${rc}40">
-          <button onclick="openFeedbackDetail('${encodeURIComponent(c.name)}',${j})" style="padding:5px 12px;background:${rc}12;border:none;cursor:pointer;font-size:12px;font-weight:700;color:${rc}">Response ${j+1} · ${r.interviewers||'—'} · ${fmtDate(r.interviewDate||r.submittedAt)}</button>
+        ${fb.map((r,j)=>{const rc=OUTCOME_COLORS[r.outcome]||"#7e7e7e";return`<div style="display:flex;border-radius:8px;overflow:hidden;border:1.5px solid ${rc}40">
+          <button onclick="openFeedbackDetail('${encodeURIComponent(c.name)}',${j})" style="padding:5px 12px;background:${rc}12;border:none;cursor:pointer;font-size:12px;font-weight:700;color:${rc}">Response ${j+1} · ${r.interviewers||"—"} · ${fmtDate(r.interviewDate||r.submittedAt)}</button>
           <button onclick="deleteFeedback('${r.id}')" style="padding:5px 8px;background:#fff0f0;border:none;border-left:1px solid #e1e1e1;cursor:pointer;color:#ef4444;font-size:12px;font-weight:900">×</button>
-        </div>`}).join('')}
-      </div>`:''}
+        </div>`}).join("")}
+      </div>`:""}
     </div>`;
-  }).join('');
-  if(!candList.length) document.getElementById('fb-list').innerHTML='<div style="text-align:center;padding:60px;color:#7e7e7e;font-size:14px">No candidates here yet. Move candidates to an interview stage or upload MS Forms export.</div>';
+  }).join("");
+  if(!candList.length)document.getElementById("fb-list").innerHTML="<div style='text-align:center;padding:60px;color:#7e7e7e;font-size:14px'>No candidates here yet. Move candidates to an interview stage or upload MS Forms export.</div>";
 }
-function deleteFeedback(id){
-  if(!confirm('Delete this feedback response?')) return;
-  state.feedbackRecords=state.feedbackRecords.filter(f=>String(f.id)!==String(id));
-  saveToStorage();renderFeedback();
-}
+function deleteFeedback(id){if(!confirm("Delete this feedback response?"))return;state.feedbackRecords=state.feedbackRecords.filter(f=>String(f.id)!==String(id));saveToStorage();renderFeedback();}
 
 // ── LIBRARY ───────────────────────────────────────────────────────────────────
 function renderLibrary(){
-  const s=document.getElementById('lib-search')?.value.toLowerCase()||'';
-  const d=document.getElementById('lib-dept')?.value||'';
-  const t=document.getElementById('lib-type')?.value||'';
-  const lib=state.jdLibrary.map(j=>({...j,type:'JD',source:'library'}));
-  const fromRoles=state.roles.filter(r=>r.jdFile).map(r=>({id:'role_'+r.position,name:r.jdName||'JD',file:r.jdFile,title:r.jdName||'JD',role:r.position,dept:r.dept,type:'JD',source:'role'}));
-  const fromCands=state.candidates.filter(c=>c.cvFile).map(c=>({id:'cv_'+c.name,name:c.cvName||'CV',file:c.cvFile,title:c.cvName||'CV',role:c.role,dept:c.dept,type:'CV',candidate:c.name,source:'candidate'}));
+  const s=document.getElementById("lib-search")?.value.toLowerCase()||"";
+  const d=document.getElementById("lib-dept")?.value||"";
+  const t=document.getElementById("lib-type")?.value||"";
+  const lib=state.jdLibrary.map(j=>({...j,type:"JD",source:"library"}));
+  const fromRoles=state.roles.filter(r=>r.jdFile).map(r=>({id:"role_"+r.position,name:r.jdName||"JD",file:r.jdFile,title:r.jdName||"JD",role:r.position,dept:r.dept,type:"JD",source:"role"}));
+  const fromCands=state.candidates.filter(c=>c.cvFile).map(c=>({id:"cv_"+c.name,name:c.cvName||"CV",file:c.cvFile,title:c.cvName||"CV",role:c.role,dept:c.dept,type:"CV",candidate:c.name,source:"candidate"}));
   let all=[...lib,...fromRoles,...fromCands];
-  if(s) all=all.filter(x=>[x.name,x.role,x.dept,x.title,x.candidate].some(v=>(v||'').toLowerCase().includes(s)));
-  if(d) all=all.filter(x=>x.dept===d);
-  if(t) all=all.filter(x=>x.type===t);
-  const jds=all.filter(x=>x.type==='JD');
-  const cvs=all.filter(x=>x.type==='CV');
-  let html='';
-  if(jds.length){
-    html+=`<div style="font-size:14px;font-weight:800;margin-bottom:12px">Job Descriptions (${jds.length})</div>`;
-    html+=`<div class="lib-grid" style="margin-bottom:22px">${jds.map(d=>libCard(d)).join('')}</div>`;
-  }
-  if(cvs.length){
-    html+=`<div style="font-size:14px;font-weight:800;margin-bottom:12px">Candidate CVs (${cvs.length})</div>`;
-    html+=`<div class="lib-grid">${cvs.map(d=>libCard(d)).join('')}</div>`;
-  }
-  if(!all.length) html='<div style="text-align:center;padding:60px;color:#7e7e7e;font-size:14px">No documents yet. Click + Add JD to upload.</div>';
-  document.getElementById('lib-content').innerHTML=html;
+  if(s)all=all.filter(x=>[x.name,x.role,x.dept,x.title,x.candidate].some(v=>(v||"").toLowerCase().includes(s)));
+  if(d)all=all.filter(x=>x.dept===d);if(t)all=all.filter(x=>x.type===t);
+  const jds=all.filter(x=>x.type==="JD");const cvs=all.filter(x=>x.type==="CV");
+  let html="";
+  if(jds.length){html+=`<div style="font-size:14px;font-weight:800;margin-bottom:12px">Job Descriptions (${jds.length})</div><div class="lib-grid" style="margin-bottom:22px">${jds.map(d=>libCard(d)).join("")}</div>`;}
+  if(cvs.length){html+=`<div style="font-size:14px;font-weight:800;margin-bottom:12px">Candidate CVs (${cvs.length})</div><div class="lib-grid">${cvs.map(d=>libCard(d)).join("")}</div>`;}
+  if(!all.length)html="<div style='text-align:center;padding:60px;color:#7e7e7e;font-size:14px'>No documents yet. Click + Add JD to upload.</div>";
+  document.getElementById("lib-content").innerHTML=html;
 }
 function libCard(d){
-  return`<div class="lib-card">
-    <div style="width:44px;height:44px;border-radius:12px;flex-shrink:0;background:${d.type==='JD'?'#fff5f5':'#f0fdf4'};display:flex;align-items:center;justify-content:center;font-size:22px">${d.type==='JD'?'📄':'👤'}</div>
-    <div style="flex:1;min-width:0">
-      <div style="font-weight:800;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${d.title||d.name}</div>
-      <div style="font-size:12px;color:#7e7e7e;margin-top:2px">${(d.role||'—')+' · '}${badge(d.dept||'—',DEPT_COLORS[d.dept]||'#d6242f')}</div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:6px">
-      <a href="${d.file}" download="${d.name}" style="padding:7px 14px;background:linear-gradient(135deg,#a01820,#d6242f);color:#fff;border-radius:8px;font-weight:700;font-size:12px;text-decoration:none;white-space:nowrap">Download</a>
-      ${d.source==='library'?`<button onclick="removeJD('${d.id}')" style="padding:4px 10px;background:#fff0f0;border:1px solid #fca5a5;color:#ef4444;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">Remove</button>`:''}
-    </div>
-  </div>`;
+  return`<div class="lib-card"><div style="width:44px;height:44px;border-radius:12px;flex-shrink:0;background:${d.type==="JD"?"#fff5f5":"#f0fdf4"};display:flex;align-items:center;justify-content:center;font-size:22px">${d.type==="JD"?"📄":"👤"}</div>
+  <div style="flex:1;min-width:0"><div style="font-weight:800;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${d.title||d.name}</div><div style="font-size:12px;color:#7e7e7e;margin-top:2px">${(d.role||"—")+" · "}${badge(d.dept||"—",DEPT_COLORS[d.dept]||"#d6242f")}</div></div>
+  <div style="display:flex;flex-direction:column;gap:6px"><a href="${d.file}" download="${d.name}" style="padding:7px 14px;background:linear-gradient(135deg,#a01820,#d6242f);color:#fff;border-radius:8px;font-weight:700;font-size:12px;text-decoration:none;white-space:nowrap">Download</a>
+  ${d.source==="library"?`<button onclick="removeJD('${d.id}')" style="padding:4px 10px;background:#fff0f0;border:1px solid #fca5a5;color:#ef4444;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">Remove</button>`:""}</div></div>`;
 }
-function removeJD(id){if(confirm('Remove this JD?')){state.jdLibrary=state.jdLibrary.filter(j=>String(j.id)!==String(id));saveToStorage();renderLibrary();}}
+function removeJD(id){if(confirm("Remove this JD?")){state.jdLibrary=state.jdLibrary.filter(j=>String(j.id)!==String(id));saveToStorage();renderLibrary();}}
 
 // ── MODALS ────────────────────────────────────────────────────────────────────
-function showModal(html){
-  const c=document.getElementById('modals');
-  c.innerHTML=html;
-  c.querySelector('.modal-overlay').addEventListener('click',e=>{if(e.target===e.currentTarget) closeModal();});
-}
-function closeModal(){document.getElementById('modals').innerHTML='';}
-function closeDrawer(){const d=document.getElementById('drawer-overlay');if(d) d.remove();}
+function showModal(html){const c=document.getElementById("modals");c.innerHTML=html;c.querySelector(".modal-overlay").addEventListener("click",e=>{if(e.target===e.currentTarget)closeModal();});}
+function closeModal(){document.getElementById("modals").innerHTML="";}
+function closeDrawer(){const d=document.getElementById("drawer-overlay");if(d)d.remove();}
 
-// KPI MODALS
 function showKpiModal(type){
-  let data=[],title='',cols=[];
-  if(type==='total'){data=state.candidates;title='All Candidates';cols=['name','dept','role','stage','ta','noticePeriod','currentSalary','expectedSalary'];}
-  else if(type==='rolesPlanned'){data=state.roles;title='Roles Planned';cols=['reqNo','dept','position','headcount','priority','status','recruiter','targetMonth'];}
-  else if(type==='rolesOpen'){data=state.roles.filter(r=>!['Hired','Closed'].includes(r.status));title='Open Roles';cols=['reqNo','dept','position','headcount','priority','status','recruiter','targetMonth'];}
-  const isRoles=type!=='total';
-  showModal(`<div class="modal-overlay"><div class="modal-box wide">
-    <div class="modal-header"><span class="modal-title">${title} (${data.length})</span><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">
-      <div style="overflow-x:auto"><table class="tbl"><thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead>
-      <tbody>${data.slice(0,200).map(r=>`<tr>${cols.map(c=>`<td>${c==='stage'?badge(r[c]||'—',STAGE_COLORS[r[c]]||'#7e7e7e'):c==='dept'?badge(r[c]||'—',DEPT_COLORS[r[c]]||'#d6242f'):['currentSalary','expectedSalary'].includes(c)?fmtSalary(r[c]):(r[c]||'—')}</td>`).join('')}</tr>`).join('')}</tbody>
-      </table></div>
-    </div>
-  </div></div>`);
+  let data=[],title="",cols=[];
+  if(type==="total"){data=state.candidates;title="All Candidates";cols=["name","dept","role","stage","ta","noticePeriod","currentSalary","expectedSalary"];}
+  else if(type==="rolesPlanned"){data=state.roles;title="Roles Planned";cols=["reqNo","dept","position","headcount","priority","status","recruiter","targetMonth"];}
+  else if(type==="rolesOpen"){data=state.roles.filter(r=>!["Hired","Closed"].includes(r.status));title="Open Roles";cols=["reqNo","dept","position","headcount","priority","status","recruiter","targetMonth"];}
+  showModal(`<div class="modal-overlay"><div class="modal-box wide"><div class="modal-header"><span class="modal-title">${title} (${data.length})</span><button class="modal-close" onclick="closeModal()">×</button></div>
+  <div class="modal-body"><div style="overflow-x:auto"><table class="tbl"><thead><tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead>
+  <tbody>${data.slice(0,200).map(r=>`<tr>${cols.map(c=>`<td>${c==="stage"?badge(r[c]||"—",STAGE_COLORS[r[c]]||"#7e7e7e"):c==="dept"?badge(r[c]||"—",DEPT_COLORS[r[c]]||"#d6242f"):["currentSalary","expectedSalary"].includes(c)?fmtSalary(r[c]):(r[c]||"—")}</td>`).join("")}</tr>`).join("")}</tbody>
+  </table></div></div></div></div>`);
 }
 function showOfferModal(){
-  const offers=state.candidates.filter(c=>c.stage==='Offer Stage');
-  showModal(`<div class="modal-overlay"><div class="modal-box wide">
-    <div class="modal-header"><span class="modal-title">Offer Stage — ${offers.length}</span><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">${offers.length===0?'<div style="text-align:center;padding:40px;color:#7e7e7e">No candidates in Offer Stage.</div>':
-    offers.map((c,i)=>`<div style="background:#fafafa;border-radius:14px;padding:18px;border:1.5px solid #e1e1e1;margin-bottom:12px">
-      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-        <div><div style="font-size:16px;font-weight:800">${c.name}</div><div style="font-size:13px;color:#7e7e7e">${c.role||'—'}</div></div>
-        <div style="display:flex;gap:8px;align-items:center">${badge(c.dept,DEPT_COLORS[c.dept]||'#d6242f')}
-        <button onclick="markHired('${encodeURIComponent(c.name)}')" style="padding:5px 12px;background:#059669;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:11px;cursor:pointer;font-family:inherit">Mark Hired</button></div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:12px">
-        ${[['TA',c.ta],['Company',c.currentCompany],['Notice',c.noticePeriod],['Curr Sal',fmtSalary(c.currentSalary)],['Exp Sal',fmtSalary(c.expectedSalary)],['Source',c.source],['Location',c.currentLocation],['Gender',c.gender]].map(([l,v])=>`<div style="background:#fff;border:1px solid #e1e1e1;border-radius:8px;padding:8px 12px"><div style="font-size:10px;color:#82939a;font-weight:700;margin-bottom:2px">${l}</div><div style="font-weight:600">${v||'—'}</div></div>`).join('')}
-      </div>
-    </div>`).join('')}
+  const offers=state.candidates.filter(c=>c.stage==="Offer Stage");
+  showModal(`<div class="modal-overlay"><div class="modal-box wide"><div class="modal-header"><span class="modal-title">Offer Stage — ${offers.length}</span><button class="modal-close" onclick="closeModal()">×</button></div>
+  <div class="modal-body">${offers.length===0?"<div style='text-align:center;padding:40px;color:#7e7e7e'>No candidates in Offer Stage.</div>":
+  offers.map(c=>`<div style="background:#fafafa;border-radius:14px;padding:18px;border:1.5px solid #e1e1e1;margin-bottom:12px">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+      <div><div style="font-size:16px;font-weight:800">${c.name}</div><div style="font-size:13px;color:#7e7e7e">${c.role||"—"}</div></div>
+      <div style="display:flex;gap:8px;align-items:center">${badge(c.dept,DEPT_COLORS[c.dept]||"#d6242f")}
+      <button onclick="markHired('${encodeURIComponent(c.name)}')" style="padding:5px 12px;background:#059669;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:11px;cursor:pointer;font-family:inherit">Mark Hired</button></div>
     </div>
-  </div></div>`);
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:12px">
+      ${[["TA",c.ta],["Company",c.currentCompany],["Notice",c.noticePeriod],["Curr Sal",fmtSalary(c.currentSalary)],["Exp Sal",fmtSalary(c.expectedSalary)],["Source",c.source],["Location",c.currentLocation],["Gender",c.gender]].map(([l,v])=>`<div style="background:#fff;border:1px solid #e1e1e1;border-radius:8px;padding:8px 12px"><div style="font-size:10px;color:#82939a;font-weight:700;margin-bottom:2px">${l}</div><div style="font-weight:600">${v||"—"}</div></div>`).join("")}
+    </div>
+  </div>`).join("")}
+  </div></div></div>`);
 }
-function markHired(encName){
-  const name=decodeURIComponent(encName);
-  state.candidates=state.candidates.map(c=>c.name===name?{...c,stage:'Hired'}:c);
-  saveToStorage();renderAll();closeModal();
-}
+function markHired(encName){const name=decodeURIComponent(encName);state.candidates=state.candidates.map(c=>c.name===name?{...c,stage:"Hired"}:c);saveToStorage();renderAll();closeModal();}
 function showHiredModal(){
-  const hired=state.candidates.filter(c=>c.stage==='Hired');
-  showModal(`<div class="modal-overlay"><div class="modal-box wide">
-    <div class="modal-header"><span class="modal-title">Hired — ${hired.length}</span><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px">
-        ${hired.map((c,i)=>`<div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:14px 16px">
-          <div style="font-size:14px;font-weight:900;color:#065f46;margin-bottom:4px">${c.name}</div>
-          <div style="font-size:11px;color:#7e7e7e;margin-bottom:8px">${c.role||'—'}</div>
-          ${badge(c.dept||'—',DEPT_COLORS[c.dept]||'#059669')}
-          <div style="font-size:11px;color:#82939a;margin-top:8px">TA: ${c.ta||'—'}</div>
-        </div>`).join('')}
-        ${!hired.length?'<div style="grid-column:1/-1;text-align:center;padding:40px;color:#7e7e7e">No hired candidates yet.</div>':''}
-      </div>
-    </div>
-  </div></div>`);
+  const hired=state.candidates.filter(c=>c.stage==="Hired");
+  showModal(`<div class="modal-overlay"><div class="modal-box wide"><div class="modal-header"><span class="modal-title">Hired — ${hired.length}</span><button class="modal-close" onclick="closeModal()">×</button></div>
+  <div class="modal-body"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px">
+    ${hired.map(c=>`<div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:14px 16px">
+      <div style="font-size:14px;font-weight:900;color:#065f46;margin-bottom:4px">${c.name}</div>
+      <div style="font-size:11px;color:#7e7e7e;margin-bottom:8px">${c.role||"—"}</div>
+      ${badge(c.dept||"—",DEPT_COLORS[c.dept]||"#059669")}
+      <div style="font-size:11px;color:#82939a;margin-top:8px">TA: ${c.ta||"—"}</div>
+    </div>`).join("")}
+    ${!hired.length?"<div style='grid-column:1/-1;text-align:center;padding:40px;color:#7e7e7e'>No hired candidates yet.</div>":""}
+  </div></div></div></div>`);
 }
 function showIntModal(scope){
-  const{wStart,wEnd}=getWeekBounds();
-  const{mStart,mEnd}=getMonthBounds();
-  const rs=scope==='week'?wStart:mStart,re=scope==='week'?wEnd:mEnd;
-  const list=state.candidates.map(c=>{
-    const dates=[c.interviewDate,c.firstInterviewDate,c.secondInterviewDate].filter(Boolean);
-    for(const dt of dates){const d=parseDate(dt);if(d&&d>=rs&&d<=re) return{...c,_dd:dt};}
-    return null;
-  }).filter(Boolean).sort((a,b)=>new Date(a._dd)-new Date(b._dd));
-  showModal(`<div class="modal-overlay"><div class="modal-box wide">
-    <div class="modal-header"><span class="modal-title">Interviews This ${scope==='week'?'Week':'Month'} — ${list.length}</span><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">${list.length===0?'<div style="text-align:center;padding:40px;color:#7e7e7e">No interviews scheduled.</div>':
-    list.map(c=>`<div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fffbf0;border-radius:12px;border:1.5px solid #f59e0b40;margin-bottom:8px;flex-wrap:wrap">
-      <div style="flex:1"><div style="font-weight:800">${c.name}</div><div style="font-size:12px;color:#7e7e7e">${(c.role||'—')+' · '+(c.dept||'—')}</div></div>
-      <div style="text-align:right"><div style="font-weight:700;color:#b45309;font-size:13px">${fmtDate(c._dd)}</div><div style="font-size:12px;color:#7e7e7e">TA: ${c.ta||'—'}</div></div>
-      ${badge(c.stage,STAGE_COLORS[c.stage]||'#7e7e7e')}
-    </div>`).join('')}
-    </div>
-  </div></div>`);
+  const{wStart,wEnd}=getWeekBounds();const{mStart,mEnd}=getMonthBounds();
+  const rs=scope==="week"?wStart:mStart,re=scope==="week"?wEnd:mEnd;
+  const list=state.candidates.map(c=>{const dates=[c.interviewDate,c.firstInterviewDate,c.secondInterviewDate].filter(Boolean);for(const dt of dates){const d=parseDate(dt);if(d&&d>=rs&&d<=re)return{...c,_dd:dt};}return null;}).filter(Boolean).sort((a,b)=>new Date(a._dd)-new Date(b._dd));
+  showModal(`<div class="modal-overlay"><div class="modal-box wide"><div class="modal-header"><span class="modal-title">Interviews This ${scope==="week"?"Week":"Month"} — ${list.length}</span><button class="modal-close" onclick="closeModal()">×</button></div>
+  <div class="modal-body">${list.length===0?"<div style='text-align:center;padding:40px;color:#7e7e7e'>No interviews scheduled.</div>":
+  list.map(c=>`<div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fffbf0;border-radius:12px;border:1.5px solid #f59e0b40;margin-bottom:8px;flex-wrap:wrap">
+    <div style="flex:1"><div style="font-weight:800">${c.name}</div><div style="font-size:12px;color:#7e7e7e">${(c.role||"—")+" · "+(c.dept||"—")}</div></div>
+    <div style="text-align:right"><div style="font-weight:700;color:#b45309;font-size:13px">${fmtDate(c._dd)}</div><div style="font-size:12px;color:#7e7e7e">TA: ${c.ta||"—"}</div></div>
+    ${badge(c.stage,STAGE_COLORS[c.stage]||"#7e7e7e")}
+  </div>`).join("")}
+  </div></div></div>`);
 }
 function showOutcomeDetail(encOut){
-  const outcome=decodeURIComponent(encOut);
-  const records=state.feedbackRecords.filter(f=>f.outcome===outcome);
-  showModal(`<div class="modal-overlay"><div class="modal-box wide">
-    <div class="modal-header"><span class="modal-title">${outcome} — ${records.length}</span><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">${records.map((f,i)=>`<button onclick="closeModal();setTimeout(()=>openFeedbackDetail('${encodeURIComponent(f.candidateName||'')}',0),50)" style="background:#fafafa;border-radius:12px;padding:16px 20px;border:1.5px solid #e1e1e1;text-align:left;cursor:pointer;outline:none;display:flex;align-items:center;gap:16px;flex-wrap:wrap;width:100%;margin-bottom:8px;font-family:inherit">
-      <div style="flex:1"><div style="font-size:15px;font-weight:900;color:#d6242f">${f.candidateName||'—'}</div><div style="font-size:12px;color:#7e7e7e;margin-top:3px">${(f.candidateRole||'—')+' · by: '+(f.interviewers||'—')}</div></div>
-      <span style="font-size:11px;color:#7e7e7e">Date: ${fmtDate(f.interviewDate)}</span>
-    </button>`).join('')}
-    ${!records.length?'<div style="text-align:center;padding:40px;color:#7e7e7e">No responses.</div>':''}
-    </div>
-  </div></div>`);
+  const outcome=decodeURIComponent(encOut);const records=state.feedbackRecords.filter(f=>f.outcome===outcome);
+  showModal(`<div class="modal-overlay"><div class="modal-box wide"><div class="modal-header"><span class="modal-title">${outcome} — ${records.length}</span><button class="modal-close" onclick="closeModal()">×</button></div>
+  <div class="modal-body">${records.map(f=>`<button onclick="closeModal();setTimeout(()=>openFeedbackDetail('${encodeURIComponent(f.candidateName||"")}',0),50)" style="background:#fafafa;border-radius:12px;padding:16px 20px;border:1.5px solid #e1e1e1;text-align:left;cursor:pointer;outline:none;display:flex;align-items:center;gap:16px;flex-wrap:wrap;width:100%;margin-bottom:8px;font-family:inherit">
+    <div style="flex:1"><div style="font-size:15px;font-weight:900;color:#d6242f">${f.candidateName||"—"}</div><div style="font-size:12px;color:#7e7e7e;margin-top:3px">${(f.candidateRole||"—")+" · by: "+(f.interviewers||"—")}</div></div>
+    <span style="font-size:11px;color:#7e7e7e">Date: ${fmtDate(f.interviewDate)}</span>
+  </button>`).join("")}
+  ${!records.length?"<div style='text-align:center;padding:40px;color:#7e7e7e'>No responses.</div>":""}
+  </div></div></div>`);
 }
 
-// DRAWER
 function openDrawer(idx){
-  const c=state.candidates[idx];
-  if(!c) return;
-  const existing=document.getElementById('drawer-overlay');
-  if(existing) existing.remove();
-  const div=document.createElement('div');
-  div.id='drawer-overlay';
-  div.className='drawer-overlay';
-  div.onclick=e=>{if(e.target===div) div.remove();};
-  div.innerHTML=`<div class="drawer">
-    <div class="drawer-header">
-      <div><div style="font-size:18px;font-weight:900;color:#fff">${c.name}</div><div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:3px">${c.role||'—'}</div></div>
-      <div style="display:flex;gap:8px">
-        <button onclick="closeDrawer();editCandidate(${idx})" style="padding:7px 14px;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.4);color:#fff;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer">Edit</button>
-        <button onclick="closeDrawer()" style="width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,0.2);cursor:pointer;color:#fff;font-weight:700;font-size:16px">×</button>
-      </div>
+  const c=state.candidates[idx];if(!c)return;
+  const existing=document.getElementById("drawer-overlay");if(existing)existing.remove();
+  const div=document.createElement("div");div.id="drawer-overlay";div.className="drawer-overlay";
+  div.onclick=e=>{if(e.target===div)div.remove();};
+  div.innerHTML=`<div class="drawer"><div class="drawer-header">
+    <div><div style="font-size:18px;font-weight:900;color:#fff">${c.name}</div><div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:3px">${c.role||"—"}</div></div>
+    <div style="display:flex;gap:8px">
+      <button onclick="closeDrawer();editCandidate(${idx})" style="padding:7px 14px;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.4);color:#fff;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer">Edit</button>
+      <button onclick="closeDrawer()" style="width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,0.2);cursor:pointer;color:#fff;font-weight:700;font-size:16px">×</button>
+    </div></div>
+    <div style="padding:24px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      ${[["Department",badge(c.dept||"—",DEPT_COLORS[c.dept]||"#d6242f")],["Role",c.role||"—"],["Stage",badge(c.stage||"—",STAGE_COLORS[c.stage]||"#7e7e7e")],["Gender",c.gender||"—"],["TA",c.ta||"—"],["Current Company",c.currentCompany||"—"],["Current Location",c.currentLocation||"—"],["Notice Period",c.noticePeriod||"—"],["Current Salary",fmtSalary(c.currentSalary)],["Expected Salary",fmtSalary(c.expectedSalary)],["Source",c.source||"—"],["Email",c.email||"—"],["Phone",c.phone||"—"]].map(([l,v])=>`<div style="background:#fafafa;border-radius:10px;padding:10px 14px;border:1px solid #e1e1e1"><div style="font-size:11px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:4px">${l}</div><div style="font-size:13px;font-weight:600">${v}</div></div>`).join("")}
     </div>
-    <div style="padding:24px">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        ${[['Department',badge(c.dept||'—',DEPT_COLORS[c.dept]||'#d6242f')],['Role',c.role||'—'],['Stage',badge(c.stage||'—',STAGE_COLORS[c.stage]||'#7e7e7e')],['Gender',c.gender||'—'],['TA',c.ta||'—'],['Current Company',c.currentCompany||'—'],['Current Location',c.currentLocation||'—'],['Notice Period',c.noticePeriod||'—'],['Current Salary',fmtSalary(c.currentSalary)],['Expected Salary',fmtSalary(c.expectedSalary)],['Source',c.source||'—'],['Email',c.email||'—'],['Phone',c.phone||'—']].map(([l,v])=>`<div style="background:#fafafa;border-radius:10px;padding:10px 14px;border:1px solid #e1e1e1"><div style="font-size:11px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:4px">${l}</div><div style="font-size:13px;font-weight:600">${v}</div></div>`).join('')}
-      </div>
-      ${c.notes?`<div style="margin-top:16px;background:#fffbf0;border-radius:10px;padding:12px 16px;border:1px solid #f59e0b40"><div style="font-size:11px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:6px">Notes</div><div style="font-size:13px;color:#7e7e7e;line-height:1.6">${c.notes}</div></div>`:''}
-      ${c.cvFile?`<div style="margin-top:16px"><a href="${c.cvFile}" download="${c.cvName}" style="padding:10px 18px;background:linear-gradient(135deg,#a01820,#d6242f);color:#fff;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none">Download CV</a></div>`:''}
-    </div>
-  </div>`;
+    ${c.notes?`<div style="margin-top:16px;background:#fffbf0;border-radius:10px;padding:12px 16px;border:1px solid #f59e0b40"><div style="font-size:11px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:6px">Notes</div><div style="font-size:13px;color:#7e7e7e;line-height:1.6">${c.notes}</div></div>`:""}
+    ${c.cvFile?`<div style="margin-top:16px"><a href="${c.cvFile}" download="${c.cvName}" style="padding:10px 18px;background:linear-gradient(135deg,#a01820,#d6242f);color:#fff;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none">Download CV</a></div>`:""}
+    </div></div>`;
   document.body.appendChild(div);
 }
 
-// FEEDBACK DETAIL
 function openFeedbackDetail(encName,idx){
   const name=decodeURIComponent(encName);
-  const fb=state.feedbackRecords.filter(f=>(f.candidateName||'').toLowerCase().trim()===name.toLowerCase().trim());
-  if(!fb.length) return;
-  showFeedbackDetailModal(fb,idx);
+  const fb=state.feedbackRecords.filter(f=>(f.candidateName||"").toLowerCase().trim()===name.toLowerCase().trim());
+  if(!fb.length)return;showFeedbackDetailModal(fb,idx);
 }
 function showFeedbackDetailModal(fb,idx){
-  const f=fb[idx];
-  const outColor=OUTCOME_COLORS[f.outcome]||'#7e7e7e';
-  showModal(`<div class="modal-overlay"><div class="modal-box wide">
-    <div class="modal-header"><span class="modal-title">Interview Evaluation — ${f.candidateName||'—'}</span><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">
-      ${fb.length>1?`<div style="display:flex;align-items:center;justify-content:space-between;background:#f9f9f9;border-radius:10px;padding:10px 16px;margin-bottom:16px">
-        <button onclick="showFeedbackDetailModal(window._fbArr,${idx-1})" ${idx===0?'disabled':''} style="padding:5px 14px;border-radius:7px;border:1.5px solid #e1e1e1;background:#fff;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">Prev</button>
-        <span style="font-size:13px;color:#7e7e7e;font-weight:700">Response ${idx+1} of ${fb.length}</span>
-        <button onclick="showFeedbackDetailModal(window._fbArr,${idx+1})" ${idx===fb.length-1?'disabled':''} style="padding:5px 14px;border-radius:7px;border:1.5px solid #e1e1e1;background:#fff;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">Next</button>
-      </div>`:''}
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px">
-        ${[['Interviewer(s)',f.interviewers||'—',true],['Candidate',f.candidateName||'—'],['Role',f.candidateRole||'—'],['Job Location',f.jobLocation||'—'],['Current Location',f.currentLocation||'—'],['Date',fmtDate(f.interviewDate)]].map(([l,v,full])=>`<div style="background:#fafafa;border-radius:10px;padding:10px 14px;border:1px solid #e1e1e1${full?';grid-column:1/-1':''}"><div style="font-size:10px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:4px">${l}</div><div style="font-size:13px;font-weight:700">${v}</div></div>`).join('')}
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-        ${[['Qualification & Experience (1-10)',f.qualificationScore],['Competency Evaluation (1-10)',f.competencyScore]].map(([l,v])=>`<div style="border-radius:12px;padding:14px 18px;background:${scoreColor(v)}18;border:2px solid ${scoreColor(v)}30"><div style="font-size:11px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:8px">${l}</div><div style="font-size:32px;font-weight:900;color:${scoreColor(v)}">${v||'—'}</div></div>`).join('')}
-      </div>
-      ${f.gccExperience?`<div style="background:#f9f9f9;border-radius:10px;padding:12px 16px;border:1px solid #e1e1e1;display:flex;align-items:center;gap:12px;margin-bottom:16px"><div style="font-size:11px;color:#82939a;font-weight:700;text-transform:uppercase;flex:1">UAE/GCC Experience</div><span style="font-weight:800;font-size:14px;color:${f.gccExperience==='Yes'?'#059669':'#ef4444'};background:${f.gccExperience==='Yes'?'#f0fdf4':'#fff0f0'};padding:4px 14px;border-radius:99px">${f.gccExperience}</span></div>`:''}
-      ${COMPETENCY_FIELDS.some(cf=>f[cf.key])?`<div style="margin-bottom:16px"><div style="font-size:13px;font-weight:800;margin-bottom:10px">Competency Breakdown</div><div class="score-grid">${COMPETENCY_FIELDS.map(cf=>`<div class="score-item" style="background:${scoreColor(f[cf.key])}18"><div style="font-size:10px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:6px">${cf.label}</div><div style="display:flex;align-items:center;gap:8px"><div style="font-weight:900;font-size:20px;color:${scoreColor(f[cf.key])}">${f[cf.key]||'—'}</div>${!isNaN(parseFloat(f[cf.key]))?`<div class="score-bar-wrap"><div class="score-bar-fill" style="background:${scoreColor(f[cf.key])};width:${(parseFloat(f[cf.key])/10*100)}%"></div></div>`:''}</div></div>`).join('')}</div></div>`:''}
-      ${f.outcome?`<div style="border-radius:14px;padding:16px 20px;background:${outColor}12;border:2px solid ${outColor}30;margin-bottom:16px"><div style="font-size:11px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:8px">Interview Outcome</div><div style="font-size:16px;font-weight:900;color:${outColor}">${f.outcome}</div></div>`:''}
-      ${f.reason?`<div style="background:#fffbf0;border-radius:12px;padding:14px 18px"><div style="font-size:11px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:8px">Reason / Comments</div><div style="font-size:13px;line-height:1.8">${f.reason}</div></div>`:''}
+  const f=fb[idx];const outColor=OUTCOME_COLORS[f.outcome]||"#7e7e7e";
+  showModal(`<div class="modal-overlay"><div class="modal-box wide"><div class="modal-header"><span class="modal-title">Interview Evaluation — ${f.candidateName||"—"}</span><button class="modal-close" onclick="closeModal()">×</button></div>
+  <div class="modal-body">
+    ${fb.length>1?`<div style="display:flex;align-items:center;justify-content:space-between;background:#f9f9f9;border-radius:10px;padding:10px 16px;margin-bottom:16px">
+      <button onclick="showFeedbackDetailModal(window._fbArr,${idx-1})" ${idx===0?"disabled":""} style="padding:5px 14px;border-radius:7px;border:1.5px solid #e1e1e1;background:#fff;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">Prev</button>
+      <span style="font-size:13px;color:#7e7e7e;font-weight:700">Response ${idx+1} of ${fb.length}</span>
+      <button onclick="showFeedbackDetailModal(window._fbArr,${idx+1})" ${idx===fb.length-1?"disabled":""} style="padding:5px 14px;border-radius:7px;border:1.5px solid #e1e1e1;background:#fff;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">Next</button>
+    </div>`:""}
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px">
+      ${[["Interviewer(s)",f.interviewers||"—",true],["Candidate",f.candidateName||"—"],["Role",f.candidateRole||"—"],["Job Location",f.jobLocation||"—"],["Current Location",f.currentLocation||"—"],["Date",fmtDate(f.interviewDate)]].map(([l,v,full])=>`<div style="background:#fafafa;border-radius:10px;padding:10px 14px;border:1px solid #e1e1e1${full?";grid-column:1/-1":""}"><div style="font-size:10px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:4px">${l}</div><div style="font-size:13px;font-weight:700">${v}</div></div>`).join("")}
     </div>
-  </div></div>`);
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+      ${[["Qualification & Experience (1-10)",f.qualificationScore],["Competency Evaluation (1-10)",f.competencyScore]].map(([l,v])=>`<div style="border-radius:12px;padding:14px 18px;background:${scoreColor(v)}18;border:2px solid ${scoreColor(v)}30"><div style="font-size:11px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:8px">${l}</div><div style="font-size:32px;font-weight:900;color:${scoreColor(v)}">${v||"—"}</div></div>`).join("")}
+    </div>
+    ${f.gccExperience?`<div style="background:#f9f9f9;border-radius:10px;padding:12px 16px;border:1px solid #e1e1e1;display:flex;align-items:center;gap:12px;margin-bottom:16px"><div style="font-size:11px;color:#82939a;font-weight:700;text-transform:uppercase;flex:1">UAE/GCC Experience</div><span style="font-weight:800;font-size:14px;color:${f.gccExperience==="Yes"?"#059669":"#ef4444"};background:${f.gccExperience==="Yes"?"#f0fdf4":"#fff0f0"};padding:4px 14px;border-radius:99px">${f.gccExperience}</span></div>`:""}
+    ${COMPETENCY_FIELDS.some(cf=>f[cf.key])?`<div style="margin-bottom:16px"><div style="font-size:13px;font-weight:800;margin-bottom:10px">Competency Breakdown</div><div class="score-grid">${COMPETENCY_FIELDS.map(cf=>`<div class="score-item" style="background:${scoreColor(f[cf.key])}18"><div style="font-size:10px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:6px">${cf.label}</div><div style="display:flex;align-items:center;gap:8px"><div style="font-weight:900;font-size:20px;color:${scoreColor(f[cf.key])}">${f[cf.key]||"—"}</div>${!isNaN(parseFloat(f[cf.key]))?`<div class="score-bar-wrap"><div class="score-bar-fill" style="background:${scoreColor(f[cf.key])};width:${parseFloat(f[cf.key])/10*100}%"></div></div>`:""}</div></div>`).join("")}</div></div>`:""}
+    ${f.outcome?`<div style="border-radius:14px;padding:16px 20px;background:${outColor}12;border:2px solid ${outColor}30;margin-bottom:16px"><div style="font-size:11px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:8px">Interview Outcome</div><div style="font-size:16px;font-weight:900;color:${outColor}">${f.outcome}</div></div>`:""}
+    ${f.reason?`<div style="background:#fffbf0;border-radius:12px;padding:14px 18px"><div style="font-size:11px;color:#82939a;font-weight:700;text-transform:uppercase;margin-bottom:8px">Reason / Comments</div><div style="font-size:13px;line-height:1.8">${f.reason}</div></div>`:""}
+  </div></div></div>`);
   window._fbArr=fb;
 }
 
-// SEND FEEDBACK MODAL
 function openSendFeedback(encName){
-  const name=decodeURIComponent(encName);
-  const c=state.candidates.find(x=>x.name===name)||{name,dept:'—',role:'—',stage:'—',ta:'—'};
-  const formUrl='https://forms.office.com/Pages/ResponsePage.aspx?id=4_JzH0uJpE2A1IzQxNo1L2JY2nsLP85EmcVUx5bbhKFUNERDSkc4UUVRQkI5RTNNQTRGTTk2OUZBQS4u';
-  showModal(`<div class="modal-overlay"><div class="modal-box">
-    <div class="modal-header"><span class="modal-title">Send Interview Form — ${name}</span><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">
-      <div style="background:#fff5f5;border-radius:12px;padding:14px 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">
-        ${[['Candidate',c.name],['Role',c.role||'—'],['Department',c.dept||'—'],['Stage',c.stage||'—'],['TA',c.ta||'—'],['Interview Date',fmtDate(c.firstInterviewDate||c.interviewDate||'')]].map(([l,v])=>`<div><div style="font-size:10px;color:#82939a;font-weight:700;text-transform:uppercase">${l}</div><div style="font-size:13px;font-weight:700;margin-top:2px">${v}</div></div>`).join('')}
-      </div>
-      <div style="margin-bottom:16px">
-        <label class="lbl">Panel Member Email(s)</label>
-        <input type="email" id="send-fb-email" placeholder="panel@company.com" style="margin-bottom:8px"/>
-        <textarea id="send-fb-more" rows="2" placeholder="Additional emails (comma separated)"></textarea>
-      </div>
-      <div style="margin-bottom:16px">
-        <label class="lbl">Form Link</label>
-        <div style="display:flex;gap:8px">
-          <input readonly value="${formUrl}" style="flex:1;background:#f9f9f9;color:#7e7e7e;font-size:11px"/>
-          <button onclick="navigator.clipboard.writeText('${formUrl}').then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)})" style="padding:9px 14px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap">Copy</button>
-        </div>
-      </div>
-      <div style="display:flex;gap:10px;justify-content:flex-end;padding-top:8px;border-top:1px solid #e1e1e1;flex-wrap:wrap">
-        <button onclick="closeModal()" style="padding:8px 16px;background:transparent;border:1.5px solid #7e7e7e;color:#7e7e7e;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Cancel</button>
-        <a href="${formUrl}" target="_blank" style="padding:8px 16px;background:#f0fdf4;border:1.5px solid #86efac;color:#065f46;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none">Open Form</a>
-        <button onclick="sendFbEmail('${encodeURIComponent(name)}','${encodeURIComponent(c.role||'')}','${encodeURIComponent(c.dept||'')}')" style="padding:8px 18px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Send via Outlook</button>
-      </div>
+  const name=decodeURIComponent(encName);const c=state.candidates.find(x=>x.name===name)||{name,dept:"—",role:"—",stage:"—",ta:"—"};
+  const formUrl="https://forms.office.com/Pages/ResponsePage.aspx?id=4_JzH0uJpE2A1IzQxNo1L2JY2nsLP85EmcVUx5bbhKFUNERDSkc4UUVRQkI5RTNNQTRGTTk2OUZBQS4u";
+  showModal(`<div class="modal-overlay"><div class="modal-box"><div class="modal-header"><span class="modal-title">Send Interview Form — ${name}</span><button class="modal-close" onclick="closeModal()">×</button></div>
+  <div class="modal-body">
+    <div style="background:#fff5f5;border-radius:12px;padding:14px 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">
+      ${[["Candidate",c.name],["Role",c.role||"—"],["Department",c.dept||"—"],["Stage",c.stage||"—"],["TA",c.ta||"—"],["Interview Date",fmtDate(c.firstInterviewDate||c.interviewDate||"")]].map(([l,v])=>`<div><div style="font-size:10px;color:#82939a;font-weight:700;text-transform:uppercase">${l}</div><div style="font-size:13px;font-weight:700;margin-top:2px">${v}</div></div>`).join("")}
     </div>
-  </div></div>`);
+    <div style="margin-bottom:16px"><label class="lbl">Panel Member Email(s)</label><input type="email" id="send-fb-email" placeholder="panel@company.com" style="margin-bottom:8px"/><textarea id="send-fb-more" rows="2" placeholder="Additional emails (comma separated)"></textarea></div>
+    <div style="margin-bottom:16px"><label class="lbl">Form Link</label><div style="display:flex;gap:8px"><input readonly value="${formUrl}" style="flex:1;background:#f9f9f9;color:#7e7e7e;font-size:11px"/><button onclick="navigator.clipboard.writeText('${formUrl}').then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)})" style="padding:9px 14px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap">Copy</button></div></div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;padding-top:8px;border-top:1px solid #e1e1e1;flex-wrap:wrap">
+      <button onclick="closeModal()" style="padding:8px 16px;background:transparent;border:1.5px solid #7e7e7e;color:#7e7e7e;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Cancel</button>
+      <a href="${formUrl}" target="_blank" style="padding:8px 16px;background:#f0fdf4;border:1.5px solid #86efac;color:#065f46;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none">Open Form</a>
+      <button onclick="sendFbEmail('${encodeURIComponent(name)}','${encodeURIComponent(c.role||"")}','${encodeURIComponent(c.dept||"")}')" style="padding:8px 18px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Send via Outlook</button>
+    </div>
+  </div></div></div>`);
 }
 function sendFbEmail(encName,encRole,encDept){
   const name=decodeURIComponent(encName),role=decodeURIComponent(encRole),dept=decodeURIComponent(encDept);
-  const em1=document.getElementById('send-fb-email')?.value.trim()||'';
-  const em2=document.getElementById('send-fb-more')?.value.trim()||'';
-  const all=[em1,...em2.split(',').map(e=>e.trim())].filter(e=>e&&/\S+@\S+\.\S+/.test(e));
+  const em1=document.getElementById("send-fb-email")?.value.trim()||"";
+  const em2=document.getElementById("send-fb-more")?.value.trim()||"";
+  const all=[em1,...em2.split(",").map(e=>e.trim())].filter(e=>e&&/\S+@\S+\.\S+/.test(e));
   const body=`Dear Panel Member,\n\nPlease fill in the Interview Evaluation Form for:\n\nCandidate: ${name}\nRole: ${role}\nDept: ${dept}\n\nForm link:\nhttps://forms.office.com/Pages/ResponsePage.aspx?id=4_JzH0uJpE2A1IzQxNo1L2JY2nsLP85EmcVUx5bbhKFUNERDSkc4UUVRQkI5RTNNQTRGTTk2OUZBQS4u\n\nThank you,\n9e Global TA Team`;
-  window.location.href='mailto:'+all.join(',')+`?subject=${encodeURIComponent('Interview Feedback Request - '+name)}&body=${encodeURIComponent(body)}`;
+  window.location.href="mailto:"+all.join(",")+`?subject=${encodeURIComponent("Interview Feedback Request - "+name)}&body=${encodeURIComponent(body)}`;
   closeModal();
 }
 
-// MANUAL FEEDBACK MODAL
 function openManualFeedback(encName){
   const name=decodeURIComponent(encName);
-  const SCALE=['','Exceptional (9-10)','Above Average (8)','Average (6-7)','Satisfactory (5)','Unsatisfactory (Below 5)'];
-  const OUTCOMES=['Selected and proceed with Offer','Proceed with Client Interview (Site Positions)','Recommend for second round of interview with Department Head','Consider for future requirements','Rejected'];
-  showModal(`<div class="modal-overlay"><div class="modal-box wide">
-    <div class="modal-header"><span class="modal-title">Log Feedback — ${name}</span><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">
-      <div class="form-grid form-grid-2">
-        <div style="grid-column:1/-1"><label class="lbl">Interviewer Name(s) *</label><input type="text" id="mfb-interviewers" placeholder="e.g. Dhanashekar V"/></div>
-        <div style="grid-column:1/-1"><label class="lbl">Candidate Name</label><input type="text" id="mfb-candidate" value="${name}"/></div>
-        <div><label class="lbl">Role Interviewed For</label><input type="text" id="mfb-role"/></div>
-        <div><label class="lbl">Job Location</label><select id="mfb-location"><option value="">Select...</option><option>Dubai</option><option>Kochi</option><option>Mumbai</option></select></div>
-        <div><label class="lbl">Current Location</label><input type="text" id="mfb-clocation"/></div>
-        <div><label class="lbl">Date of Interview</label><input type="date" id="mfb-date"/></div>
-        <div><label class="lbl">Qualification & Experience</label><select id="mfb-qual">${SCALE.map(s=>`<option value="${s}">${s||'Select...'}</option>`).join('')}</select></div>
-        <div><label class="lbl">Competency Evaluation</label><select id="mfb-comp">${SCALE.map(s=>`<option value="${s}">${s||'Select...'}</option>`).join('')}</select></div>
-        <div><label class="lbl">UAE/GCC Experience</label><select id="mfb-gcc"><option value="">Select...</option><option>Yes</option><option>No</option></select></div>
-        <div style="grid-column:1/-1;background:#f9f9f9;border-radius:10px;padding:14px 16px;border:1px solid #e1e1e1">
-          <div style="font-size:12px;font-weight:800;margin-bottom:12px">Competency Breakdown</div>
-          <div class="form-grid form-grid-2">${COMPETENCY_FIELDS.map(cf=>`<div><label class="lbl" style="text-transform:none;font-size:11px">${cf.label}</label><select id="mfb-${cf.key}">${SCALE.map(s=>`<option value="${s}">${s||'Select...'}</option>`).join('')}</select></div>`).join('')}</div>
-        </div>
-        <div style="grid-column:1/-1"><label class="lbl">Interview Outcome *</label><select id="mfb-outcome"><option value="">Select...</option>${OUTCOMES.map(o=>`<option value="${o}">${o}</option>`).join('')}</select></div>
-        <div style="grid-column:1/-1"><label class="lbl">Reason / Comments</label><textarea id="mfb-reason" rows="4"></textarea></div>
-      </div>
-      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:16px;border-top:1px solid #e1e1e1">
-        <button onclick="closeModal()" style="padding:8px 16px;background:transparent;border:1.5px solid #7e7e7e;color:#7e7e7e;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Cancel</button>
-        <button onclick="saveManualFeedback()" style="padding:8px 18px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Save Feedback</button>
-      </div>
+  const SCALE=["","Exceptional (9-10)","Above Average (8)","Average (6-7)","Satisfactory (5)","Unsatisfactory (Below 5)"];
+  const OUTCOMES=["Selected and proceed with Offer","Proceed with Client Interview (Site Positions)","Recommend for second round of interview with Department Head","Consider for future requirements","Rejected"];
+  showModal(`<div class="modal-overlay"><div class="modal-box wide"><div class="modal-header"><span class="modal-title">Log Feedback — ${name}</span><button class="modal-close" onclick="closeModal()">×</button></div>
+  <div class="modal-body"><div class="form-grid form-grid-2">
+    <div style="grid-column:1/-1"><label class="lbl">Interviewer Name(s) *</label><input type="text" id="mfb-interviewers" placeholder="e.g. Dhanashekar V"/></div>
+    <div style="grid-column:1/-1"><label class="lbl">Candidate Name</label><input type="text" id="mfb-candidate" value="${name}"/></div>
+    <div><label class="lbl">Role Interviewed For</label><input type="text" id="mfb-role"/></div>
+    <div><label class="lbl">Job Location</label><select id="mfb-location"><option value="">Select...</option><option>Dubai</option><option>Kochi</option><option>Mumbai</option></select></div>
+    <div><label class="lbl">Current Location</label><input type="text" id="mfb-clocation"/></div>
+    <div><label class="lbl">Date of Interview</label><input type="date" id="mfb-date"/></div>
+    <div><label class="lbl">Qualification & Experience</label><select id="mfb-qual">${SCALE.map(s=>`<option value="${s}">${s||"Select..."}</option>`).join("")}</select></div>
+    <div><label class="lbl">Competency Evaluation</label><select id="mfb-comp">${SCALE.map(s=>`<option value="${s}">${s||"Select..."}</option>`).join("")}</select></div>
+    <div><label class="lbl">UAE/GCC Experience</label><select id="mfb-gcc"><option value="">Select...</option><option>Yes</option><option>No</option></select></div>
+    <div style="grid-column:1/-1;background:#f9f9f9;border-radius:10px;padding:14px 16px;border:1px solid #e1e1e1">
+      <div style="font-size:12px;font-weight:800;margin-bottom:12px">Competency Breakdown</div>
+      <div class="form-grid form-grid-2">${COMPETENCY_FIELDS.map(cf=>`<div><label class="lbl" style="text-transform:none;font-size:11px">${cf.label}</label><select id="mfb-${cf.key}">${SCALE.map(s=>`<option value="${s}">${s||"Select..."}</option>`).join("")}</select></div>`).join("")}</div>
     </div>
-  </div></div>`);
+    <div style="grid-column:1/-1"><label class="lbl">Interview Outcome *</label><select id="mfb-outcome"><option value="">Select...</option>${OUTCOMES.map(o=>`<option value="${o}">${o}</option>`).join("")}</select></div>
+    <div style="grid-column:1/-1"><label class="lbl">Reason / Comments</label><textarea id="mfb-reason" rows="4"></textarea></div>
+  </div>
+  <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:16px;border-top:1px solid #e1e1e1">
+    <button onclick="closeModal()" style="padding:8px 16px;background:transparent;border:1.5px solid #7e7e7e;color:#7e7e7e;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Cancel</button>
+    <button onclick="saveManualFeedback()" style="padding:8px 18px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Save Feedback</button>
+  </div></div></div></div>`);
 }
 function saveManualFeedback(){
-  const iv=document.getElementById('mfb-interviewers')?.value.trim();
-  const out=document.getElementById('mfb-outcome')?.value;
-  if(!iv||!out){alert('Please fill Interviewer and Outcome.');return;}
-  const fb={id:Date.now(),submittedAt:new Date().toISOString(),interviewers:iv,candidateName:document.getElementById('mfb-candidate')?.value,candidateRole:document.getElementById('mfb-role')?.value,jobLocation:document.getElementById('mfb-location')?.value,currentLocation:document.getElementById('mfb-clocation')?.value,interviewDate:document.getElementById('mfb-date')?.value,qualificationScore:document.getElementById('mfb-qual')?.value,competencyScore:document.getElementById('mfb-comp')?.value,gccExperience:document.getElementById('mfb-gcc')?.value,outcome:out,reason:document.getElementById('mfb-reason')?.value};
-  COMPETENCY_FIELDS.forEach(cf=>{fb[cf.key]=document.getElementById('mfb-'+cf.key)?.value||'';});
-  state.feedbackRecords=[...state.feedbackRecords,fb];
-  saveToStorage();closeModal();renderFeedback();
+  const iv=document.getElementById("mfb-interviewers")?.value.trim();const out=document.getElementById("mfb-outcome")?.value;
+  if(!iv||!out){alert("Please fill Interviewer and Outcome.");return;}
+  const fb={id:Date.now(),submittedAt:new Date().toISOString(),interviewers:iv,candidateName:document.getElementById("mfb-candidate")?.value,candidateRole:document.getElementById("mfb-role")?.value,jobLocation:document.getElementById("mfb-location")?.value,currentLocation:document.getElementById("mfb-clocation")?.value,interviewDate:document.getElementById("mfb-date")?.value,qualificationScore:document.getElementById("mfb-qual")?.value,competencyScore:document.getElementById("mfb-comp")?.value,gccExperience:document.getElementById("mfb-gcc")?.value,outcome:out,reason:document.getElementById("mfb-reason")?.value};
+  COMPETENCY_FIELDS.forEach(cf=>{fb[cf.key]=document.getElementById("mfb-"+cf.key)?.value||"";});
+  state.feedbackRecords=[...state.feedbackRecords,fb];saveToStorage();closeModal();renderFeedback();
 }
 
-// ADD/EDIT CANDIDATE MODAL
-function openAddCandidate(){ showCandModal(null); }
-function editCandidate(idx){ showCandModal(idx); }
+// ── ADD/EDIT CANDIDATE — filter state preserved ───────────────────────────────
+function openAddCandidate(){showCandModal(null);}
+function editCandidate(idx){showCandModal(idx);}
 function showCandModal(idx){
   const c=idx!==null&&idx!==undefined?state.candidates[idx]:null;
   const taList=[...new Set(state.candidates.map(x=>x.ta).filter(Boolean))].sort();
-  showModal(`<div class="modal-overlay"><div class="modal-box wide">
-    <div class="modal-header"><span class="modal-title">${c?'Edit Candidate':'Add New Candidate'}</span><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">
-      <div class="form-grid form-grid-3">
-        <div><label class="lbl">Full Name *</label><input type="text" id="cf-name" value="${c?.name||''}"/></div>
-        <div><label class="lbl">Email</label><input type="email" id="cf-email" value="${c?.email||''}"/></div>
-        <div><label class="lbl">Phone</label><input type="text" id="cf-phone" value="${c?.phone||''}"/></div>
-        <div><label class="lbl">Current Company</label><input type="text" id="cf-company" value="${c?.currentCompany||''}"/></div>
-        <div><label class="lbl">Current Location</label><input type="text" id="cf-location" value="${c?.currentLocation||''}"/></div>
-        <div><label class="lbl">Source</label><input type="text" id="cf-source" value="${c?.source||''}"/></div>
-        <div style="grid-column:1/-1"><label class="lbl">Role / Position *</label><input type="text" id="cf-role" value="${c?.role||''}"/></div>
-        <div><label class="lbl">Department *</label><select id="cf-dept"><option value="">Select...</option>${DEPT_LIST.map(d=>`<option value="${d}" ${c?.dept===d?'selected':''}>${d}</option>`).join('')}</select></div>
-        <div><label class="lbl">Stage</label><select id="cf-stage">${STAGE_ORDER.map(s=>`<option value="${s}" ${(c?.stage||'Not Started')===s?'selected':''}>${s}</option>`).join('')}</select></div>
-        <div><label class="lbl">Gender</label><select id="cf-gender">${GENDER_OPTIONS.map(g=>`<option value="${g}" ${c?.gender===g?'selected':''}>${g||'Select...'}</option>`).join('')}</select></div>
-        <div><label class="lbl">TA / Recruiter</label><select id="cf-ta"><option value="">Select TA...</option>${taList.map(t=>`<option value="${t}" ${c?.ta===t?'selected':''}>${t}</option>`).join('')}</select></div>
-        <div><label class="lbl">Notice Period</label><select id="cf-notice">${NOTICE_OPTIONS.map(o=>`<option value="${o}" ${c?.noticePeriod===o?'selected':''}>${o||'Select...'}</option>`).join('')}</select></div>
-        <div><label class="lbl">Interview Date</label><input type="date" id="cf-intdate" value="${c?.interviewDate||''}"/></div>
-        <div><label class="lbl">Current Salary (LPA)</label><input type="text" id="cf-cursal" placeholder="e.g. 12" value="${typeof c?.currentSalary==='object'?c.currentSalary.amount||'':c?.currentSalary||''}"/></div>
-        <div><label class="lbl">Expected Salary (LPA)</label><input type="text" id="cf-expsal" placeholder="e.g. 18" value="${typeof c?.expectedSalary==='object'?c.expectedSalary.amount||'':c?.expectedSalary||''}"/></div>
-        <div><label class="lbl">Relocation</label><select id="cf-reloc"><option value="">Select...</option>${['Mumbai','Kochi','Both','Unknown'].map(o=>`<option value="${o}" ${c?.relocation===o?'selected':''}>${o}</option>`).join('')}</select></div>
-        <div style="grid-column:1/-1"><label class="lbl">Notes</label><textarea id="cf-notes" rows="2">${c?.notes||''}</textarea></div>
-      </div>
-      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:16px;border-top:1px solid #e1e1e1">
-        <button onclick="closeModal()" style="padding:8px 16px;background:transparent;border:1.5px solid #7e7e7e;color:#7e7e7e;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Cancel</button>
-        <button onclick="saveCandidateForm(${idx!==null&&idx!==undefined?idx:'null'})" style="padding:8px 18px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">${c?'Save Changes':'Save Candidate'}</button>
-      </div>
-    </div>
-  </div></div>`);
+  showModal(`<div class="modal-overlay"><div class="modal-box wide"><div class="modal-header"><span class="modal-title">${c?"Edit Candidate":"Add New Candidate"}</span><button class="modal-close" onclick="closeModal()">×</button></div>
+  <div class="modal-body"><div class="form-grid form-grid-3">
+    <div><label class="lbl">Full Name *</label><input type="text" id="cf-name" value="${c?.name||""}"/></div>
+    <div><label class="lbl">Email</label><input type="email" id="cf-email" value="${c?.email||""}"/></div>
+    <div><label class="lbl">Phone</label><input type="text" id="cf-phone" value="${c?.phone||""}"/></div>
+    <div><label class="lbl">Current Company</label><input type="text" id="cf-company" value="${c?.currentCompany||""}"/></div>
+    <div><label class="lbl">Current Location</label><input type="text" id="cf-location" value="${c?.currentLocation||""}"/></div>
+    <div><label class="lbl">Source</label><input type="text" id="cf-source" value="${c?.source||""}"/></div>
+    <div style="grid-column:1/-1"><label class="lbl">Role / Position *</label><input type="text" id="cf-role" value="${c?.role||""}"/></div>
+    <div><label class="lbl">Department *</label><select id="cf-dept"><option value="">Select...</option>${DEPT_LIST.map(d=>`<option value="${d}" ${c?.dept===d?"selected":""}>${d}</option>`).join("")}</select></div>
+    <div><label class="lbl">Stage</label><select id="cf-stage">${STAGE_ORDER.map(s=>`<option value="${s}" ${(c?.stage||"Not Started")===s?"selected":""}>${s}</option>`).join("")}</select></div>
+    <div><label class="lbl">Gender</label><select id="cf-gender">${GENDER_OPTIONS.map(g=>`<option value="${g}" ${c?.gender===g?"selected":""}>${g||"Select..."}</option>`).join("")}</select></div>
+    <div><label class="lbl">TA / Recruiter</label><select id="cf-ta"><option value="">Select TA...</option>${taList.map(t=>`<option value="${t}" ${c?.ta===t?"selected":""}>${t}</option>`).join("")}</select></div>
+    <div><label class="lbl">Notice Period</label><select id="cf-notice">${NOTICE_OPTIONS.map(o=>`<option value="${o}" ${c?.noticePeriod===o?"selected":""}>${o||"Select..."}</option>`).join("")}</select></div>
+    <div><label class="lbl">Interview Date</label><input type="date" id="cf-intdate" value="${c?.interviewDate||""}"/></div>
+    <div><label class="lbl">Current Salary (LPA)</label><input type="text" id="cf-cursal" placeholder="e.g. 12" value="${typeof c?.currentSalary==="object"?c.currentSalary.amount||"":c?.currentSalary||""}"/></div>
+    <div><label class="lbl">Expected Salary (LPA)</label><input type="text" id="cf-expsal" placeholder="e.g. 18" value="${typeof c?.expectedSalary==="object"?c.expectedSalary.amount||"":c?.expectedSalary||""}"/></div>
+    <div><label class="lbl">Relocation</label><select id="cf-reloc"><option value="">Select...</option>${["Mumbai","Kochi","Both","Unknown"].map(o=>`<option value="${o}" ${c?.relocation===o?"selected":""}>${o}</option>`).join("")}</select></div>
+    <div style="grid-column:1/-1"><label class="lbl">Notes</label><textarea id="cf-notes" rows="2">${c?.notes||""}</textarea></div>
+  </div>
+  <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:16px;border-top:1px solid #e1e1e1">
+    <button onclick="closeModal()" style="padding:8px 16px;background:transparent;border:1.5px solid #7e7e7e;color:#7e7e7e;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Cancel</button>
+    <button onclick="saveCandidateForm(${idx!==null&&idx!==undefined?idx:"null"})" style="padding:8px 18px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">${c?"Save Changes":"Save Candidate"}</button>
+  </div></div></div></div>`);
 }
 function saveCandidateForm(idx){
-  const name=document.getElementById('cf-name')?.value.trim();
-  const dept=document.getElementById('cf-dept')?.value;
-  if(!name||!dept){alert('Name and Department are required.');return;}
-  const newC={name,dept,role:document.getElementById('cf-role')?.value,ta:document.getElementById('cf-ta')?.value,email:document.getElementById('cf-email')?.value,phone:document.getElementById('cf-phone')?.value,currentCompany:document.getElementById('cf-company')?.value,currentLocation:document.getElementById('cf-location')?.value,currentSalary:document.getElementById('cf-cursal')?.value,expectedSalary:document.getElementById('cf-expsal')?.value,noticePeriod:document.getElementById('cf-notice')?.value,relocation:document.getElementById('cf-reloc')?.value,gender:document.getElementById('cf-gender')?.value,stage:document.getElementById('cf-stage')?.value||'Not Started',source:document.getElementById('cf-source')?.value,notes:document.getElementById('cf-notes')?.value,interviewDate:document.getElementById('cf-intdate')?.value,pipelineStatus:'Active'};
-  if(idx!==null&&idx!==undefined&&idx!=='null') state.candidates[idx]={...state.candidates[idx],...newC};
-  else state.candidates.push(newC);
-  saveToStorage();closeModal();populateFilters();renderAll();
+  const name=document.getElementById("cf-name")?.value.trim();const dept=document.getElementById("cf-dept")?.value;
+  if(!name||!dept){alert("Name and Department are required.");return;}
+  const newC={name,dept,role:document.getElementById("cf-role")?.value,ta:document.getElementById("cf-ta")?.value,email:document.getElementById("cf-email")?.value,phone:document.getElementById("cf-phone")?.value,currentCompany:document.getElementById("cf-company")?.value,currentLocation:document.getElementById("cf-location")?.value,currentSalary:document.getElementById("cf-cursal")?.value,expectedSalary:document.getElementById("cf-expsal")?.value,noticePeriod:document.getElementById("cf-notice")?.value,relocation:document.getElementById("cf-reloc")?.value,gender:document.getElementById("cf-gender")?.value,stage:document.getElementById("cf-stage")?.value||"Not Started",source:document.getElementById("cf-source")?.value,notes:document.getElementById("cf-notes")?.value,interviewDate:document.getElementById("cf-intdate")?.value,pipelineStatus:"Active"};
+  if(idx!==null&&idx!==undefined&&idx!=="null"){
+    state.candidates[idx]={...state.candidates[idx],...newC};
+  } else {
+    state.candidates.push(newC);
+  }
+  saveToStorage();
+  closeModal();
+  // Re-render WITHOUT resetting filters — filters are preserved in DOM selects
+  renderCandidates();
+  renderPipeline();
+  renderOverview();
 }
-function deleteCandidate(idx){if(confirm('Delete this candidate?')){state.candidates.splice(idx,1);saveToStorage();renderAll();}}
+function deleteCandidate(idx){if(confirm("Delete this candidate?")){state.candidates.splice(idx,1);saveToStorage();renderCandidates();renderOverview();}}
 
-// ADD POSITION MODAL
 function openAddPosition(){
   const taList=[...new Set(state.candidates.map(c=>c.ta).filter(Boolean))].sort();
-  showModal(`<div class="modal-overlay"><div class="modal-box wide">
-    <div class="modal-header"><span class="modal-title">Add New Position</span><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">
-      <div class="form-grid form-grid-3">
-        <div><label class="lbl">Req No</label><input type="text" id="pf-reqno" placeholder="e.g. IND-045"/></div>
-        <div><label class="lbl">Department *</label><select id="pf-dept"><option value="">Select...</option>${DEPT_LIST.map(d=>`<option value="${d}">${d}</option>`).join('')}</select></div>
-        <div><label class="lbl">Location</label><input type="text" id="pf-location"/></div>
-        <div style="grid-column:1/-1"><label class="lbl">Position / Role Title *</label><input type="text" id="pf-position"/></div>
-        <div><label class="lbl">Headcount</label><input type="number" id="pf-hc" min="1" value="1"/></div>
-        <div><label class="lbl">Priority</label><select id="pf-priority"><option>High</option><option selected>Medium</option><option>Low</option></select></div>
-        <div><label class="lbl">Status</label><select id="pf-status">${STATUS_OPTIONS.map(s=>`<option>${s}</option>`).join('')}</select></div>
-        <div><label class="lbl">TA / Recruiter</label><select id="pf-ta"><option value="">Select TA...</option>${taList.map(t=>`<option value="${t}">${t}</option>`).join('')}</select></div>
-        <div><label class="lbl">Requisition Date</label><input type="date" id="pf-reqdate"/></div>
-        <div><label class="lbl">Target Month</label><select id="pf-target"><option value="">Select...</option>${TARGET_MONTHS.map(m=>`<option value="${m}">${m}</option>`).join('')}</select></div>
-      </div>
-      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:16px;border-top:1px solid #e1e1e1">
-        <button onclick="closeModal()" style="padding:8px 16px;background:transparent;border:1.5px solid #7e7e7e;color:#7e7e7e;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Cancel</button>
-        <button onclick="savePosition()" style="padding:8px 18px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Save Position</button>
-      </div>
-    </div>
-  </div></div>`);
+  showModal(`<div class="modal-overlay"><div class="modal-box wide"><div class="modal-header"><span class="modal-title">Add New Position</span><button class="modal-close" onclick="closeModal()">×</button></div>
+  <div class="modal-body"><div class="form-grid form-grid-3">
+    <div><label class="lbl">Req No</label><input type="text" id="pf-reqno" placeholder="e.g. IND-045"/></div>
+    <div><label class="lbl">Department *</label><select id="pf-dept"><option value="">Select...</option>${DEPT_LIST.map(d=>`<option value="${d}">${d}</option>`).join("")}</select></div>
+    <div><label class="lbl">Location</label><input type="text" id="pf-location"/></div>
+    <div style="grid-column:1/-1"><label class="lbl">Position / Role Title *</label><input type="text" id="pf-position"/></div>
+    <div><label class="lbl">Headcount</label><input type="number" id="pf-hc" min="1" value="1"/></div>
+    <div><label class="lbl">Priority</label><select id="pf-priority"><option>High</option><option selected>Medium</option><option>Low</option></select></div>
+    <div><label class="lbl">Status</label><select id="pf-status">${STATUS_OPTIONS.map(s=>`<option>${s}</option>`).join("")}</select></div>
+    <div><label class="lbl">TA / Recruiter</label><select id="pf-ta"><option value="">Select TA...</option>${taList.map(t=>`<option value="${t}">${t}</option>`).join("")}</select></div>
+    <div><label class="lbl">Requisition Date</label><input type="date" id="pf-reqdate"/></div>
+    <div><label class="lbl">Target Month</label><select id="pf-target"><option value="">Select...</option>${TARGET_MONTHS.map(m=>`<option value="${m}">${m}</option>`).join("")}</select></div>
+  </div>
+  <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:16px;border-top:1px solid #e1e1e1">
+    <button onclick="closeModal()" style="padding:8px 16px;background:transparent;border:1.5px solid #7e7e7e;color:#7e7e7e;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Cancel</button>
+    <button onclick="savePosition()" style="padding:8px 18px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Save Position</button>
+  </div></div></div></div>`);
 }
 function savePosition(){
-  const pos=document.getElementById('pf-position')?.value.trim();
-  const dept=document.getElementById('pf-dept')?.value;
-  if(!pos||!dept){alert('Position and Department are required.');return;}
-  state.roles.push({reqNo:document.getElementById('pf-reqno')?.value,dept,location:document.getElementById('pf-location')?.value,position:pos,headcount:document.getElementById('pf-hc')?.value||1,priority:document.getElementById('pf-priority')?.value,status:document.getElementById('pf-status')?.value||'Active',recruiter:document.getElementById('pf-ta')?.value,requisitionDate:document.getElementById('pf-reqdate')?.value,targetMonth:document.getElementById('pf-target')?.value,jdFile:null,jdName:''});
+  const pos=document.getElementById("pf-position")?.value.trim();const dept=document.getElementById("pf-dept")?.value;
+  if(!pos||!dept){alert("Position and Department are required.");return;}
+  state.roles.push({reqNo:document.getElementById("pf-reqno")?.value,dept,location:document.getElementById("pf-location")?.value,position:pos,headcount:document.getElementById("pf-hc")?.value||1,priority:document.getElementById("pf-priority")?.value,status:document.getElementById("pf-status")?.value||"Active",recruiter:document.getElementById("pf-ta")?.value,requisitionDate:document.getElementById("pf-reqdate")?.value,targetMonth:document.getElementById("pf-target")?.value,jdFile:null,jdName:""});
   saveToStorage();closeModal();renderAll();
 }
 
-// EDIT ROLE MODAL
 function editRole(idx){
-  const r=state.roles[idx];
-  const taList=[...new Set(state.candidates.map(c=>c.ta).filter(Boolean))].sort();
-  showModal(`<div class="modal-overlay"><div class="modal-box wide">
-    <div class="modal-header"><span class="modal-title">Edit Role</span><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">
-      <div class="form-grid form-grid-3">
-        <div><label class="lbl">Req No</label><input type="text" id="ef-reqno" value="${r.reqNo||''}"/></div>
-        <div><label class="lbl">Department</label><select id="ef-dept">${DEPT_LIST.map(d=>`<option value="${d}" ${r.dept===d?'selected':''}>${d}</option>`).join('')}</select></div>
-        <div><label class="lbl">Location</label><input type="text" id="ef-location" value="${r.location||''}"/></div>
-        <div style="grid-column:1/-1"><label class="lbl">Position</label><input type="text" id="ef-position" value="${r.position||''}"/></div>
-        <div><label class="lbl">Headcount</label><input type="number" id="ef-hc" min="1" value="${r.headcount||1}"/></div>
-        <div><label class="lbl">Priority</label><select id="ef-priority">${['High','Medium','Low'].map(p=>`<option ${r.priority===p?'selected':''}>${p}</option>`).join('')}</select></div>
-        <div><label class="lbl">Status</label><select id="ef-status">${STATUS_OPTIONS.map(s=>`<option ${r.status===s?'selected':''}>${s}</option>`).join('')}</select></div>
-        <div><label class="lbl">Recruiter</label><select id="ef-ta"><option value="">Select TA...</option>${taList.map(t=>`<option value="${t}" ${r.recruiter===t?'selected':''}>${t}</option>`).join('')}</select></div>
-        <div><label class="lbl">Requisition Date</label><input type="date" id="ef-reqdate" value="${r.requisitionDate||''}"/></div>
-        <div><label class="lbl">Target Month</label><select id="ef-target"><option value="">Select...</option>${TARGET_MONTHS.map(m=>`<option value="${m}" ${r.targetMonth===m?'selected':''}>${m}</option>`).join('')}</select></div>
-      </div>
-      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:16px;border-top:1px solid #e1e1e1">
-        <button onclick="closeModal()" style="padding:8px 16px;background:transparent;border:1.5px solid #7e7e7e;color:#7e7e7e;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Cancel</button>
-        <button onclick="saveEditRole(${idx})" style="padding:8px 18px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Save Changes</button>
-      </div>
-    </div>
-  </div></div>`);
+  const r=state.roles[idx];const taList=[...new Set(state.candidates.map(c=>c.ta).filter(Boolean))].sort();
+  showModal(`<div class="modal-overlay"><div class="modal-box wide"><div class="modal-header"><span class="modal-title">Edit Role</span><button class="modal-close" onclick="closeModal()">×</button></div>
+  <div class="modal-body"><div class="form-grid form-grid-3">
+    <div><label class="lbl">Req No</label><input type="text" id="ef-reqno" value="${r.reqNo||""}"/></div>
+    <div><label class="lbl">Department</label><select id="ef-dept">${DEPT_LIST.map(d=>`<option value="${d}" ${r.dept===d?"selected":""}>${d}</option>`).join("")}</select></div>
+    <div><label class="lbl">Location</label><input type="text" id="ef-location" value="${r.location||""}"/></div>
+    <div style="grid-column:1/-1"><label class="lbl">Position</label><input type="text" id="ef-position" value="${r.position||""}"/></div>
+    <div><label class="lbl">Headcount</label><input type="number" id="ef-hc" min="1" value="${r.headcount||1}"/></div>
+    <div><label class="lbl">Priority</label><select id="ef-priority">${["High","Medium","Low"].map(p=>`<option ${r.priority===p?"selected":""}>${p}</option>`).join("")}</select></div>
+    <div><label class="lbl">Status</label><select id="ef-status">${STATUS_OPTIONS.map(s=>`<option ${r.status===s?"selected":""}>${s}</option>`).join("")}</select></div>
+    <div><label class="lbl">Recruiter</label><select id="ef-ta"><option value="">Select TA...</option>${taList.map(t=>`<option value="${t}" ${r.recruiter===t?"selected":""}>${t}</option>`).join("")}</select></div>
+    <div><label class="lbl">Requisition Date</label><input type="date" id="ef-reqdate" value="${r.requisitionDate||""}"/></div>
+    <div><label class="lbl">Target Month</label><select id="ef-target"><option value="">Select...</option>${TARGET_MONTHS.map(m=>`<option value="${m}" ${r.targetMonth===m?"selected":""}>${m}</option>`).join("")}</select></div>
+  </div>
+  <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:16px;border-top:1px solid #e1e1e1">
+    <button onclick="closeModal()" style="padding:8px 16px;background:transparent;border:1.5px solid #7e7e7e;color:#7e7e7e;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Cancel</button>
+    <button onclick="saveEditRole(${idx})" style="padding:8px 18px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Save Changes</button>
+  </div></div></div></div>`);
 }
 function saveEditRole(idx){
-  state.roles[idx]={...state.roles[idx],reqNo:document.getElementById('ef-reqno')?.value,dept:document.getElementById('ef-dept')?.value,location:document.getElementById('ef-location')?.value,position:document.getElementById('ef-position')?.value,headcount:document.getElementById('ef-hc')?.value||1,priority:document.getElementById('ef-priority')?.value,status:document.getElementById('ef-status')?.value,recruiter:document.getElementById('ef-ta')?.value,requisitionDate:document.getElementById('ef-reqdate')?.value,targetMonth:document.getElementById('ef-target')?.value};
-  saveToStorage();closeModal();renderAll();
+  state.roles[idx]={...state.roles[idx],reqNo:document.getElementById("ef-reqno")?.value,dept:document.getElementById("ef-dept")?.value,location:document.getElementById("ef-location")?.value,position:document.getElementById("ef-position")?.value,headcount:document.getElementById("ef-hc")?.value||1,priority:document.getElementById("ef-priority")?.value,status:document.getElementById("ef-status")?.value,recruiter:document.getElementById("ef-ta")?.value,requisitionDate:document.getElementById("ef-reqdate")?.value,targetMonth:document.getElementById("ef-target")?.value};
+  saveToStorage();closeModal();renderRoles();
 }
 
-// ADD JD MODAL
 function openAddJD(){
-  showModal(`<div class="modal-overlay"><div class="modal-box">
-    <div class="modal-header"><span class="modal-title">Add Job Description</span><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">
-      <div class="form-grid form-grid-2">
-        <div style="grid-column:1/-1"><label class="lbl">JD Title *</label><input type="text" id="jd-title"/></div>
-        <div><label class="lbl">Department</label><select id="jd-dept"><option value="">Select...</option>${DEPT_LIST.map(d=>`<option value="${d}">${d}</option>`).join('')}</select></div>
-        <div><label class="lbl">Role</label><input type="text" id="jd-role"/></div>
-        <div style="grid-column:1/-1"><label class="lbl">Notes</label><textarea id="jd-notes" rows="3"></textarea></div>
-        <div style="grid-column:1/-1">
-          <label class="lbl">Upload JD File *</label>
-          <div class="upload-area">
-            <button class="upload-btn" onclick="document.getElementById('jd-file-input').click()">Choose File</button>
-            <span id="jd-file-name" style="font-size:13px;color:#7e7e7e">No file selected</span>
-            <input type="file" id="jd-file-input" accept=".pdf,.doc,.docx" style="display:none" onchange="handleJDFile(this)"/>
-          </div>
-        </div>
-      </div>
-      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:16px;border-top:1px solid #e1e1e1">
-        <button onclick="closeModal()" style="padding:8px 16px;background:transparent;border:1.5px solid #7e7e7e;color:#7e7e7e;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Cancel</button>
-        <button onclick="saveJD()" style="padding:8px 18px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Save JD</button>
-      </div>
+  showModal(`<div class="modal-overlay"><div class="modal-box"><div class="modal-header"><span class="modal-title">Add Job Description</span><button class="modal-close" onclick="closeModal()">×</button></div>
+  <div class="modal-body"><div class="form-grid form-grid-2">
+    <div style="grid-column:1/-1"><label class="lbl">JD Title *</label><input type="text" id="jd-title"/></div>
+    <div><label class="lbl">Department</label><select id="jd-dept"><option value="">Select...</option>${DEPT_LIST.map(d=>`<option value="${d}">${d}</option>`).join("")}</select></div>
+    <div><label class="lbl">Role</label><input type="text" id="jd-role"/></div>
+    <div style="grid-column:1/-1"><label class="lbl">Notes</label><textarea id="jd-notes" rows="3"></textarea></div>
+    <div style="grid-column:1/-1"><label class="lbl">Upload JD File *</label>
+      <div class="upload-area"><button class="upload-btn" onclick="document.getElementById('jd-file-input').click()">Choose File</button>
+      <span id="jd-file-name" style="font-size:13px;color:#7e7e7e">No file selected</span>
+      <input type="file" id="jd-file-input" accept=".pdf,.doc,.docx" style="display:none" onchange="handleJDFile(this)"/></div>
     </div>
-  </div></div>`);
+  </div>
+  <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:16px;border-top:1px solid #e1e1e1">
+    <button onclick="closeModal()" style="padding:8px 16px;background:transparent;border:1.5px solid #7e7e7e;color:#7e7e7e;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Cancel</button>
+    <button onclick="saveJD()" style="padding:8px 18px;background:#d6242f;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Save JD</button>
+  </div></div></div></div>`);
 }
-window._jdFileData=null;window._jdFileName='';
-function handleJDFile(inp){
-  const f=inp.files[0];if(!f) return;
-  window._jdFileName=f.name;
-  document.getElementById('jd-file-name').textContent=f.name;
-  document.getElementById('jd-file-name').style.color='#059669';
-  const r=new FileReader();
-  r.onload=ev=>{window._jdFileData=ev.target.result;};
-  r.readAsDataURL(f);
-}
+window._jdFileData=null;window._jdFileName="";
+function handleJDFile(inp){const f=inp.files[0];if(!f)return;window._jdFileName=f.name;document.getElementById("jd-file-name").textContent=f.name;document.getElementById("jd-file-name").style.color="#059669";const r=new FileReader();r.onload=ev=>{window._jdFileData=ev.target.result;};r.readAsDataURL(f);}
 function saveJD(){
-  const title=document.getElementById('jd-title')?.value.trim();
-  if(!title||!window._jdFileData){alert('Title and file are required.');return;}
-  state.jdLibrary=[{id:Date.now(),title,dept:document.getElementById('jd-dept')?.value,role:document.getElementById('jd-role')?.value,notes:document.getElementById('jd-notes')?.value,name:window._jdFileName,file:window._jdFileData,type:'JD',date:new Date().toLocaleDateString('en-GB')},...state.jdLibrary];
-  window._jdFileData=null;window._jdFileName='';
-  saveToStorage();closeModal();renderLibrary();
+  const title=document.getElementById("jd-title")?.value.trim();if(!title||!window._jdFileData){alert("Title and file are required.");return;}
+  state.jdLibrary=[{id:Date.now(),title,dept:document.getElementById("jd-dept")?.value,role:document.getElementById("jd-role")?.value,notes:document.getElementById("jd-notes")?.value,name:window._jdFileName,file:window._jdFileData,type:"JD",date:new Date().toLocaleDateString("en-GB")},...state.jdLibrary];
+  window._jdFileData=null;window._jdFileName="";saveToStorage();closeModal();renderLibrary();
 }
 
-// EXPORT
-function exportCandidates(){ exportXLSX(getFilteredCandidates(),'9E_Candidates.xlsx'); }
-function exportPipeline(){ exportXLSX(getFilteredPipeline(),'9E_Pipeline.xlsx'); }
-function exportRoles(){
-  const fd=document.getElementById('roles-dept')?.value||'';
-  const fs=document.getElementById('roles-status')?.value||'';
-  let l=state.roles;
-  if(fd) l=l.filter(r=>r.dept===fd);
-  if(fs) l=l.filter(r=>r.status===fs);
-  exportXLSX(l,'9E_Roles.xlsx');
+function showPrevHiringModal(){
+  const data=state.prevHiring;
+  if(!data||!data.length){showModal(`<div class="modal-overlay"><div class="modal-box wide"><div class="modal-header"><span class="modal-title">🕘 Previous Hiring Needs</span><button class="modal-close" onclick="closeModal()">×</button></div><div class="modal-body"><div style="text-align:center;padding:60px;color:#7e7e7e">No previous hiring needs data found.</div></div></div></div>`);return;}
+  const cols=Object.keys(data[0]).filter(k=>k&&k!=="__EMPTY");
+  window._prevData=data;
+  showModal(`<div class="modal-overlay"><div class="modal-box wide"><div class="modal-header"><span class="modal-title">🕘 Previous Hiring Needs (${data.length} records)</span><button class="modal-close" onclick="closeModal()">×</button></div>
+  <div class="modal-body">
+    <div style="margin-bottom:12px;display:flex;justify-content:flex-end"><button onclick="exportXLSX(window._prevData,'9E_Previous_Hiring_Needs.xlsx')" style="padding:6px 14px;background:#059669;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">Export</button></div>
+    <div style="overflow-x:auto"><table class="tbl"><thead><tr style="background:#f5f0ff">${cols.map(c=>`<th style="color:#7c3aed;white-space:nowrap">${c}</th>`).join("")}</tr></thead>
+    <tbody>${data.slice(0,500).map(r=>`<tr>${cols.map(c=>`<td style="white-space:nowrap">${r[c]||"—"}</td>`).join("")}</tr>`).join("")}</tbody>
+    </table></div>
+  </div></div></div>`);
 }
-function showDeptDrill(dept,type){
-  let data=[],title='',cols=[];
-  if(type==='planned'){
-    data=state.roles.filter(r=>r.dept===dept);
-    title=dept+' — Planned Roles';
-    cols=['reqNo','position','headcount','priority','status','recruiter','targetMonth'];
-  } else if(type==='filled'){
-    data=state.candidates.filter(c=>c.dept===dept&&(c.stage==='Hired'||c.stage==='Offer Stage'));
-    title=dept+' — Filled Positions';
-    cols=['name','role','stage','ta','noticePeriod','currentSalary','expectedSalary'];
-  } else {
-    data=state.roles.filter(r=>r.dept===dept&&!['Hired','Closed'].includes(r.status));
-    title=dept+' — Open Roles (Gap)';
-    cols=['reqNo','position','headcount','priority','status','recruiter','targetMonth'];
-  }
-  showModal(`<div class="modal-overlay"><div class="modal-box wide">
-    <div class="modal-header"><span class="modal-title">${title} (${data.length})</span><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">
-      <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
-        <button onclick="exportXLSX(window._drillData,'9E_${dept}_${type}.xlsx')" style="padding:6px 14px;background:#059669;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">Export</button>
-      </div>
-      <div style="overflow-x:auto"><table class="tbl">
-        <thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead>
-        <tbody>${data.length===0
-          ?`<tr><td colspan="${cols.length}" style="text-align:center;padding:40px;color:#7e7e7e">No data found.</td></tr>`
-          :data.map(r=>`<tr>${cols.map(c=>`<td>${
-            c==='stage'?badge(r[c]||'—',STAGE_COLORS[r[c]]||'#7e7e7e')
-            :c==='dept'?badge(r[c]||'—',DEPT_COLORS[r[c]]||'#d6242f')
-            :['currentSalary','expectedSalary'].includes(c)?fmtSalary(r[c])
-            :(r[c]||'—')}</td>`).join('')}</tr>`).join('')}
-        </tbody>
-      </table></div>
-    </div>
-  </div></div>`);
-  window._drillData=data;
+
+function exportCandidates(){exportXLSX(getFilteredCandidates(),"9E_Candidates.xlsx");}
+function exportPipeline(){exportXLSX(getFilteredPipeline(),"9E_Pipeline.xlsx");}
+function exportRoles(){
+  const fd=document.getElementById("roles-dept")?.value||"";const fs=document.getElementById("roles-status")?.value||"";
+  let l=state.roles;if(fd)l=l.filter(r=>r.dept===fd);if(fs)l=l.filter(r=>r.status===fs);
+  exportXLSX(l,"9E_Roles.xlsx");
 }
 function exportXLSX(data,filename){
-  const clean=data.map(r=>{const o={};Object.keys(r).forEach(k=>{if(!['cvFile','jdFile'].includes(k)) o[k]=r[k];});return o;});
-  const ws=XLSX.utils.json_to_sheet(clean);
-  const wb=XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb,ws,'Data');
-  XLSX.writeFile(wb,filename);
+  const clean=data.map(r=>{const o={};Object.keys(r).forEach(k=>{if(!["cvFile","jdFile"].includes(k))o[k]=r[k];});return o;});
+  const ws=XLSX.utils.json_to_sheet(clean);const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"Data");XLSX.writeFile(wb,filename);
 }
 </script>
 </body>
