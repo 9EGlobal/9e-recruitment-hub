@@ -360,7 +360,8 @@ input:focus,select:focus,textarea:focus{border-color:#d6242f}
         <div class="card">
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px">
             <div style="font-size:15px;font-weight:800">Recruitment Plan <span style="color:#d6242f" id="roles-count">(0)</span></div>
-            <div style="display:flex;gap:8px">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button onclick="showPrevHiringModal()" style="padding:8px 16px;background:linear-gradient(135deg,#a01820,#d6242f);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px">🕘 Previous Hiring Needs</button>
               <select id="roles-dept" onchange="renderRoles()" style="width:auto"><option value="">Dept (All)</option></select>
               <select id="roles-status" onchange="renderRoles()" style="width:auto"><option value="">Status (All)</option><option>Active</option><option>On Hold</option><option>Interview Stage</option><option>Offer Stage</option><option>Hired</option><option>Closed</option></select>
               <button class="btn btn-green btn-sm" onclick="exportRoles()">Export</button>
@@ -422,8 +423,8 @@ const PASSWORD = "9eRecruit2026";
 const STORAGE_KEY = "9e_recruitment_html_v1";
 const LPA_TO_AED = Math.round(100000 / 24.85);
 const PG = 25;
-const DEPT_LIST = ["STR","STR-BIM","MEP","MEP-BIM","AVIT","INFRA","Business Support"];
-const DEPT_COLORS = {STR:"#d6242f","STR-BIM":"#e85d5d",MEP:"#a01820","MEP-BIM":"#c44040",INFRA:"#82939a","Business Support":"#000000",AVIT:"#7e7e7e"};
+const DEPT_LIST = ["STR","STR-BIM","MEP","MEP-BIM","AVIT","INFRA","Business Support","Interns"];
+const DEPT_COLORS = {STR:"#d6242f","STR-BIM":"#e85d5d",MEP:"#a01820","MEP-BIM":"#c44040",INFRA:"#82939a","Business Support":"#000000",AVIT:"#7e7e7e",Interns:"#7c3aed"};
 const STAGE_ORDER = ["Not Started","CV Review","TA Screened","HM Screened","First Interview","Second Interview","Interview/Scheduled","Interview Feedback Pending","TA Rejected","HM Rejected","Rejected","Dropped","Offer Stage","Hired"];
 const ACTIVE_STAGES = ["CV Review","TA Screened","HM Screened","First Interview","Second Interview","Interview/Scheduled","Interview Feedback Pending","Offer Stage"];
 const INTERVIEW_STAGES = ["First Interview","Second Interview","Interview/Scheduled","Interview Feedback Pending"];
@@ -434,7 +435,7 @@ const STATUS_OPTIONS = ["Active","On Hold","Interview Stage","Offer Stage","Hire
 const TARGET_MONTHS = ["Jan 2026","Feb 2026","Mar 2026","Apr 2026","May 2026","Jun 2026","Jul 2026","Aug 2026","Sep 2026","Oct 2026","Nov 2026","Dec 2026"];
 const NOTICE_OPTIONS = ["","Immediate","15 Days","1 Month","2 Months","3 Months","Other"];
 const GENDER_OPTIONS = ["","Male","Female","Other","Prefer not to say"];
-const SKIP_SHEETS = new Set(["Interview Feedback Form","📁 Vendors","Helper","Open Tracker"]);
+const SKIP_SHEETS = new Set(["Interview Feedback Form","📁 Vendors","Vendors","Helper","Open Tracker","Dashboard","📊 Dashboard"]);
 const COMPETENCY_FIELDS = [
   {key:"relevantExperience",label:"Relevant Experience"},{key:"technicalKnowledge",label:"Technical Knowledge"},
   {key:"interDiscipline",label:"Inter-Discipline"},{key:"intlExposure",label:"Int'l Exposure"},
@@ -445,7 +446,7 @@ const COMPETENCY_FIELDS = [
 ];
 
 // ── STATE ────────────────────────────────────────────────────────────────────
-let state = {candidates:[],roles:[],jdLibrary:[],feedbackRecords:[],lastUpdated:""};
+let state = {candidates:[],roles:[],prevHiring:[],jdLibrary:[],feedbackRecords:[],lastUpdated:""};
 let currency = "INR";
 let candPage = 1, pipePage = 1;
 let pipelineChart = null, sourceChart = null, velocityChart = null;
@@ -655,14 +656,35 @@ const DEPT_RULES=[
 ];
 const EXACT_SHEETS={"🏢 STR Tracker":"STR","🌉 Infra Tracker":"INFRA","⚙️ MEP Tracker":"MEP","💻 AVIT Tracker":"AVIT","🤝 Biz Support Tracker":"Business Support"};
 function detectDept(s){
+  // Try exact match first
   if(EXACT_SHEETS[s]) return EXACT_SHEETS[s];
+  // Try matching by stripping ALL non-ASCII and spaces for loose match
+  const stripped = s.replace(/[^\x00-\x7F]/g,'').trim().toLowerCase();
+  if(stripped.includes('str')) return 'STR';
+  if(stripped.includes('infra')) return 'INFRA';
+  if(stripped.includes('mep')) return 'MEP';
+  if(stripped.includes('avit')) return 'AVIT';
+  if(stripped.includes('biz')||stripped.includes('business')||stripped.includes('support')) return 'Business Support';
+  // Try cleanName fallback
   const c=cleanName(s);
   for(const r of DEPT_RULES) for(const g of r.any) if(g.every(w=>c.includes(w))) return r.dept;
   return null;
 }
 function isPlan(s){const c=cleanName(s);return c.includes('plan')&&!detectDept(s);}
+function isPrevHiring(s){const c=cleanName(s);return c.includes('previous')||c.includes('prev hiring')||c.includes('previous hiring');}
 function isDash(s){return s==='📊 Dashboard'||cleanName(s).includes('dashboard');}
-function findHdrRow(rows){let bi=0,bs=0;for(let i=0;i<Math.min(rows.length,15);i++){const sc=rows[i].filter(c=>c!==''&&c!==null&&c!==undefined).length;if(sc>bs){bs=sc;bi=i;}}return bi;}
+function findHdrRow(rows){
+  // Look for row containing known header keywords — check up to row 10
+  for(let i=0;i<Math.min(rows.length,10);i++){
+    const joined=rows[i].map(c=>String(c||'').toLowerCase()).join('|');
+    if(/(name|candidate|status|stage|role|position|designation|sl|sr|s\.no)/.test(joined)) return i;
+  }
+  // Fallback: first row that has content in column C (index 2)
+  for(let i=0;i<Math.min(rows.length,10);i++){
+    if(rows[i][2]&&String(rows[i][2]).trim()!=='') return i;
+  }
+  return 1; // default to row 2 (index 1) since row 1 is usually a title
+}
 function mkGet(headers){
   return(row,...keys)=>{
     for(const key of keys){
@@ -698,6 +720,7 @@ function handleExcel(inp){
 
 function parseExcel(wb){
   const cands=[],rolesList=[],skipped=[];
+  let prevHiringData=[];
   wb.SheetNames.forEach(sn=>{
     if(SKIP_SHEETS.has(sn)){skipped.push(sn+' (skipped)');return;}
     const sheet=wb.Sheets[sn];
@@ -706,7 +729,8 @@ function parseExcel(wb){
     if(ne.length<2){skipped.push(sn+' (blank)');return;}
     const dept=detectDept(sn);
     const planSh=!dept&&isPlan(sn);
-    const dashSh=!dept&&!planSh&&isDash(sn);
+    const prevSh=!dept&&!planSh&&isPrevHiring(sn);
+    const dashSh=!dept&&!planSh&&!prevSh&&isDash(sn);
     if(dept){
       const hi=findHdrRow(ne);
       const hdr=ne[hi].map(h=>String(h).trim().replace(/\*/g,'').replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]/gu,'').trim());
@@ -716,8 +740,11 @@ function parseExcel(wb){
       drs.forEach(row=>{
         const fv=String(row[0]||'').trim().toLowerCase();
         if(['sl no','s no','sr no','#','sno','total'].includes(fv)) return;
-        const name=get(row,'Candidate Name','Candidate','Name','Full Name','Applicant Name','Applicant');
-        if(!name||name.toLowerCase()==='name') return;
+        let name=String(row[2]||'').trim();
+        if(!name||name.toLowerCase()==='name'){
+          name=get(row,'Candidate Name','Candidate','Name','Full Name','Applicant Name','Applicant');
+        }
+        if(!name||name.toLowerCase()==='name'||name===''||name==='-') return;
         cands.push({name,dept,role:get(row,'Role','Position','Job Title','Designation','Opening','Hiring for','Post'),ta:get(row,'TA','TA Name','Recruiter','Assigned To','Assigned','Handled By','SPOC','Spoc'),currentCompany:get(row,'Current Company','Company','Employer','Current Employer','Organisation'),currentLocation:get(row,'Current Location','Present Location','Base Location','City','Location'),currentSalary:get(row,'Current Salary','Current CTC','CTC','Present CTC','Current Package'),expectedSalary:get(row,'Expected Salary','Expected CTC','Expected Package','Exp CTC','Expectation'),noticePeriod:get(row,'Notice Period','Notice','NP'),relocation:normalizeReloc(get(row,'Relocation','Willing to Relocate','Reloc')),gender:get(row,'Gender','Sex','M/F'),stage:normalizeStage(get(row,'Hiring Status','Status','Stage','Recruitment Stage','Current Stage','Remarks','Remark')),source:get(row,'Source','Recruitment Source','Source of CV','Channel','Sourced From','Platform'),dateAdded:get(row,'Date Added','Date','Added On','Date of Application','Applied On','Entry Date'),interviewDate:get(row,'Interview Date','Interview Scheduled','Int Date','Int. Date'),firstInterviewDate:'',secondInterviewDate:'',email:get(row,'Email','Email ID','Mail','Email Address'),phone:get(row,'Phone','Mobile','Contact','Phone No','Mobile No'),notes:get(row,'Notes','Remarks','Comments','Note','Observation'),pipelineStatus:'Active',cvName:'',cvFile:null});
       });
     } else if(planSh){
@@ -732,10 +759,21 @@ function parseExcel(wb){
         if(d&&!DEPT_LIST.includes(d)) return;
         rolesList.push({reqNo:get(row,'Req No','Req','Sr No','Sl No','No','ID'),dept:d,location:get(row,'Location','City','Office','Base'),position:pos,headcount:get(row,'Headcount','HC','Count','No of','Number','Positions','Nos')||1,priority:get(row,'Priority','Urgency','Level'),status:get(row,'Status','Hiring Status','Stage')||'Active',recruiter:get(row,'Recruiter','TA','Assigned','SPOC','Handled By'),targetMonth:get(row,'Target Month','Target','Month','Timeline','Expected By'),requisitionDate:get(row,'Requisition Date','Req Date','Date','Raised On'),jdFile:null,jdName:''});
       });
+    } else if(prevSh){
+      const hi=findHdrRow(ne);
+      const hdr=ne[hi].map(h=>String(h).trim().replace(/\*/g,'').replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]/gu,'').trim()).filter(h=>h);
+      const drs=ne.slice(hi+1).filter(r=>r.some(c=>c!==''&&c!==null&&c!==undefined));
+      drs.forEach(row=>{
+        const obj={};
+        hdr.forEach((h,i)=>{if(h&&row[i]!==undefined&&row[i]!=='') obj[h]=String(row[i]).trim();});
+        if(Object.keys(obj).length>0) prevHiringData.push(obj);
+      });
+      skipped.push(sn+' (loaded as Previous Hiring)');
     } else {
       skipped.push(sn+' (unrecognised)');
     }
   });
+  state.prevHiring=prevHiringData;
   return{cands,rolesList,skipped};
 }
 
@@ -1033,9 +1071,15 @@ function renderRoles(){
     return `<div class="role-card">
       ${badge(d,DEPT_COLORS[d]||'#d6242f')}
       <div style="display:flex;justify-content:space-between;margin:12px 0 6px">
-        <div style="text-align:center"><div style="font-size:22px;font-weight:900">${planned}</div><div style="font-size:10px;color:#7e7e7e;font-weight:700;text-transform:uppercase">Planned</div></div>
-        <div style="text-align:center"><div style="font-size:22px;font-weight:900;color:#059669">${fulfilled}</div><div style="font-size:10px;color:#7e7e7e;font-weight:700;text-transform:uppercase">Filled</div></div>
-        <div style="text-align:center"><div style="font-size:22px;font-weight:900;color:#d6242f">${gap}</div><div style="font-size:10px;color:#7e7e7e;font-weight:700;text-transform:uppercase">Gap</div></div>
+        <button onclick="showDeptDrill('${d}','planned')" style="text-align:center;background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:10px" onmouseenter="this.style.background='#f5f5f5'" onmouseleave="this.style.background='none'">
+          <div style="font-size:22px;font-weight:900">${planned}</div><div style="font-size:10px;color:#7e7e7e;font-weight:700;text-transform:uppercase">Planned</div>
+        </button>
+        <button onclick="showDeptDrill('${d}','filled')" style="text-align:center;background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:10px" onmouseenter="this.style.background='#f5f5f5'" onmouseleave="this.style.background='none'">
+          <div style="font-size:22px;font-weight:900;color:#059669">${fulfilled}</div><div style="font-size:10px;color:#7e7e7e;font-weight:700;text-transform:uppercase">Filled</div>
+        </button>
+        <button onclick="showDeptDrill('${d}','gap')" style="text-align:center;background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:10px" onmouseenter="this.style.background='#f5f5f5'" onmouseleave="this.style.background='none'">
+          <div style="font-size:22px;font-weight:900;color:#d6242f">${gap}</div><div style="font-size:10px;color:#7e7e7e;font-weight:700;text-transform:uppercase">Gap</div>
+        </button>
       </div>
       <div class="prog-bar"><div class="prog-fill" style="width:${rate}%;background:${rate===100?'#059669':'#d6242f'}"></div></div>
       <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px">
@@ -1592,6 +1636,42 @@ function exportRoles(){
   if(fd) l=l.filter(r=>r.dept===fd);
   if(fs) l=l.filter(r=>r.status===fs);
   exportXLSX(l,'9E_Roles.xlsx');
+}
+function showDeptDrill(dept,type){
+  let data=[],title='',cols=[];
+  if(type==='planned'){
+    data=state.roles.filter(r=>r.dept===dept);
+    title=dept+' — Planned Roles';
+    cols=['reqNo','position','headcount','priority','status','recruiter','targetMonth'];
+  } else if(type==='filled'){
+    data=state.candidates.filter(c=>c.dept===dept&&(c.stage==='Hired'||c.stage==='Offer Stage'));
+    title=dept+' — Filled Positions';
+    cols=['name','role','stage','ta','noticePeriod','currentSalary','expectedSalary'];
+  } else {
+    data=state.roles.filter(r=>r.dept===dept&&!['Hired','Closed'].includes(r.status));
+    title=dept+' — Open Roles (Gap)';
+    cols=['reqNo','position','headcount','priority','status','recruiter','targetMonth'];
+  }
+  showModal(`<div class="modal-overlay"><div class="modal-box wide">
+    <div class="modal-header"><span class="modal-title">${title} (${data.length})</span><button class="modal-close" onclick="closeModal()">×</button></div>
+    <div class="modal-body">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+        <button onclick="exportXLSX(window._drillData,'9E_${dept}_${type}.xlsx')" style="padding:6px 14px;background:#059669;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">Export</button>
+      </div>
+      <div style="overflow-x:auto"><table class="tbl">
+        <thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead>
+        <tbody>${data.length===0
+          ?`<tr><td colspan="${cols.length}" style="text-align:center;padding:40px;color:#7e7e7e">No data found.</td></tr>`
+          :data.map(r=>`<tr>${cols.map(c=>`<td>${
+            c==='stage'?badge(r[c]||'—',STAGE_COLORS[r[c]]||'#7e7e7e')
+            :c==='dept'?badge(r[c]||'—',DEPT_COLORS[r[c]]||'#d6242f')
+            :['currentSalary','expectedSalary'].includes(c)?fmtSalary(r[c])
+            :(r[c]||'—')}</td>`).join('')}</tr>`).join('')}
+        </tbody>
+      </table></div>
+    </div>
+  </div></div>`);
+  window._drillData=data;
 }
 function exportXLSX(data,filename){
   const clean=data.map(r=>{const o={};Object.keys(r).forEach(k=>{if(!['cvFile','jdFile'].includes(k)) o[k]=r[k];});return o;});
