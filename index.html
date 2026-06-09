@@ -157,7 +157,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--red)}
           <button class="cur-btn active" id="cur-inr" onclick="setCurrency('INR')">₹ INR</button>
           <button class="cur-btn" id="cur-aed" onclick="setCurrency('AED')">AED</button>
         </div>
-        <button class="nav-btn" onclick="document.getElementById('xl-input').click()">Upload Excel</button>
+        <div id="sync-indicator" style="font-size:11px;font-weight:700;padding:0 8px;white-space:nowrap;color:#fff">🔄 Connecting...</div>
+        <button class="nav-btn" onclick="document.getElementById('xl-input').click()">↑ Override Upload</button>
         <input type="file" id="xl-input" accept=".xlsx,.xls" style="display:none" onchange="handleExcel(this)"/>
         <button class="nav-btn" onclick="openAddCandidate()">+ Candidate</button>
         <button class="nav-btn" onclick="openAddPosition()">+ Position</button>
@@ -334,6 +335,47 @@ input:focus,select:focus,textarea:focus{border-color:var(--red)}
 <script>
 // ── CONSTANTS ──────────────────────────────────────────────────────────────────
 const PASSWORD="9eRecruit2026";
+
+// ── SHAREPOINT AUTO-SYNC ──────────────────────────────────────────────────────
+const SP_URL="https://nineeraeng-my.sharepoint.com/:x:/g/personal/m_tamboli_9eglobal_com/IQCuspDzV2iaQqnZFgAHrXtYAalz0dyztNrHqa4DjYsz6MU?e=3krjAE&download=1";
+const REFRESH_MS=30000;
+let autoSyncInterval=null;
+
+async function fetchFromSharePoint(){
+  const indicator=document.getElementById("sync-indicator");
+  try{
+    if(indicator)indicator.innerHTML='<span style="color:rgba(255,255,255,0.8)">🔄 Syncing...</span>';
+    const res=await fetch(SP_URL,{cache:"no-store"});
+    if(!res.ok)throw new Error("HTTP "+res.status);
+    const buf=await res.arrayBuffer();
+    const wb=XLSX.read(buf,{type:"array"});
+    const{cands,roles,skipped}=parseWB(wb);
+    if(cands.length||roles.length){
+      S.candidates=cands;
+      S.roles=roles;
+      S.lastUpdated=new Date().toLocaleString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+      save();
+      const tc=document.getElementById("tab-contents");
+      if(tc&&!tc.classList.contains("hidden")){populateFilters();renderAll();}
+      else{showApp();}
+      if(indicator)indicator.innerHTML='<span style="color:#fff">✅ Live · '+S.lastUpdated+'</span>';
+    }else{
+      if(indicator)indicator.innerHTML='<span style="color:rgba(255,255,100,0.9)">⚠️ No data parsed</span>';
+    }
+  }catch(e){
+    console.warn("SharePoint sync failed:",e.message);
+    if(indicator)indicator.innerHTML='<span style="color:rgba(255,200,100,0.9)">⚠️ Sync failed — cached data shown</span>';
+    const tc=document.getElementById("tab-contents");
+    if(S.candidates.length||S.roles.length){if(tc&&tc.classList.contains("hidden"))showApp();}
+  }
+}
+
+function startAutoSync(){
+  fetchFromSharePoint();
+  if(autoSyncInterval)clearInterval(autoSyncInterval);
+  autoSyncInterval=setInterval(fetchFromSharePoint,REFRESH_MS);
+}
+
 const SK="9e_rec_v3";
 const LPA_AED=Math.round(100000/24.85);
 const PG=25;
@@ -361,7 +403,7 @@ let currency="INR", candPage=1, pipePage=1;
 let sorts={cand:"desc",pipe:"desc",roles:"desc",fb:"desc",overview:"desc"};
 
 // ── PASSWORD ───────────────────────────────────────────────────────────────────
-function tryUnlock(){const v=document.getElementById("pw-input").value;if(v===PASSWORD){document.getElementById("gate").style.display="none";document.getElementById("app").style.display="flex";loadStorage();}else{document.getElementById("pw-err").style.display="block";document.getElementById("pw-input").value="";setTimeout(()=>document.getElementById("pw-err").style.display="none",2e3);}}
+function tryUnlock(){const v=document.getElementById("pw-input").value;if(v===PASSWORD){document.getElementById("gate").style.display="none";document.getElementById("app").style.display="flex";loadStorage();startAutoSync();}else{document.getElementById("pw-err").style.display="block";document.getElementById("pw-input").value="";setTimeout(()=>document.getElementById("pw-err").style.display="none",2e3);}}
 function togglePw(){const i=document.getElementById("pw-input");i.type=i.type==="password"?"text":"password";}
 
 // ── STORAGE ────────────────────────────────────────────────────────────────────
