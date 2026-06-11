@@ -317,26 +317,31 @@ const SKIP_SH=new Set(["Interview Feedback Form","📁 Vendors","Vendors","Helpe
 const COMP_FIELDS=[{key:"relevantExperience",label:"Relevant Experience"},{key:"technicalKnowledge",label:"Technical Knowledge"},{key:"interDiscipline",label:"Inter-Discipline"},{key:"intlExposure",label:"Int'l Exposure"},{key:"projectMgmt",label:"Project Mgmt"},{key:"digitalization",label:"Digitalization"},{key:"leadership",label:"Leadership"},{key:"teamwork",label:"Teamwork"},{key:"problemSolving",label:"Problem-Solving"},{key:"communication",label:"Communication"},{key:"interpersonal",label:"Interpersonal"}];
 const FORM_URL="https://forms.office.com/Pages/ResponsePage.aspx?id=4_JzH0uJpE2A1IzQxNo1L2JY2nsLP85EmcVUx5bbhKFUNERDSkc4UUVRQkI5RTNNQTRGTTk2OUZBQS4u";
 
-// ── LIVE DATA SYNC (Power Automate → data.json) ───────────────────────────────
-const DATA_URL="./data.json";
-const REFRESH_MS=60000;
+// ── SHAREPOINT LIVE SYNC (client-side) ────────────────────────────────────────
+const SP_URL="https://nineeraeng-my.sharepoint.com/:x:/g/personal/m_tamboli_9eglobal_com/IQCuspDzV2iaQqnZFgAHrXtYAalz0dyztNrHqa4DjYsz6MU?e=3ZyvMy";
+const SP_DOWNLOAD_URL=SP_URL+"&download=1";
+const REFRESH_MS=30000;
 let autoSyncInterval=null;
-async function fetchData(){
+async function fetchFromSharePoint(){
   const ind=document.getElementById("sync-indicator");
+  const META_API="https://api.onedrive.com/v1.0/shares/u!aHR0cHM6Ly9uaW5lZXJhZW5nLW15LnNoYXJlcG9pbnQuY29tLzp4Oi9nL3BlcnNvbmFsL21fdGFtYm9saV85ZWdsb2JhbF9jb20vSVFDdXNwRHpWMmlhUXFuWkZnQUhyWHRZQWFsejBkeXp0TnJIcWE0RGpZc3o2TVU_ZT0zWnl2TXk/root";
   function setInd(color,text){if(ind)ind.innerHTML='<span style="color:'+color+'">'+text+'</span>';}
   try{
     setInd("rgba(255,255,255,0.8)","\uD83D\uDD04 Syncing...");
-    const res=await fetch(DATA_URL+"?t="+Date.now(),{cache:"no-store"});
-    if(!res.ok)throw new Error("HTTP "+res.status+" — data.json not found yet");
-    const payload=await res.json();
-    const sheets=payload.sheets||payload;
-    const wb={SheetNames:[],Sheets:{}};
-    Object.keys(sheets).forEach(nm=>{wb.SheetNames.push(nm);wb.Sheets[nm]=XLSX.utils.aoa_to_sheet(sheets[nm]||[[""]]);});
+    const metaRes=await fetch(META_API,{cache:"no-store"});
+    if(!metaRes.ok)throw new Error("Meta HTTP "+metaRes.status+" — is the link set to 'Anyone with the link'?");
+    const meta=await metaRes.json();
+    const dlUrl=meta["@microsoft.graph.downloadUrl"]||meta["@content.downloadUrl"];
+    if(!dlUrl)throw new Error("No download URL returned");
+    const fileRes=await fetch(dlUrl,{cache:"no-store"});
+    if(!fileRes.ok)throw new Error("File HTTP "+fileRes.status);
+    const buf=await fileRes.arrayBuffer();
+    if(buf.byteLength<1000)throw new Error("File only "+buf.byteLength+" bytes");
+    const wb=XLSX.read(buf,{type:"array"});
     const{cands,roles}=parseWB(wb);
     if(cands.length||roles.length){
       S.candidates=cands;S.roles=roles;
-      const stamp=payload.generatedAt?new Date(payload.generatedAt):new Date();
-      S.lastUpdated=stamp.toLocaleString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+      S.lastUpdated=new Date().toLocaleString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
       save();
       const tc=document.getElementById("tab-contents");
       if(tc&&!tc.classList.contains("hidden")){populateFilters();renderAll();}else{showApp();}
@@ -346,13 +351,13 @@ async function fetchData(){
     }
   }catch(e){
     const msg=e.message||"Unknown error";
-    console.error("Data sync failed:",msg);
+    console.error("SP sync failed:",msg);
     window._syncErr=msg;
     if(ind){ind.innerHTML='<span style="color:rgba(255,200,100,0.9);cursor:pointer" onclick="alert(window._syncErr)">\u26A0\uFE0F '+msg+'</span>';}
     if(S.candidates.length||S.roles.length){const tc=document.getElementById("tab-contents");if(tc&&tc.classList.contains("hidden"))showApp();}
   }
 }
-function startAutoSync(){fetchData();if(autoSyncInterval)clearInterval(autoSyncInterval);autoSyncInterval=setInterval(fetchData,REFRESH_MS);}
+function startAutoSync(){fetchFromSharePoint();if(autoSyncInterval)clearInterval(autoSyncInterval);autoSyncInterval=setInterval(fetchFromSharePoint,REFRESH_MS);}
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let S={candidates:[],roles:[],prevHiring:[],jdLibrary:[],feedbackRecords:[],lastUpdated:""};
