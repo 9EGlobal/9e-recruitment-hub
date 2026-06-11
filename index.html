@@ -324,13 +324,19 @@ const REFRESH_MS=30000;
 let autoSyncInterval=null;
 async function fetchFromSharePoint(){
   const ind=document.getElementById("sync-indicator");
-  const ONEDRIVE_API="https://api.onedrive.com/v1.0/shares/u!aHR0cHM6Ly9uaW5lZXJhZW5nLW15LnNoYXJlcG9pbnQuY29tLzp4Oi9nL3BlcnNvbmFsL21fdGFtYm9saV85ZWdsb2JhbF9jb20vSVFDdXNwRHpWMmlhUXFuWkZnQUhyWHRZQWFsejBkeXp0TnJIcWE0RGpZc3o2TVU_ZT0za3JqQUU/root/content";
+  const META_API="https://api.onedrive.com/v1.0/shares/u!aHR0cHM6Ly9uaW5lZXJhZW5nLW15LnNoYXJlcG9pbnQuY29tLzp4Oi9nL3BlcnNvbmFsL21fdGFtYm9saV85ZWdsb2JhbF9jb20vSVFDdXNwRHpWMmlhUXFuWkZnQUhyWHRZQWFsejBkeXp0TnJIcWE0RGpZc3o2TVU_ZT0za3JqQUU/root";
+  function setInd(color,text){if(ind)ind.innerHTML='<span style="color:'+color+'">'+text+'</span>';}
   try{
-    if(ind)ind.innerHTML='<span style="color:rgba(255,255,255,0.8)">🔄 Syncing...</span>';
-    const res=await fetch(ONEDRIVE_API,{cache:"no-store"});
-    if(!res.ok)throw new Error("HTTP "+res.status+" — "+res.statusText);
-    const buf=await res.arrayBuffer();
-    if(buf.byteLength<1000)throw new Error("Response only "+buf.byteLength+" bytes — check sharing permissions");
+    setInd("rgba(255,255,255,0.8)","\uD83D\uDD04 Syncing...");
+    const metaRes=await fetch(META_API,{cache:"no-store"});
+    if(!metaRes.ok)throw new Error("Meta HTTP "+metaRes.status);
+    const meta=await metaRes.json();
+    const dlUrl=meta["@microsoft.graph.downloadUrl"]||meta["@content.downloadUrl"];
+    if(!dlUrl)throw new Error("No download URL returned");
+    const fileRes=await fetch(dlUrl,{cache:"no-store"});
+    if(!fileRes.ok)throw new Error("File HTTP "+fileRes.status);
+    const buf=await fileRes.arrayBuffer();
+    if(buf.byteLength<1000)throw new Error("File only "+buf.byteLength+" bytes");
     const wb=XLSX.read(buf,{type:"array"});
     const{cands,roles}=parseWB(wb);
     if(cands.length||roles.length){
@@ -339,14 +345,15 @@ async function fetchFromSharePoint(){
       save();
       const tc=document.getElementById("tab-contents");
       if(tc&&!tc.classList.contains("hidden")){populateFilters();renderAll();}else{showApp();}
-      if(ind)ind.innerHTML='<span style="color:#fff">✅ Live · '+S.lastUpdated+'</span>';
+      setInd("#fff","\u2705 Live \u00B7 "+S.lastUpdated);
     }else{
-      if(ind)ind.innerHTML='<span style="color:rgba(255,255,100,0.9)">⚠️ No data parsed</span>';
+      setInd("rgba(255,255,100,0.9)","\u26A0\uFE0F No data parsed");
     }
   }catch(e){
     const msg=e.message||"Unknown error";
     console.error("SP sync failed:",msg);
-    if(ind)ind.innerHTML='<span style="color:rgba(255,200,100,0.9);cursor:pointer" onclick="alert(\'Sync error: \'+this.dataset.err)" data-err="'+msg.replace(/"/g,"'")+ '">⚠️ '+msg+'</span>';
+    window._syncErr=msg;
+    if(ind){ind.innerHTML='<span style="color:rgba(255,200,100,0.9);cursor:pointer" onclick="alert(window._syncErr)">\u26A0\uFE0F '+msg+'</span>';}
     if(S.candidates.length||S.roles.length){const tc=document.getElementById("tab-contents");if(tc&&tc.classList.contains("hidden"))showApp();}
   }
 }
